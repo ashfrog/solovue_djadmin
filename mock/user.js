@@ -27,11 +27,10 @@ export default [
   // user login
   {
     url: '/user/login',
-    type: 'post',
+    type: 'get',
     response: config => {
-      const { username } = config.body
-      const token = tokens[username]
-
+      // const { username } = config.body
+      const token = tokens['admin']
       // mock error
       if (!token) {
         return {
@@ -73,7 +72,7 @@ export default [
   // user logout
   {
     url: '/user/logout',
-    type: 'post',
+    type: 'get',
     response: _ => {
       return {
         code: 20000,

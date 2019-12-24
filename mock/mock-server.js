@@ -6,6 +6,7 @@ const path = require('path')
 const mockDir = path.join(process.cwd(), 'mock')
 
 function registerRoutes(app) {
+  console.log('app', app)
   let mockLastIndex
   const { default: mocks } = require('./index.js')
   for (const mock of mocks) {
@@ -20,6 +21,7 @@ function registerRoutes(app) {
 }
 
 function unregisterRoutes() {
+  console.log('unregisterRoutes')
   Object.keys(require.cache).forEach(i => {
     if (i.includes(mockDir)) {
       delete require.cache[require.resolve(i)]
@@ -47,6 +49,7 @@ module.exports = app => {
     ignored: /mock-server/,
     ignoreInitial: true
   }).on('all', (event, path) => {
+    console.log('app', app)
     if (event === 'change' || event === 'add') {
       try {
         // remove mock routes stack

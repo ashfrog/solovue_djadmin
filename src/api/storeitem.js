@@ -9,6 +9,24 @@ export function getList(params) {
   })
 }
 
+export function selectCount() {
+  return request({
+    url: '/storeitem/selectCount',
+    method: 'get'
+  })
+}
+
+export function getListByPage(pageSize, pageStart) {
+  return request({
+    url: '/storeitem/adminlistpage',
+    method: 'post',
+    data: qs.stringify({
+      pageSize: pageSize,
+      pageStart: pageStart
+    })
+  })
+}
+
 export function updateCategory(itemid, categoryid) {
   return request({
     url: '/storeitem/updateCategory',
@@ -16,6 +34,28 @@ export function updateCategory(itemid, categoryid) {
     data: qs.stringify({
       iId: itemid,
       categoryid: categoryid
+    })
+  })
+}
+
+export function updatePrice(itemid, price) {
+  return request({
+    url: '/storeitem/updatePrice',
+    method: 'post',
+    data: qs.stringify({
+      iId: itemid,
+      price: price
+    })
+  })
+}
+
+export function updateName(itemid, name) {
+  return request({
+    url: '/storeitem/updateName',
+    method: 'post',
+    data: qs.stringify({
+      iId: itemid,
+      name: name
     })
   })
 }

@@ -107,18 +107,19 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
-        if (true) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+        // if (true) {
+        console.log('this.redirect ', this.redirect)
+        this.loading = true
+        this.$store.dispatch('user/login', this.loginForm).then(() => {
+          this.$router.push({ path: this.redirect || '/' })
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+        // } else {
+        //   console.log('error submit!!')
+        //   return false
+        // }
       })
     }
   }

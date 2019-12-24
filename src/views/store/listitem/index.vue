@@ -4,118 +4,53 @@
       <div class="tab-responsive">
         <table v-show="!editmod" class="table">
           <thead>
-            <tr>
+            <tr class="tr-text">
+              <th style="width:10%">图片</th>
               <th style="width:10%">名称</th>
-              <th style="width:20%">图片</th>
-              <th style="width:10%">分类</th>
-              <th style="width:20%">创建时间</th>
+              <th style="width:8%">分类</th>
               <th style="width:5%">价格</th>
+              <th style="width:10%">创建时间</th>
               <th style="width:5%">ID</th>
               <th style="width:5%">下载次数</th>
-              <th style="width:5%">修改</th>
               <th style="width:5%">删除</th>
-              <th style="width:5%">管理</th>
-              <th style="width:5%">管理</th>
+              <th style="width:5%">上线</th>
             </tr>
           </thead>
           <tbody id="container">
-            <tr v-for="(itemVO,index) in storeitems" :key="itemVO.iId" align="center">
-              <td> <span class="label label-info">{{ itemVO.itemname }}</span></td>
-              <td><img class="img-thumbnail" :src="itemVO.imagepath" style="width:200px;"></td>
+            <tr v-for="(itemVO,index) in storeitems" :key="itemVO.iId" class="tr-text" align="center">
+              <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
               <td>
-                <select v-model="itemVO.categoryid" :data-itemid="itemVO.iId" @change="updateItemCategory($event)">
-                  <option v-for="x in categorys" :key="x.categoryid" :value="x.categoryid">{{ x.description }}</option>
-                </select>
+                <el-input v-model="itemVO.itemname" size="mini" @change="changedata" @blur="(e)=>{onNameInputBlur(e,itemVO)}" />
               </td>
-
+              <td>
+                <el-select v-model="itemVO.categoryid" calue-key="id" size="mini" :data-itemid="itemVO.iId" @change="updateItemCategory($event,itemVO.iId)">
+                  <el-option
+                    v-for="category in categorys"
+                    :key="category.categoryid"
+                    size="mini"
+                    :value="category.categoryid"
+                    :label="category.description"
+                  />
+                </el-select>
+              </td>
+              <td>
+                <el-input v-model="itemVO.itemprice" size="mini" @change="changedata" @blur="(e)=>{onPriceInputBlur(e,itemVO)}" />
+              </td>
               <td>{{ new Date(itemVO.createtime).toLocaleString() }}</td>
-              <td>{{ itemVO.itemprice }}</td>
+
               <td>{{ itemVO.iId }}</td>
               <td>{{ itemVO.itemprice }}</td>
-              <td><button type="button" class="btn btn-sm btn-warning" :data-itemid="itemVO.iId" @click="editItem($event)">编辑</button></td>
-              <td><button type="button" class="btn btn-sm btn-danger" :data-itemid="itemVO.iId" @click="deleteitem($event)">删除</button></td>
-              <td><button
-                v-if="itemVO.putaway==0"
-                type="button"
-                class="btn btn-sm btn-success"
-                :data-itemid="itemVO.iId"
-                :data-index="index"
-                :data-putaway="1"
-                @click="putAway($event)"
-              >上架</button></td>
-              <td><button
-                v-if="itemVO.putaway==1"
-                type="button"
-                class="btn btn-sm btn-info"
-                :data-itemid="itemVO.iId"
-                :data-index="index"
-                :data-putaway="0"
-                @click="putAway($event)"
-              >下架</button></td>
+              <td>
+                <el-button size="mini" type="danger" icon="el-icon-delete" circle :data-itemid="itemVO.iId" @click="(e)=>{deleteitem(e,itemVO.iId)}" />
+              </td>
+              <td>
+                <el-switch v-model="itemVO.putaway" :active-value="1" :inactive-value="0" @change="(e)=>{putAway(e, index, itemVO.iId, itemVO.putaway)}" />
+              </td>
             </tr>
           </tbody>
         </table>
-        <div v-show="editmod">
-          <div class="text-center">
-            <h3>资源修改</h3>
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                展示图片
-                <input id="pic" type="file" name="pic">
-              </span>
-            </div>
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                展示视屏
-                <input id="mov" type="file" multiple="multiple" name="mov">
-              </span>
-            </div>
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                预览视屏
-                <input id="previewVideo" type="file" multiple="multiple" name="previewVideo">
-              </span>
-            </div>
-
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                勾边视频
-                <input id="outlineMov" type="file" multiple="multiple" name="outlineMov">
-              </span>
-            </div>
-
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                背景视屏
-                <input id="backgroundMov" type="file" multiple="multiple" name="backgroundMov">
-              </span>
-            </div>
-
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                粒子特效
-                <input id="particleEffectAndroid" type="file" multiple="multiple" name="particleEffectAndroid">
-              </span>
-            </div>
-
-            <div class="form-group">
-              <span class="btn-upload btn-file">
-                备用粒子
-                <input id="particleEffectWin64" type="file" multiple="multiple" name="particleEffectWin64">
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label id="movname">资源名称</label>
-              <div>
-                <input id="title" class="form-control" style="width:300px;height:20px;color:red;" type="text" name="title">
-              </div>
-            </div>
-
-            <button id="upload" style="width:300px;height:50px;margin-top:20px;border-radius:30px;" class="button" @click="confirmUpdate">确认更新</button>
-            <button id="upload" style="width:300px;height:50px;margin-top:20px;border-radius:30px;" class="button" @click="cancelUpdate">取消更新</button>
-
-          </div>
+        <div class="block">
+          <el-pagination layout="prev, pager, next" :total="totalItemCount" :page-size="pageSize" @current-change="pageChange" />
         </div>
       </div>
     </div>
@@ -123,13 +58,14 @@
 </template>
 
 <script>
-// import { getList } from '@/api/table'
-
 import {
   updateCategory,
-  getList,
+  getListByPage,
   putAwayItem,
-  deleteitem
+  deleteitem,
+  updatePrice,
+  updateName,
+  selectCount
 } from '@/api/storeitem'
 import {
   getCategorys
@@ -151,7 +87,10 @@ export default {
       listLoading: true,
       storeitems: [],
       categorys: [],
-      editmod: false
+      editmod: false,
+      totalItemCount: 0,
+      pageSize: 8,
+      dataChange: false
     }
   },
   created() {
@@ -160,8 +99,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
-        console.log(response)
+      getListByPage(this.pageSize, 0).then(response => {
         this.storeitems = response.data
         this.listLoading = false
       })
@@ -169,20 +107,25 @@ export default {
         console.log('categorys:', response)
         this.categorys = response.data
       })
+      selectCount().then(response => {
+        this.totalItemCount = response.data
+      })
     },
-    updateItemCategory: function(e) {
-      var categoryid = e.currentTarget.value
-      var itemid = e.srcElement.dataset.itemid
-      console.log(categoryid, itemid)
+    changedata: function() {
+      this.dataChange = true
+    },
+    updateItemCategory: function(category_id, event_itemid) {
+      console.log(event_itemid, category_id)
+      var categoryid = category_id
+      var itemid = event_itemid
       updateCategory(itemid, categoryid)
     },
-    putAway: function(e) {
-      var itemid = e.srcElement.dataset.itemid
-      var putaway = e.srcElement.dataset.putaway
-      var index = e.srcElement.dataset.index
+    putAway: function(e, index, itemid, on) {
+      console.log(index, itemid, on)
+      var putaway = on ? 1 : 0
       putAwayItem(itemid, putaway).then(data => {
         if (data.status === 'success') {
-          this.storeitems[index].putaway = putaway
+          // this.storeitems[index].putaway = on
         }
       })
     },
@@ -191,16 +134,51 @@ export default {
       console.log(itemid)
       this.editmod = true
     },
-    deleteitem: function(e) {
-      var itemid = Number(e.srcElement.dataset.itemid)
+    deleteitem: function(e, itemid) {
       var delitem = this.storeitems.findIndex(item => item.iId === itemid)
       console.log(itemid, delitem, typeof this.storeitems[0].iId, typeof itemid)
-      deleteitem(itemid).then(data => {
-        if (data.status === 'success') {
-          this.storeitems.splice(this.storeitems.findIndex((item) => item.iId === itemid), 1)
-          this.$message({ message: '删除成功', type: 'success' })
-        }
+
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteitem(itemid).then(data => {
+          if (data.status === 'success') {
+            this.storeitems.splice(this.storeitems.findIndex((item) => item.iId === itemid), 1)
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+          }
+        })
+      }).catch(() => {
+        console.log('已取消删除')
+        // this.$message({
+        //   type: 'info',
+        //   message: '已取消删除'
+        // })
       })
+    },
+    onPriceInputBlur: function(e, item) {
+      if (this.dataChange) {
+        updatePrice(item.iId, item.itemprice).then(data => {
+          if (data.status === 'success') {
+            console.log(data)
+            this.dataChange = false
+          }
+        })
+      }
+    },
+    onNameInputBlur: function(e, item) {
+      if (this.dataChange) {
+        updateName(item.iId, item.itemname).then(data => {
+          if (data.status === 'success') {
+            console.log(data)
+            this.dataChange = false
+          }
+        })
+      }
     },
     confirmUpdate: function(e) {
       console.log(e)
@@ -208,12 +186,37 @@ export default {
     },
     cancelUpdate: function(e) {
       this.editmod = false
+    },
+    pageChange: function(e) {
+      var pageindex = e
+      getListByPage(this.pageSize, (pageindex - 1) * this.pageSize).then(response => {
+        this.storeitems = response.data
+        this.listLoading = false
+      })
     }
-
   }
 }
 </script>
 
 <style>
+  table {
+    border-collapse: collapse;
+  }
 
+  tr {
+    border-bottom: 1px solid #F0F0F0;
+  }
+
+  .img-thumbnail {
+    width: 100px;
+    height: 60px;
+    border-radius: 4px;
+    display: block;
+    margin: auto;
+  }
+
+  .tr-text {
+    color: #0074D9;
+    font-size: 12px;
+  }
 </style>

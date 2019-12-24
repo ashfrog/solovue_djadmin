@@ -4,7 +4,7 @@
       <dropzone
         id="myVueDropzone"
         ref="dropzonefun"
-        url="https://192.168.0.253:8082/upload/upload"
+        url="https://192.168.0.103:8082/upload/upload"
         @dropzone-fileAdded="dropzoneA"
         @dropzone-removedFile="dropzoneR"
         @dropzone-success="dropzoneS"
@@ -14,10 +14,11 @@
     </div>
     <div class="btn-row">
       <div>
-        <button class="btnstyle" @click="processQueue">确认上传</button>
+        <el-button type="primary" @click="processQueue">确认上传</el-button>
       </div>
+      <div style="width:2%" />
       <div>
-        <button class="btnstyle" @click="removeAllFiles">清空文件</button>
+        <el-button type="primary" @click="removeAllFiles">清空文件</el-button>
       </div>
     </div>
   </div>
@@ -140,10 +141,12 @@ export default {
   .btn-row{
     display:flex;
     flex-direction: row;
+    justify-content: center;
   }
 
   .btnstyle {
     width:100px;
     height:30px;
+    line-height: 30px;
   }
 </style>

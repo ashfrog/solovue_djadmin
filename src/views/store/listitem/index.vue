@@ -2,22 +2,23 @@
   <div class="app-container">
     <div id="app" class="container">
       <div class="tab-responsive">
-        <table v-show="!editmod" class="table">
+        <table class="table">
           <thead>
-            <tr class="tr-text">
-              <th style="width:10%">图片</th>
-              <th style="width:10%">名称</th>
-              <th style="width:8%">分类</th>
-              <th style="width:5%">价格</th>
-              <th style="width:10%">创建时间</th>
-              <th style="width:5%">ID</th>
-              <th style="width:5%">下载次数</th>
-              <th style="width:5%">删除</th>
-              <th style="width:5%">上线</th>
+            <tr>
+              <th style="width:10%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'imagePath')}">图片</el-button></th>
+              <th style="width:10%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'itemName')}">名称</el-button></th>
+              <th style="width:8%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'categoryId')}">分类</el-button></th>
+              <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'itemPrice')}">价格</el-button></th>
+              <th style="width:10%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'createTime')}">创建时间</el-button></th>
+              <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'id')}">ID</el-button></th>
+              <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'downloads')}">下载</el-button></th>
+              <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'sales')}">销量</el-button></th>
+              <th style="width:5%"><el-tag type="success">删除</el-tag></th>
+              <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'putaway')}">上线</el-button></th>
             </tr>
           </thead>
           <tbody id="container">
-            <tr v-for="(itemVO,index) in storeitems" :key="itemVO.iId" class="tr-text" align="center">
+            <tr v-for="(itemVO,index) in storeitems" :key="itemVO.iId" align="center">
               <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
               <td>
                 <el-input v-model="itemVO.itemname" size="mini" @change="changedata" @blur="(e)=>{onNameInputBlur(e,itemVO)}" />
@@ -36,10 +37,11 @@
               <td>
                 <el-input v-model="itemVO.itemprice" size="mini" @change="changedata" @blur="(e)=>{onPriceInputBlur(e,itemVO)}" />
               </td>
-              <td>{{ new Date(itemVO.createtime).toLocaleString() }}</td>
+              <td><el-tag size="medium" type="info">{{ new Date(itemVO.createtime).toLocaleString() }}</el-tag></td>
 
-              <td>{{ itemVO.iId }}</td>
-              <td>{{ itemVO.itemprice }}</td>
+              <td><el-tag size="medium" type="info">{{ itemVO.iId }}</el-tag></td>
+              <td><el-tag size="medium" type="info">{{ itemVO.downloads }}</el-tag></td>
+              <td><el-tag size="medium" type="info">{{ itemVO.sales }}</el-tag></td>
               <td>
                 <el-button size="mini" type="danger" icon="el-icon-delete" circle :data-itemid="itemVO.iId" @click="(e)=>{deleteitem(e,itemVO.iId)}" />
               </td>
@@ -50,7 +52,7 @@
           </tbody>
         </table>
         <div class="block">
-          <el-pagination layout="prev, pager, next" :total="totalItemCount" :page-size="pageSize" @current-change="pageChange" />
+          <el-pagination layout="prev, pager, next" :current-page="currentPage" background :total="totalItemCount" :page-size="pageSize" @current-change="pageChange" />
         </div>
       </div>
     </div>
@@ -87,10 +89,12 @@ export default {
       listLoading: true,
       storeitems: [],
       categorys: [],
-      editmod: false,
       totalItemCount: 0,
       pageSize: 8,
-      dataChange: false
+      currentPage: 0,
+      dataChange: false,
+      desc: true,
+      columnName: 'createTime'
     }
   },
   created() {
@@ -99,7 +103,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getListByPage(this.pageSize, 0).then(response => {
+      getListByPage(this.pageSize, 0, this.columnName, this.desc).then(response => {
         this.storeitems = response.data
         this.listLoading = false
       })
@@ -124,20 +128,11 @@ export default {
       console.log(index, itemid, on)
       var putaway = on ? 1 : 0
       putAwayItem(itemid, putaway).then(data => {
-        if (data.status === 'success') {
-          // this.storeitems[index].putaway = on
-        }
       })
-    },
-    editItem: function(e) {
-      var itemid = Number(e.srcElement.dataset.itemid)
-      console.log(itemid)
-      this.editmod = true
     },
     deleteitem: function(e, itemid) {
       var delitem = this.storeitems.findIndex(item => item.iId === itemid)
       console.log(itemid, delitem, typeof this.storeitems[0].iId, typeof itemid)
-
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -154,10 +149,10 @@ export default {
         })
       }).catch(() => {
         console.log('已取消删除')
-        // this.$message({
-        //   type: 'info',
-        //   message: '已取消删除'
-        // })
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
     },
     onPriceInputBlur: function(e, item) {
@@ -180,18 +175,26 @@ export default {
         })
       }
     },
-    confirmUpdate: function(e) {
-      console.log(e)
-      this.editmod = false
-    },
-    cancelUpdate: function(e) {
-      this.editmod = false
-    },
     pageChange: function(e) {
       var pageindex = e
-      getListByPage(this.pageSize, (pageindex - 1) * this.pageSize).then(response => {
+      this.currentPage = pageindex
+      this.listLoading = true
+      getListByPage(this.pageSize, (this.currentPage - 1) * this.pageSize, this.columnName, this.desc).then(response => {
         this.storeitems = response.data
         this.listLoading = false
+      })
+    },
+    orderBy: function(e, columnName) {
+      if (this.columnName !== columnName) {
+        this.columnName = columnName
+        this.desc = true
+      } else {
+        this.desc = !this.desc
+      }
+      getListByPage(this.pageSize, 0, this.columnName, this.desc).then(response => {
+        this.storeitems = response.data
+        this.currentPage = 1
+        console.log(this.currentPage)
       })
     }
   }
@@ -205,6 +208,8 @@ export default {
 
   tr {
     border-bottom: 1px solid #F0F0F0;
+    color: #0074D9;
+    font-size: 12px;
   }
 
   .img-thumbnail {
@@ -215,8 +220,4 @@ export default {
     margin: auto;
   }
 
-  .tr-text {
-    color: #0074D9;
-    font-size: 12px;
-  }
 </style>

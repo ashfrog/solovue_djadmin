@@ -16,13 +16,15 @@ export function selectCount() {
   })
 }
 
-export function getListByPage(pageSize, pageStart) {
+export function getListByPage(pageSize, pageStart, columnName, desc) {
   return request({
     url: '/storeitem/adminlistpage',
     method: 'post',
     data: qs.stringify({
       pageSize: pageSize,
-      pageStart: pageStart
+      pageStart: pageStart,
+      columnName: columnName,
+      desc: desc
     })
   })
 }

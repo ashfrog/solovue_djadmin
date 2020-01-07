@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Admin Template' // page title
+const name = defaultSettings.title || 'crazySOLOAdmin' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -37,18 +37,27 @@ module.exports = {
       errors: true
     },
     proxy: {
-      // change xxx-api/login => mock/login
-      // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:${port}/mock`,
-        // target: `http://192.168.0.253:${port}/`,
-        changeOrigin: true,
+        target: 'http://117.78.27.73:8083/',
+        changeOrigin: false,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
-        }
+        },
+        secure: false
       }
-    },
-    after: require('./mock/mock-server.js')
+      // change xxx-api/login => mock/login
+      // detail: https://cli.vuejs.org/config/#devserver-proxy
+      // [process.env.VUE_APP_BASE_API]: {
+      //   target: `http://192.168.0.1:${port}/mock`,
+      //   // target: 'https:localhost:${port}/',
+      //   changeOrigin: false,
+      //   // pathRewrite: {
+      //   //   ['^' + process.env.VUE_APP_BASE_API]: ''
+      //   // },
+      //   secure: false
+      // }
+    }
+    // after: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

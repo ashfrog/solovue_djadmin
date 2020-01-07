@@ -43,11 +43,6 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
-
     </el-form>
   </div>
 </template>
@@ -74,8 +69,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '18888888888',
+        password: '123456'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -111,15 +106,13 @@ export default {
         console.log('this.redirect ', this.redirect)
         this.loading = true
         this.$store.dispatch('user/login', this.loginForm).then(() => {
+          console.log('登录')
           this.$router.push({ path: this.redirect || '/' })
           this.loading = false
-        }).catch(() => {
+        }).catch((e) => {
           this.loading = false
+          console.log('登录失败', e)
         })
-        // } else {
-        //   console.log('error submit!!')
-        //   return false
-        // }
       })
     }
   }

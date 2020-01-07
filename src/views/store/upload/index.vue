@@ -4,7 +4,7 @@
       <dropzone
         id="myVueDropzone"
         ref="dropzonefun"
-        url="https://192.168.0.103:8082/upload/upload"
+        url="http://117.78.27.73:8083/upload/upload"
         @dropzone-fileAdded="dropzoneA"
         @dropzone-removedFile="dropzoneR"
         @dropzone-success="dropzoneS"

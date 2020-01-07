@@ -11,8 +11,7 @@ import {
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_API,
-  baseURL: 'https:localhost:8082',
+  baseURL: process.env.VUE_APP_BASE_API,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   },

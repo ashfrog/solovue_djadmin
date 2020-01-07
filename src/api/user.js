@@ -1,9 +1,14 @@
-import request from '@/utils/request'
+import request from '@/utils/axio-request'
+import qs from 'qs'
 
-export function login(data) {
+export function login(telphone, password) {
   return request({
     url: '/user/login',
-    method: 'get'
+    method: 'post',
+    data: qs.stringify({
+      telphone: telphone,
+      password: password
+    })
   })
 }
 

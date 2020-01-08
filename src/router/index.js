@@ -82,16 +82,22 @@ export const constantRoutes = [
     meta: { title: '用户管理', icon: 'example' },
     children: [
       {
-        path: 'user',
-        name: 'userlogin',
-        component: () => import('@/views/user/listitem/index'),
-        meta: { title: '用户登录', icon: 'table' }
+        path: 'addorder',
+        name: 'addorder',
+        component: () => import('@/views/user/addorder/index'),
+        meta: { title: '添加订单', icon: 'table' }
       },
       {
-        path: 'order',
-        name: 'order',
-        component: () => import('@/views/user/upload/index'),
-        meta: { title: '订单管理', icon: 'tree' }
+        path: 'orderlist',
+        name: 'orderlist',
+        component: () => import('@/views/user/orderlist/index'),
+        meta: { title: '订单浏览', icon: 'tree' }
+      },
+      {
+        path: 'bindmachine',
+        name: 'bindmachine',
+        component: () => import('@/views/user/bindmachine/index'),
+        meta: { title: '绑定记录', icon: 'tree' }
       }
     ]
   },

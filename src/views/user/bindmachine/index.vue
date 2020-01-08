@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-table
       v-loading="listLoading"
-      :data="list"
+      :data="userBindMachineS"
       element-loading-text="Loading"
       border
       fit
@@ -10,33 +10,28 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+      <el-table-column label="用户id" width="95">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.userid }}
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
+      <el-table-column label="订单id" width="110" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.bindOrderid }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
+      <el-table-column label="机器码" align="center">
         <template slot-scope="scope">
-          {{ scope.row.pageviews }}
+          {{ scope.row.machineid }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+      <el-table-column align="center" prop="created_at" label="绑定时间" width="200">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          <!-- <i class="el-icon-time" /> -->
+          <span>{{ new Date(scope.row.bindtime).toLocaleString() }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -44,7 +39,9 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import {
+  listBindMachine
+} from '@/api/user'
 
 export default {
   filters: {
@@ -61,8 +58,9 @@ export default {
     return {
       list: null,
       listLoading: true,
-      storeitems: [],
-      categorys: []
+      userBindMachineS: [],
+      pageSize: 10000,
+      pageStart: 0
     }
   },
   created() {
@@ -71,11 +69,24 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
+      listBindMachine(this.pageStart, this.pageSize).then(response => {
+        this.userBindMachineS = response.data
+        console.log(response)
         this.listLoading = false
       })
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .tbrow {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  .tbtag {
+    width: 100px;
+  }
+</style>

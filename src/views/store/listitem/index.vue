@@ -90,7 +90,7 @@ export default {
       storeitems: [],
       categorys: [],
       totalItemCount: 0,
-      pageSize: 8,
+      pageSize: 12,
       currentPage: 0,
       dataChange: false,
       desc: true,
@@ -201,7 +201,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
   table {
     border-collapse: collapse;
   }
@@ -218,6 +218,11 @@ export default {
     border-radius: 4px;
     display: block;
     margin: auto;
+  }
+
+  .block{
+    position: fixed;
+    bottom: 20px;
   }
 
 </style>

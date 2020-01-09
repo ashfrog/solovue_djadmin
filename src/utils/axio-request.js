@@ -61,8 +61,9 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
+      // { "status": "fail", "data": { "errCode": 10001, "errMsg": "没有权限!" } }
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (res.data.errCode === 10001 || res.code === 50008 || res.code === 50012 || res.code === 50014) {
         // to re-login
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again',
           'Confirm logout', {
@@ -81,7 +82,6 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('response_err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',

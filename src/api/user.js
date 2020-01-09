@@ -56,6 +56,17 @@ export function listBindOrder(pageStart, pageSize) {
     })
   })
 }
+
+export function deleteBindOrder(id) {
+  return request({
+    url: '/userbindorder/deleteBindOrder',
+    method: 'post',
+    data: qs.stringify({
+      id: id
+    })
+  })
+}
+
 export function listBindMachine(pageStart, pageSize) {
   return request({
     url: '/userbindorder/listBindMachine',

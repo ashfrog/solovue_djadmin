@@ -15,6 +15,24 @@
     <div class="tbrow">
       <el-button class="midbtn" size="medium" type="primary" @click="addOrder">提交</el-button>
     </div>
+
+    <!-- <el-radio-group v-model="labelPosition" size="small">
+      <el-radio-button label="left">左对齐</el-radio-button>
+      <el-radio-button label="right">右对齐</el-radio-button>
+      <el-radio-button label="top">顶部对齐</el-radio-button>
+    </el-radio-group>
+    <div style="margin: 20px;" />
+    <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+      <el-form-item label="名称">
+        <el-input v-model="formLabelAlign.name" />
+      </el-form-item>
+      <el-form-item label="活动区域">
+        <el-input v-model="formLabelAlign.region" />
+      </el-form-item>
+      <el-form-item label="活动形式">
+        <el-input v-model="formLabelAlign.type" />
+      </el-form-item>
+    </el-form> -->
   </div>
 </template>
 
@@ -29,6 +47,12 @@ export default {
       telphone: '',
       count: 1,
       bindcode: 0
+      // labelPosition: 'right',
+      // formLabelAlign: {
+      //   name: '',
+      //   region: '',
+      //   type: ''
+      // }
     }
   },
   created() {

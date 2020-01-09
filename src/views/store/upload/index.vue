@@ -129,6 +129,10 @@ export default {
     processQueue() {
       dropzonecomp.resetparallelUploads(this.countarr[0])
       console.log('剩余上传数量:', this.countarr.length)
+	  this.$message({
+	    message: '剩余上传数量:'+this.countarr.length,
+	    type: 'success'
+	  })
       this.countarr.splice(0, 1)
       dropzonecomp.dropzone.processQueue()
     }

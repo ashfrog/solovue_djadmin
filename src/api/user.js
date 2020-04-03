@@ -67,6 +67,16 @@ export function deleteBindOrder(id) {
   })
 }
 
+export function deleteBindMachine(id) {
+  return request({
+    url: '/userbindorder/deleteBindMachine',
+    method: 'post',
+    data: qs.stringify({
+      id: id
+    })
+  })
+}
+
 export function listBindMachine(pageStart, pageSize) {
   return request({
     url: '/userbindorder/listBindMachine',

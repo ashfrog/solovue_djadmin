@@ -24,7 +24,7 @@
               <span>{{ props.row.userid }}</span>
             </el-form-item>
             <el-form-item label="用户手机号">
-              <span>{{ props.row.bindcode }}</span>
+              <span>{{ props.row.userphone }}</span>
             </el-form-item>
             <el-form-item label="购买数量">
               <span>{{ props.row.count }}</span>
@@ -38,7 +38,7 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="ID" width="95">
+      <el-table-column align="center" sortable prop="id" label="ID" width="195">
         <template slot-scope="scope">
           {{ scope.row.id }}
         </template>

@@ -2,7 +2,11 @@
   <div class="app-container">
     <el-table
       v-loading="listLoading"
-      :data="userBindMachineS"
+      :data="userBindMachineS.filter(data => !search ||
+        data.id.toString().toLowerCase().includes(search.toLowerCase()) ||
+        data.userid.toString().toLowerCase().includes(search.toLowerCase()) ||
+        data.machineid.toString().toLowerCase().includes(search.toLowerCase()) ||
+        data.bindOrderid.toLowerCase().includes(search.toLowerCase()))"
       element-loading-text="Loading"
       border
       fit
@@ -34,13 +38,30 @@
           <span>{{ new Date(scope.row.bindtime).toLocaleString() }}</span>
         </template>
       </el-table-column>
+      <el-table-column align="center" width="200">
+        <template slot="header" slot-scope="scope">
+          <el-input
+            v-model="search"
+            size="mini"
+            placeholder="输入关键字搜索"
+          />
+        </template>
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)"
+          >Delete</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
 import {
-  listBindMachine
+  listBindMachine,
+  deleteBindMachine
 } from '@/api/user'
 
 export default {
@@ -60,7 +81,8 @@ export default {
       listLoading: true,
       userBindMachineS: [],
       pageSize: 10000,
-      pageStart: 0
+      pageStart: 0,
+      search: ''
     }
   },
   created() {
@@ -73,6 +95,31 @@ export default {
         this.userBindMachineS = response.data
         console.log(response)
         this.listLoading = false
+      })
+    },
+    handleDelete(index, rowdata) {
+      this.$confirm('此操作将解绑设备, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var itemindex = this.userBindMachineS.findIndex((item) => item.id === rowdata.id)
+        deleteBindMachine(rowdata.id).then(response => {
+          if (response.data === 1) {
+            this.userBindMachineS.splice(itemindex, 1)
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.listLoading = false
+        })
+      }).catch(() => {
+        console.log('已取消删除')
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
     }
   }

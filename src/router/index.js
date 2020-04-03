@@ -79,19 +79,13 @@ export const constantRoutes = [
     path: '/user',
     component: Layout,
     name: 'user',
-    meta: { title: '用户管理', icon: 'example' },
+    meta: { title: '用户中心', icon: 'example' },
     children: [
-      {
-        path: 'addorder',
-        name: 'addorder',
-        component: () => import('@/views/user/addorder/index'),
-        meta: { title: '添加订单', icon: 'table' }
-      },
       {
         path: 'orderlist',
         name: 'orderlist',
         component: () => import('@/views/user/orderlist/index'),
-        meta: { title: '订单浏览', icon: 'tree' }
+        meta: { title: '购买记录', icon: 'tree' }
       },
       {
         path: 'bindmachine',
@@ -100,9 +94,119 @@ export const constantRoutes = [
         meta: { title: '绑定记录', icon: 'tree' }
       }
     ]
-  },
+  }
+  // {
+  //   path: '/ds2',
+  //   component: Layout,
+  //   redirect: '/dashboard2',
+  //   children: [{
+  //     path: 'dashboard2',
+  //     name: 'Dashboard2',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'Dashboard', icon: 'dashboard' }
+  //   }]
+  // },
+  // // 404 page must be placed at the end !!!
+]
+
+// 用户
+export const asyncRoutes1 = [
+  // 404 page must be placed at the end !!!
+  // {
+  //   path: '/adminstore',
+  //   component: Layout,
+  //   meta: { title: '商店管理', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'listitem',
+  //       name: 'Listitem',
+  //       component: () => import('@/views/store/listitem/index'),
+  //       meta: { title: '资源管理', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'upload',
+  //       name: 'Upload',
+  //       component: () => import('@/views/store/upload/index'),
+  //       meta: { title: '资源上传', icon: 'tree' }
+  //     }
+  //   ]
+  // },
+]
+
+// 经销商 1
+export const asyncRoutes2 = [
+  {
+    path: '/dealer',
+    component: Layout,
+    name: 'dealer',
+    meta: { title: '管理项目', icon: 'example' },
+    children: [
+      {
+        path: 'dealerlist',
+        name: 'dealerlist',
+        component: () => import('@/views/dealer/orderlist/index'),
+        meta: { title: '我的项目', icon: 'tree' }
+      },
+      {
+        path: 'dealerbindmachine',
+        name: 'dealerbindmachine',
+        component: () => import('@/views/user/bindmachine/index'),
+        meta: { title: '绑定记录', icon: 'tree' }
+      }
+    ]
+  }
+  // {
+  //   path: '/adminstore',
+  //   component: Layout,
+  //   meta: { title: '商店管理', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'listitem',
+  //       name: 'Listitem',
+  //       component: () => import('@/views/store/listitem/index'),
+  //       meta: { title: '资源管理', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'upload',
+  //       name: 'Upload',
+  //       component: () => import('@/views/store/upload/index'),
+  //       meta: { title: '资源上传', icon: 'tree' }
+  //     }
+  //   ]
+  // },
+  // 404 page must be placed at the end !!!
+]
+
+// 管理员 2
+export const asyncRoutes4 = [
   {
     path: '/admin',
+    component: Layout,
+    name: 'admin',
+    meta: { title: '订单管理', icon: 'example' },
+    children: [
+      {
+        path: 'adminaddorder',
+        name: 'adminaddorder',
+        component: () => import('@/views/user/addorder/index'),
+        meta: { title: '添加订单', icon: 'table' }
+      },
+      {
+        path: 'adminorderlist',
+        name: 'adminorderlist',
+        component: () => import('@/views/user/orderlist/index'),
+        meta: { title: '订单浏览', icon: 'tree' }
+      },
+      {
+        path: 'adminbindmachine',
+        name: 'adminbindmachine',
+        component: () => import('@/views/user/bindmachine/index'),
+        meta: { title: '绑定记录', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/adminstore',
     component: Layout,
     meta: { title: '商店管理', icon: 'example' },
     children: [
@@ -120,90 +224,19 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/form',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       name: 'Form',
-  //       component: () => import('@/views/form/index'),
-  //       meta: { title: 'Form', icon: 'form' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: 'Nested',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: 'Menu1' },
-  //       children: [
-  //         {
-  //           path: 'menu1-1',
-  //           component: () => import('@/views/nested/menu1/menu1-1'),
-  //           name: 'Menu1-1',
-  //           meta: { title: 'Menu1-1' }
-  //         },
-  //         {
-  //           path: 'menu1-2',
-  //           component: () => import('@/views/nested/menu1/menu1-2'),
-  //           name: 'Menu1-2',
-  //           meta: { title: 'Menu1-2' },
-  //           children: [
-  //             {
-  //               path: 'menu1-2-1',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-  //               name: 'Menu1-2-1',
-  //               meta: { title: 'Menu1-2-1' }
-  //             },
-  //             {
-  //               path: 'menu1-2-2',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-  //               name: 'Menu1-2-2',
-  //               meta: { title: 'Menu1-2-2' }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: 'menu1-3',
-  //           component: () => import('@/views/nested/menu1/menu1-3'),
-  //           name: 'Menu1-3',
-  //           meta: { title: 'Menu1-3' }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       meta: { title: 'menu2' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: 'External Link', icon: 'link' }
-  //     }
-  //   ]
-  // },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
+]
+
+export const asyncRoutes8 = [
+]
+export const asyncRoutes16 = [
+]
+export const asyncRoutes32 = [
+]
+export const asyncRoutes64 = [
+]
+export const asyncRoutes128 = [
 ]
 
 const createRouter = () => new Router({

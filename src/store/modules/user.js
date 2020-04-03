@@ -5,7 +5,8 @@ import { resetRouter } from '@/router'
 const state = {
   token: getToken(),
   name: '',
-  avatar: ''
+  avatar: '',
+  rights: -1
 }
 
 const mutations = {
@@ -17,6 +18,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_RIGHTS: (state, rights) => {
+    state.rights = rights
   }
 }
 
@@ -41,14 +45,17 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         const { data } = response
+        console.log(response, 'rights')
+        // data.rights = 1
         data.avatar = 'http://117.78.27.73:8070/crazylogo/avatar.jpg'
-        console.log('name,avatar', data)
+        console.log('data', data)
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-        const { name, avatar } = data
+        const { name, avatar, rights } = data
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
+        commit('SET_RIGHTS', rights)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -61,6 +68,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
+        commit('SET_RIGHTS', -1)
         removeToken()
         resetRouter()
         resolve()

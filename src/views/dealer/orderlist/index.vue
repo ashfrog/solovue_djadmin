@@ -55,42 +55,60 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column align="center" sortable prop="id" label="ID" width="195">
+          <el-table-column align="center" sortable prop="id" label="客户单位" width="95">
             <template slot-scope="scope">
               {{ scope.row.id }}
             </template>
           </el-table-column>
-          <el-table-column label="用户id" sortable prop="userid" width="95">
+          <el-table-column label="项目名称" sortable prop="userid" width="95">
             <template slot-scope="scope">
               {{ scope.row.userid }}
             </template>
           </el-table-column>
-          <el-table-column label="购买数量" sortable prop="count" width="110" align="center">
+          <el-table-column label="客户负责人" sortable prop="count" width="110" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="备注" align="center">
+          <el-table-column label="产品型号" align="center">
             <template slot-scope="scope">
               {{ scope.row.bindcode }}
             </template>
           </el-table-column>
-          <el-table-column label="备注" align="center">
+          <el-table-column label="产品数量" align="center">
             <template slot-scope="scope">
               {{ scope.row.bindcode }}
             </template>
           </el-table-column>
-          <el-table-column label="备注" align="center">
+          <el-table-column label="项目单价" align="center">
             <template slot-scope="scope">
               {{ scope.row.bindcode }}
             </template>
           </el-table-column>
-          <el-table-column label="备注" align="center">
+          <el-table-column label="项目总价" align="center">
             <template slot-scope="scope">
               {{ scope.row.bindcode }}
             </template>
           </el-table-column>
-          <el-table-column align="center" sortable prop="createtime" label="下单时间" width="200">
+          <el-table-column align="center" sortable prop="createtime" label="开始时间" width="200">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time" /> -->
+              <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" sortable prop="createtime" label="到期" width="200">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time" /> -->
+              <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" sortable prop="createtime" label="负责人" width="200">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time" /> -->
+              <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" sortable prop="createtime" label="状态" width="200">
             <template slot-scope="scope">
               <!-- <i class="el-icon-time" /> -->
               <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>

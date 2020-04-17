@@ -4,7 +4,7 @@
       <dropzone
         id="myVueDropzone"
         ref="dropzonefun"
-        url="http://117.78.27.73:8083/upload/upload"
+        url="http://www.crazysolo.com:8083/upload/upload"
         @dropzone-fileAdded="dropzoneA"
         @dropzone-removedFile="dropzoneR"
         @dropzone-success="dropzoneS"
@@ -129,10 +129,10 @@ export default {
     processQueue() {
       dropzonecomp.resetparallelUploads(this.countarr[0])
       console.log('剩余上传数量:', this.countarr.length)
-	  this.$message({
-	    message: '剩余上传数量:'+this.countarr.length,
-	    type: 'success'
-	  })
+      this.$message({
+        message: '剩余上传数量:' + this.countarr.length,
+        type: 'success'
+      })
       this.countarr.splice(0, 1)
       dropzonecomp.dropzone.processQueue()
     }

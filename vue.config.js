@@ -38,8 +38,8 @@ module.exports = {
     },
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        // target: 'http://117.78.27.73:8083/',
-        target: 'http://localhost:8083/',
+        target: 'http://www.crazysolo.com:8083/',
+        // target: 'http://localhost:8082/',
         changeOrigin: false,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

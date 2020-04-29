@@ -13,7 +13,7 @@ NProgress.configure({
   showSpinner: false
 }) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/login', '/register', '/findpassword'] // no redirect whitelist
 // var bloaded = false
 
 router.beforeEach(async(to, from, next) => {
@@ -67,7 +67,6 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-    console.log('notocken')
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

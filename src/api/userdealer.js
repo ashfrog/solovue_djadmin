@@ -3,7 +3,7 @@ import qs from 'qs'
 
 export function login(telphone, password) {
   return request({
-    url: '/user/login',
+    url: '/userdealer/login',
     method: 'post',
     data: qs.stringify({
       telphone: telphone,
@@ -12,78 +12,36 @@ export function login(telphone, password) {
   })
 }
 
-export function getInfo(token) {
+export function register(telphone, password, smscode) {
   return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'get'
-  })
-}
-
-export function adminlogin() {
-  return request({
-    url: '/user/adminlogin',
-    method: 'post'
-  })
-}
-
-export function addBindOrder(telphone, count, bindcode) {
-  return request({
-    url: '/userbindorder/addBindOrder',
+    url: '/userdealer/register',
     method: 'post',
     data: qs.stringify({
       telphone: telphone,
-      count: count,
-      bindcode: bindcode
+      password: password,
+      smscode: smscode
     })
   })
 }
 
-export function listBindOrder(pageStart, pageSize) {
+export function requestsmscode(telphone) {
   return request({
-    url: '/userbindorder/listBindOrder',
-    method: 'post',
-    data: qs.stringify({
-      pageStart: pageStart,
-      pageSize: pageSize
-    })
+    url: '/userdealer/requestsmscode',
+    method: 'get',
+    params: {
+      telphone: telphone
+    }
   })
 }
 
-export function deleteBindOrder(id) {
+export function findpassword(telphone, password, smscode) {
   return request({
-    url: '/userbindorder/deleteBindOrder',
+    url: '/userdealer/findpassword',
     method: 'post',
     data: qs.stringify({
-      id: id
-    })
-  })
-}
-
-export function deleteBindMachine(id) {
-  return request({
-    url: '/userbindorder/deleteBindMachine',
-    method: 'post',
-    data: qs.stringify({
-      id: id
-    })
-  })
-}
-
-export function listBindMachine(pageStart, pageSize) {
-  return request({
-    url: '/userbindorder/listBindMachine',
-    method: 'post',
-    data: qs.stringify({
-      pageStart: pageStart,
-      pageSize: pageSize
+      telphone: telphone,
+      password: password,
+      smscode: smscode
     })
   })
 }

@@ -56,9 +56,9 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (res.status !== 'success') {
       Message({
-        message: res || 'Error',
+        message: res.data.errMsg || 'Error',
         type: 'error',
-        duration: 5 * 1000
+        duration: 3 * 1000
       })
 
       // { "status": "fail", "data": { "errCode": 10001, "errMsg": "没有权限!" } }

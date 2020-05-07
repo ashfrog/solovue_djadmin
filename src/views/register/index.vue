@@ -13,21 +13,21 @@
         <h3 class="title">CrazySOLO注册</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="telphone">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
+          ref="telphone"
+          v-model="loginForm.telphone"
           placeholder="请输入手机号"
-          name="username"
+          name="telphone"
           type="text"
           tabindex="1"
           auto-complete="on"
           style="width:70%"
         />
-        <el-button type="info" round size="mini">获取验证码</el-button>
+        <el-button type="info" round size="mini" @click.native.prevent="requestsmscode">获取验证码</el-button>
       </el-form-item>
 
       <el-form-item prop="code">
@@ -35,10 +35,10 @@
           <svg-icon icon-class="password" />
         </span>
         <el-input
-          ref="code"
-          v-model="loginForm.code"
+          ref="smscode"
+          v-model="loginForm.smscode"
           placeholder="输入6位数字验证码"
-          name="code"
+          name="smscode"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -58,18 +58,15 @@
           name="password"
           tabindex="2"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter.native="handleRegister"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-      <div style="justify-content:center;display:flex;align-items:center;">
-        <el-button :loading="loading" style="float:center;width:100%;" type="warning" @click.native.prevent="handleLogin">注册</el-button>
-      </div>
-
+      <div class="underlinetext" style="float:right;" @click="toLogin()">去登录?</div>
+      <el-button :loading="loading" style="width:100%;margin-top:20px;" type="warning" @click.native.prevent="handleRegister">注册</el-button>
     </el-form>
-
   </div>
 </template>
 
@@ -77,31 +74,35 @@
 import {
   validUsername
 } from '@/utils/validate'
-
+import {
+  register,
+  requestsmscode
+} from '@/api/userdealer.js'
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入11位手机号'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码至少6位'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: '18888888888',
-        password: '123456'
+        telphone: '',
+        password: '',
+        smscode: ''
       },
       loginRules: {
-        username: [{
+        telphone: [{
           required: true,
           trigger: 'blur',
           validator: validateUsername
@@ -136,40 +137,45 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        // if (true) {
-        console.log('this.redirect ', this.redirect)
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm).then(() => {
-          console.log('登录')
-          this.$router.push({
-            path: this.redirect || '/'
-          })
-          this.loading = false
-        }).catch((e) => {
-          this.loading = false
-          console.log('登录失败', e)
-        })
-      })
-    },
     handleRegister() {
       this.$refs.loginForm.validate(valid => {
-        // if (true) {
-        console.log('this.redirect ', this.redirect)
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm).then(() => {
-          console.log('登录')
-          this.$router.push({
-            path: this.redirect || '/'
+        if (valid) {
+          register(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode).then((result) => {
+            this.$router.push({
+              path: '/login'
+            })
+            console.log('返回', result)
           })
-          this.loading = false
-        }).catch((e) => {
-          this.loading = false
-          console.log('登录失败', e)
-        })
+        }
+      })
+    },
+    requestsmscode() {
+      requestsmscode(this.loginForm.telphone).then((result) => {
+        console.log('验证码', result)
+      })
+    },
+    toLogin() {
+      this.$router.push({
+        path: '/login'
       })
     }
+    // handleRegister() {
+    //   this.$refs.loginForm.validate(valid => {
+    //     // if (true) {
+    //     console.log('this.redirect ', this.redirect)
+    //     this.loading = true
+    //     this.$store.dispatch('user/login', this.loginForm).then(() => {
+    //       console.log('登录')
+    //       this.$router.push({
+    //         path: this.redirect || '/'
+    //       })
+    //       this.loading = false
+    //     }).catch((e) => {
+    //       this.loading = false
+    //       console.log('登录失败', e)
+    //     })
+    //   })
+    // }
   }
 }
 </script>
@@ -281,6 +287,15 @@ export default {
       color: $dark_gray;
       cursor: pointer;
       user-select: none;
+    }
+
+    .underlinetext {
+      color: #E6A23C;
+      text-decoration: underline;
+    }
+
+    .underlinetext:hover {
+      cursor: pointer;
     }
   }
 </style>

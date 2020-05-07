@@ -16,7 +16,7 @@
       <el-button class="midbtn" size="medium" type="primary" @click="addOrder">提交</el-button>
     </div> -->
 
-    <el-form  label-width="100px" :model="bindorder">
+    <el-form label-width="100px" :model="bindorder">
       <el-input v-model="bindorder.telphone" label-width="100px" placeholder="请输入用户的手机号">
         <template slot="prepend">用户:</template>
       </el-input>

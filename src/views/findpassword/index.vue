@@ -19,7 +19,7 @@
         </span>
         <el-input
           ref="username"
-          v-model="loginForm.username"
+          v-model="loginForm.telphone"
           placeholder="请输入手机号"
           name="username"
           type="text"
@@ -27,7 +27,7 @@
           auto-complete="on"
           style="width:70%"
         />
-        <el-button type="info" round size="mini">获取验证码</el-button>
+        <el-button type="info" round size="mini" @click.native.prevent="requestsmscode">获取验证码</el-button>
       </el-form-item>
 
       <el-form-item prop="code">
@@ -36,7 +36,7 @@
         </span>
         <el-input
           ref="code"
-          v-model="loginForm.code"
+          v-model="loginForm.smscode"
           placeholder="输入6位数字验证码"
           name="code"
           type="text"
@@ -58,13 +58,13 @@
           name="password"
           tabindex="2"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter.native="findpassword"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-      <el-form-item prop="password2">
+      <!-- <el-form-item prop="password2">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
@@ -82,13 +82,10 @@
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
-      </el-form-item>
-      <div style="justify-content:center;display:flex;align-items:center;">
-        <el-button :loading="loading" style="float:center;width:100%;" type="warning" @click.native.prevent="handleLogin">注册</el-button>
-      </div>
-
+      </el-form-item> -->
+      <div class="underlinetext" style="float:right;" @click="toLogin()">去登录?</div>
+      <el-button :loading="loading" style="width:100%;margin-top:20px;" type="warning" @click.native.prevent="findpassword">确认</el-button>
     </el-form>
-
   </div>
 </template>
 
@@ -96,7 +93,10 @@
 import {
   validUsername
 } from '@/utils/validate'
-
+import {
+  findpassword,
+  requestsmscode
+} from '@/api/userdealer.js'
 export default {
   name: 'Login',
   data() {
@@ -109,19 +109,19 @@ export default {
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: '18888888888',
-        password: '123456',
-        password2: ''
+        telphone: '',
+        password: '',
+        smscode: ''
       },
       loginRules: {
-        username: [{
+        telphone: [{
           required: true,
           trigger: 'blur',
           validator: validateUsername
@@ -189,6 +189,28 @@ export default {
           console.log('登录失败', e)
         })
       })
+    },
+    requestsmscode() {
+      requestsmscode(this.loginForm.telphone).then((result) => {
+        console.log('requestsmscode', result)
+      })
+    },
+    findpassword() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode).then((result) => {
+            console.log('findpassword', result)
+            this.$router.push({
+              path: '/login'
+            })
+          })
+        }
+      })
+    },
+    toLogin() {
+      this.$router.push({
+        path: '/login'
+      })
     }
   }
 }
@@ -245,7 +267,12 @@ export default {
   $bg:#2d3a4b;
   $dark_gray:#889aa4;
   $light_gray:#eee;
-
+  .underlinetext{
+      color: #E6A23C;text-decoration:underline;
+    }
+  .underlinetext:hover{
+    cursor: pointer;
+  }
   .login-container {
     min-height: 100%;
     width: 100%;

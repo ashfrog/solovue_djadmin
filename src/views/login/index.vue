@@ -48,7 +48,7 @@
         </span>
       </el-form-item>
 
-      <div class="underlinetext" style="float:left;" @click="handleFindPassword()">忘记密码</div>
+      <div class="underlinetext" style="float:left;" @click="handleFindPassword()">忘记密码?</div>
       <div class="underlinetext" style="float:right;" @click="handleRegister()">还没有账号?注册</div>
 
       <el-button :loading="loading" style="float:left;width:100%;margin-top:20px;" type="warning" @click.native.prevent="handleLogin">登录</el-button>
@@ -83,8 +83,8 @@ export default {
     }
     return {
       loginForm: {
-        username: '18888888888',
-        password: '123456'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{
@@ -125,19 +125,20 @@ export default {
 
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
-        // if (true) {
-        console.log('this.redirect ', this.redirect)
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm).then(() => {
-          console.log('登录')
-          this.$router.push({
-            path: this.redirect || '/'
+        if (valid) {
+          console.log('this.redirect ', this.redirect)
+          this.loading = true
+          this.$store.dispatch('user/login', this.loginForm).then(() => {
+            console.log('登录')
+            this.$router.push({
+              path: this.redirect || '/'
+            })
+            this.loading = false
+          }).catch((e) => {
+            this.loading = false
+            console.log('登录失败', e)
           })
-          this.loading = false
-        }).catch((e) => {
-          this.loading = false
-          console.log('登录失败', e)
-        })
+        }
       })
     },
 
@@ -167,14 +168,6 @@ export default {
     .login-container .el-input input {
       color: $cursor;
     }
-  }
-
-  .underlinetext{
-    color: #E6A23C;text-decoration:underline;
-  }
-
-  .underlinetext:hover{
-    cursor: pointer;
   }
 
   /* reset element-ui css */
@@ -214,6 +207,15 @@ export default {
   $bg:#2d3a4b;
   $dark_gray:#889aa4;
   $light_gray:#eee;
+
+  .underlinetext {
+    color: #E6A23C;
+    text-decoration: underline;
+  }
+
+  .underlinetext:hover {
+    cursor: pointer;
+  }
 
   .login-container {
     min-height: 100%;

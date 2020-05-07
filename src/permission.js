@@ -32,6 +32,7 @@ router.beforeEach(async(to, from, next) => {
       const userinfo = store.state.user // store.getters.name
       if (userinfo.rights === -1) {
         // 获取用户权限
+		console.log(hasToken,"tocken")
         var rights = {}
         await store.dispatch('user/getInfo', userinfo).then(result => {
           rights = result.rights
@@ -39,7 +40,7 @@ router.beforeEach(async(to, from, next) => {
         console.log(rights, 'rights')
         const accessRoutes = await store.dispatch('permission/generateRoutes', rights)
         router.addRoutes(accessRoutes)
-        next(`/login`)
+        next(`/`)
       } else {
         next()
       }

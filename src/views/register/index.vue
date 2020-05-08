@@ -25,9 +25,8 @@
           type="text"
           tabindex="1"
           auto-complete="on"
-          style="width:70%"
+          style="width:65%;display:inline-block"
         />
-        <el-button type="info" round size="mini" @click.native.prevent="requestsmscode">获取验证码</el-button>
       </el-form-item>
 
       <el-form-item prop="code">
@@ -37,12 +36,15 @@
         <el-input
           ref="smscode"
           v-model="loginForm.smscode"
-          placeholder="输入6位数字验证码"
+          placeholder="输入短信验证码"
           name="smscode"
           type="text"
           tabindex="1"
           auto-complete="on"
+          style="width:65%;display:inline-block"
         />
+        <el-button v-if="show" type="warning" round size="mini" style="display:inline-block;margin-left:30px;" @click.native.prevent="requestsmscode">点击获取{{ count }}</el-button>
+        <el-button v-if="!show" :disabled="true" type="info" round size="mini" style="display:inline-block" @click.native.prevent="requestsmscode">{{ count }}秒后重新获取</el-button>
       </el-form-item>
 
       <el-form-item prop="password">
@@ -115,7 +117,10 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      count: '',
+      show: true,
+      timer: null
     }
   },
   watch: {
@@ -140,19 +145,44 @@ export default {
     handleRegister() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          register(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode).then((result) => {
+          register(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode, 'register').then((result) => {
             this.$router.push({
               path: '/login'
             })
-            console.log('返回', result)
+            this.$message({
+              type: 'success',
+              message: result.data
+            })
           })
         }
       })
     },
     requestsmscode() {
-      requestsmscode(this.loginForm.telphone).then((result) => {
-        console.log('验证码', result)
+      requestsmscode(this.loginForm.telphone, 'register').then((result) => {
+        this.$message({
+          type: 'success',
+          message: result.data
+        })
+        this.countdown()
       })
+    },
+
+    countdown() {
+      const TIME_COUNT = 60
+      if (!this.timer) {
+        this.count = TIME_COUNT
+        this.show = false
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count--
+          } else {
+            this.show = true
+            clearInterval(this.timer)
+            this.timer = null
+            this.count = ''
+          }
+        }, 1000)
+      }
     },
     toLogin() {
       this.$router.push({

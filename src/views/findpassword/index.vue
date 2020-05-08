@@ -27,7 +27,6 @@
           auto-complete="on"
           style="width:70%"
         />
-        <el-button type="info" round size="mini" @click.native.prevent="requestsmscode">获取验证码</el-button>
       </el-form-item>
 
       <el-form-item prop="code">
@@ -35,14 +34,17 @@
           <svg-icon icon-class="password" />
         </span>
         <el-input
-          ref="code"
+          ref="smscode"
           v-model="loginForm.smscode"
-          placeholder="输入6位数字验证码"
-          name="code"
+          placeholder="输入短信验证码"
+          name="smscode"
           type="text"
           tabindex="1"
           auto-complete="on"
+          style="width:65%;display:inline-block"
         />
+        <el-button v-if="show" type="warning" round size="mini" style="display:inline-block;margin-left:30px;" @click.native.prevent="requestsmscode">点击获取{{ count }}</el-button>
+        <el-button v-if="!show" :disabled="true" type="info" round size="mini" style="display:inline-block" @click.native.prevent="requestsmscode">{{ count }}秒后重新获取</el-button>
       </el-form-item>
 
       <el-form-item prop="password">
@@ -64,25 +66,6 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-      <!-- <el-form-item prop="password2">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password2"
-          v-model="loginForm.password2"
-          :type="passwordType"
-          placeholder="确认密码"
-          name="password2"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item> -->
       <div class="underlinetext" style="float:right;" @click="toLogin()">去登录?</div>
       <el-button :loading="loading" style="width:100%;margin-top:20px;" type="warning" @click.native.prevent="findpassword">确认</el-button>
     </el-form>
@@ -134,7 +117,10 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      count: '',
+      show: true,
+      timer: null
     }
   },
   watch: {
@@ -156,50 +142,40 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        // if (true) {
-        console.log('this.redirect ', this.redirect)
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm).then(() => {
-          console.log('登录')
-          this.$router.push({
-            path: this.redirect || '/'
-          })
-          this.loading = false
-        }).catch((e) => {
-          this.loading = false
-          console.log('登录失败', e)
-        })
-      })
-    },
-    handleRegister() {
-      this.$refs.loginForm.validate(valid => {
-        // if (true) {
-        console.log('this.redirect ', this.redirect)
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm).then(() => {
-          console.log('登录')
-          this.$router.push({
-            path: this.redirect || '/'
-          })
-          this.loading = false
-        }).catch((e) => {
-          this.loading = false
-          console.log('登录失败', e)
-        })
-      })
-    },
     requestsmscode() {
-      requestsmscode(this.loginForm.telphone).then((result) => {
-        console.log('requestsmscode', result)
+      requestsmscode(this.loginForm.telphone, 'findpassword').then((result) => {
+        this.$message({
+          type: 'success',
+          message: result.data
+        })
+        this.countdown()
       })
+    },
+    countdown() {
+      const TIME_COUNT = 60
+      if (!this.timer) {
+        this.count = TIME_COUNT
+        this.show = false
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count--
+          } else {
+            this.show = true
+            clearInterval(this.timer)
+            this.timer = null
+            this.count = ''
+          }
+        }, 1000)
+      }
     },
     findpassword() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode).then((result) => {
-            console.log('findpassword', result)
+          findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode, 'findpassword').then((result) => {
+            this.$message({
+              type: 'success',
+              message: result.data
+            })
             this.$router.push({
               path: '/login'
             })

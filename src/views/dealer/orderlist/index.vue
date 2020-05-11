@@ -215,7 +215,87 @@
         </el-table>
       </el-tab-pane>
       <el-tab-pane label="客户" name="user">客户</el-tab-pane>
-      <el-tab-pane label="经销商" name="dealer">经销商</el-tab-pane>
+      <el-tab-pane label="经销商" name="dealer">
+        经销商
+        <el-table
+          v-loading="listLoading"
+          :data="dealers.filter(data => !search ||
+            data.id.toString().toLowerCase().includes(search.toLowerCase()) ||
+            data.dealername.toString().toLowerCase().includes(search.toLowerCase()) ||
+            data.telphone.toLowerCase().includes(search.toLowerCase()))"
+          element-loading-text="Loading"
+          border
+          fit
+          height="840"
+          stripe
+          highlight-current-row
+          :default-sort="{prop: 'count', order: 'descending'}"
+        >
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="ID">
+                  <span>{{ props.row.id }}</span>
+                </el-form-item>
+                <el-form-item label="上级经销商ID">
+                  <span>{{ props.row.dealerparentid }}</span>
+                </el-form-item>
+                <el-form-item label="经销商Level">
+                  <span>{{ props.row.dealerlevel }}</span>
+                </el-form-item>
+                <el-form-item label="经销商名称">
+                  <span>{{ props.row.dealername }}</span>
+                </el-form-item>
+                <el-form-item label="身份证正面">
+                  <span>{{ props.row.identityfront }}</span>
+                </el-form-item>
+                <el-form-item label="身份证背面">
+                  <span>{{ props.row.identityback }}</span>
+                </el-form-item>
+                <el-form-item label="营业执照">
+                  <span>{{ props.row.businesslicense }}</span>
+                </el-form-item>
+                <el-form-item label="认证">
+                  <span>{{ props.row.verified }}</span>
+                </el-form-item>
+                <el-form-item label="账号">
+                  <span>{{ props.row.account }}</span>
+                </el-form-item>
+                <el-form-item label="手机号">
+                  <span>{{ props.row.telphone }}</span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" sortable prop="id" label="ID" width="195">
+            <template slot-scope="scope">
+              {{ scope.row.id }}
+            </template>
+          </el-table-column>
+          <el-table-column label="经销商名称" sortable prop="dealername" width="95">
+            <template slot-scope="scope">
+              {{ scope.row.dealername }}
+            </template>
+          </el-table-column>
+          <el-table-column label="认证" sortable prop="verified" width="110" align="center">
+            <template slot-scope="scope">
+              <span>{{ scope.row.verified }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="账号" align="center">
+            <template slot-scope="scope">
+              {{ scope.row.account }}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" sortable prop="telphone" label="手机号" width="200">
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-time" /> -->
+              <span>{{ scope.row.telphone }}</span>
+            </template>
+          </el-table-column>
+
+        </el-table>
+      </el-tab-pane>
       <el-tab-pane label="审批" name="approval">审批</el-tab-pane>
     </el-tabs>
 
@@ -227,6 +307,10 @@ import {
   listBindOrder,
   deleteBindOrder
 } from '@/api/user'
+import {
+  listdealer
+} from '@/api/userdealer'
+import store from '@/store'
 
 export default {
   filters: {
@@ -245,6 +329,7 @@ export default {
       list: null,
       listLoading: true,
       userBindOrderS: [],
+      dealers: [],
       pageSize: 10000,
       pageStart: 0,
       search: ''
@@ -263,6 +348,10 @@ export default {
         this.userBindOrderS = response.data
         console.log(response)
         this.listLoading = false
+      })
+      listdealer(store.getters.token).then((response) => {
+        this.dealers = response.data
+        console.log('dealers', this.dealers)
       })
     },
 

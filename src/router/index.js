@@ -89,6 +89,7 @@ export const constantRoutes = [
     path: '/user',
     component: Layout,
     name: 'user',
+    redirect: '/user/orderlist',
     meta: { title: '用户中心', icon: 'example' },
     children: [
       {
@@ -105,21 +106,9 @@ export const constantRoutes = [
       }
     ]
   }
-  // {
-  //   path: '/ds2',
-  //   component: Layout,
-  //   redirect: '/dashboard2',
-  //   children: [{
-  //     path: 'dashboard2',
-  //     name: 'Dashboard2',
-  //     component: () => import('@/views/dashboard/index'),
-  //     meta: { title: 'Dashboard', icon: 'dashboard' }
-  //   }]
-  // },
-  // // 404 page must be placed at the end !!!
 ]
 
-// 用户
+// 用户 1
 export const asyncRoutes1 = [
   // 404 page must be placed at the end !!!
   // {
@@ -143,7 +132,7 @@ export const asyncRoutes1 = [
   // },
 ]
 
-// 经销商 1
+// 经销商 2
 export const asyncRoutes2 = [
   {
     path: '/dealer',
@@ -165,29 +154,9 @@ export const asyncRoutes2 = [
       }
     ]
   }
-  // {
-  //   path: '/adminstore',
-  //   component: Layout,
-  //   meta: { title: '商店管理', icon: 'example' },
-  //   children: [
-  //     {
-  //       path: 'listitem',
-  //       name: 'Listitem',
-  //       component: () => import('@/views/store/listitem/index'),
-  //       meta: { title: '资源管理', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'upload',
-  //       name: 'Upload',
-  //       component: () => import('@/views/store/upload/index'),
-  //       meta: { title: '资源上传', icon: 'tree' }
-  //     }
-  //   ]
-  // },
-  // 404 page must be placed at the end !!!
 ]
 
-// 管理员 2
+// 经销商管理人员 4
 export const asyncRoutes4 = [
   {
     path: '/admin',
@@ -215,33 +184,45 @@ export const asyncRoutes4 = [
       }
     ]
   },
-  {
-    path: '/adminstore',
-    component: Layout,
-    meta: { title: '商店管理', icon: 'example' },
-    children: [
-      {
-        path: 'listitem',
-        name: 'Listitem',
-        component: () => import('@/views/store/listitem/index'),
-        meta: { title: '资源管理', icon: 'table' }
-      },
-      {
-        path: 'upload',
-        name: 'Upload',
-        component: () => import('@/views/store/upload/index'),
-        meta: { title: '资源上传', icon: 'tree' }
-      }
-    ]
-  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+// 资源编辑人员 rights 8
 export const asyncRoutes8 = [
+  {
+    path: '/adminstore/',
+    component: Layout,
+    meta: { title: '', icon: 'example' },
+    children: [
+      {
+        path: 'listitem',
+        name: 'Listitem',
+        component: () => import('@/views/adminstore/listitem/index'),
+        meta: { title: '资源管理', icon: 'table' }
+      }
+    ]
+  }
 ]
+
+// 资源上传人员 rights 16
 export const asyncRoutes16 = [
+  {
+    path: '/adminstore',
+    redirect: '/adminstore/upload',
+    component: Layout,
+    meta: { title: '', icon: 'example' },
+    children: [
+      {
+        path: 'upload',
+        name: 'Upload',
+        component: () => import('@/views/adminstore/upload/index'),
+        meta: { title: '资源上传', icon: 'tree' }
+      }
+    ]
+  }
 ]
+
 export const asyncRoutes32 = [
 ]
 export const asyncRoutes64 = [

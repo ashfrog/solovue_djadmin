@@ -68,15 +68,12 @@ const actions = {
       // }
 
       var accessedRoutes = []
-
+      console.log('roles', roles)
       if (roles & 1) {
-        console.log('asyncRoutes1', asyncRoutes1)
         accessedRoutes = accessedRoutes.concat(asyncRoutes1)
       }
       if (roles & 2) {
-        console.log('asyncRoutes2', asyncRoutes2)
         accessedRoutes = accessedRoutes.concat(asyncRoutes2)
-        console.log('accessedRoutes2', accessedRoutes)
       }
       if (roles & 4) {
         accessedRoutes = accessedRoutes.concat(asyncRoutes4)

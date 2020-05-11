@@ -20,6 +20,14 @@ export function getInfo(token) {
   })
 }
 
+export function listdealer(token) {
+  return request({
+    url: '/userdealer/listdealer',
+    method: 'get',
+    params: { token }
+  })
+}
+
 export function register(telphone, password, smscode, page) {
   return request({
     url: '/userdealer/register',

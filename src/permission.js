@@ -24,6 +24,7 @@ router.beforeEach(async(to, from, next) => {
   // determine whether the user has logged in
   const hasToken = getToken()
   if (hasToken) {
+    console.log('to.path', to.path, store.state.user.rights)
     if (to.path === '/login') {
       next({
         path: '/'
@@ -39,7 +40,7 @@ router.beforeEach(async(to, from, next) => {
         console.log(rights, 'rights')
         const accessRoutes = await store.dispatch('permission/generateRoutes', rights)
         router.addRoutes(accessRoutes)
-        next(`/`)
+        next({ ...to, replace: true })
       } else {
         next()
       }

@@ -235,7 +235,7 @@
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
                 <el-form-item label="ID">
-                  <span>{{ props.row.id }}</span>
+                  <span>{{ props.row.dealerid }}</span>
                 </el-form-item>
                 <el-form-item label="上级经销商ID">
                   <span>{{ props.row.dealerparentid }}</span>
@@ -267,9 +267,9 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column align="center" sortable prop="id" label="ID" width="195">
+          <el-table-column align="center" sortable prop="dealerid" label="ID" width="195">
             <template slot-scope="scope">
-              {{ scope.row.id }}
+              {{ scope.row.dealerid }}
             </template>
           </el-table-column>
           <el-table-column label="经销商名称" sortable prop="dealername" width="95">

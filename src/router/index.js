@@ -141,6 +141,12 @@ export const asyncRoutes2 = [
     meta: { title: '管理项目', icon: 'example' },
     children: [
       {
+        path: 'purchase',
+        name: 'purchase',
+        component: () => import('@/views/dealer/purchase/index'),
+        meta: { title: '采购', icon: 'tree' }
+      },
+      {
         path: 'dealerlist',
         name: 'dealerlist',
         component: () => import('@/views/dealer/orderlist/index'),
@@ -223,10 +229,33 @@ export const asyncRoutes16 = [
   }
 ]
 
+// 经销商资质审批 和 经销商采购审批
 export const asyncRoutes32 = [
+  {
+    path: '/dealerverify',
+    component: Layout,
+    name: 'dealerverify',
+    meta: { title: '审批', icon: 'example' },
+    children: [
+      {
+        path: 'dealerverify1',
+        name: 'dealerverify1',
+        component: () => import('@/views/dealer/orderlist/index'),
+        meta: { title: '资质审批', icon: 'tree' }
+      },
+      {
+        path: 'dealerverify2',
+        name: 'dealerverify2',
+        component: () => import('@/views/user/bindmachine/index'),
+        meta: { title: '采购审批', icon: 'tree' }
+      }
+    ]
+  }
 ]
+
 export const asyncRoutes64 = [
 ]
+
 export const asyncRoutes128 = [
 ]
 

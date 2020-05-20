@@ -4,10 +4,7 @@
       <el-tab-pane label="所有项目" name="allproject">
         <el-table
           v-loading="listLoading"
-          :data="userBindOrderS.filter(data => !search ||
-            data.id.toString().toLowerCase().includes(search.toLowerCase()) ||
-            data.userid.toString().toLowerCase().includes(search.toLowerCase()) ||
-            data.bindcode.toLowerCase().includes(search.toLowerCase()))"
+          :data="userBindOrderS"
           element-loading-text="Loading"
           border
           fit
@@ -112,14 +109,6 @@
             <template slot-scope="scope">
               <!-- <i class="el-icon-time" /> -->
               <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" width="200">
-            <template slot="header" slot-scope="scope">
-              <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-            </template>
-            <template slot-scope="scope">
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
             </template>
           </el-table-column>
         </el-table>

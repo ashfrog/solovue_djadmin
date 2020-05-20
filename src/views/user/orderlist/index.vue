@@ -2,10 +2,7 @@
   <div class="app-container">
     <el-table
       v-loading="listLoading"
-      :data="userBindOrderS.filter(data => !search ||
-        data.id.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.userid.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.bindcode.toLowerCase().includes(search.toLowerCase()))"
+      :data="userBindOrderS"
       element-loading-text="Loading"
       border
       fit

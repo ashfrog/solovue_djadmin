@@ -2,14 +2,11 @@
   <div class="app-container">
     <el-table
       v-loading="listLoading"
-      :data="userBindOrderS.filter(data => !search ||
-        data.id.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.userid.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.bindcode.toLowerCase().includes(search.toLowerCase()))"
+      :data="itemlist"
       element-loading-text="Loading"
       border
       fit
-      height="840"
+      height="600"
       stripe
       highlight-current-row
       :default-sort="{prop: 'count', order: 'descending'}"
@@ -17,123 +14,81 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="客户单位">
-              <span>{{ props.row.id }}</span>
+            <el-form-item label="商品">
+              <span>{{ props.row.title }}</span>
             </el-form-item>
-            <el-form-item label="项目名称">
-              <span>{{ props.row.userid }}</span>
+            <el-form-item label="">
+              <span>
+                <img :src="props.row.imgUrl" width="200" height="100">
+              </span>
             </el-form-item>
-            <el-form-item label="客户负责人">
-              <span>{{ props.row.userphone }}</span>
+            <el-form-item label="单价">
+              <span>{{ props.row.price }}</span>
             </el-form-item>
-            <el-form-item label="产品型号">
-              <span>{{ props.row.count }}</span>
+            <el-form-item label="商品介绍">
+              <span>{{ props.row.descript }}</span>
             </el-form-item>
-            <el-form-item label="产品数量">
-              <span>{{ props.row.bindcode }}</span>
+            <el-form-item label="销量">
+              <span>{{ props.row.sales }}</span>
             </el-form-item>
-            <el-form-item label="项目单价">
-              <span>{{ props.row.createtime }}</span>
-            </el-form-item>
-            <el-form-item label="项目总价">
-              <span>{{ props.row.createtime }}</span>
-            </el-form-item>
-            <el-form-item label="开始时间">
-              <span>{{ props.row.createtime }}</span>
-            </el-form-item>
-            <el-form-item label="到期">
-              <span>{{ props.row.createtime }}</span>
-            </el-form-item>
-            <el-form-item label="负责人">
-              <span>{{ props.row.createtime }}</span>
-            </el-form-item>
-            <el-form-item label="状态">
-              <span>{{ props.row.createtime }}</span>
+            <el-form-item label="库存">
+              <span>{{ props.row.stock }}</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="客户单位" width="95">
+      <el-table-column align="center" sortable prop="title" label="商品" width="95">
         <template slot-scope="scope">
-          {{ scope.row.id }}
+          {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column label="项目名称" sortable prop="userid" width="95">
+      <el-table-column label="图片" sortable prop="img_url" width="195">
         <template slot-scope="scope">
-          {{ scope.row.userid }}
+          <img :src="scope.row.imgUrl" width="200" height="100">
         </template>
       </el-table-column>
-      <el-table-column label="客户负责人" sortable prop="count" width="110" align="center">
+      <el-table-column label="单价" sortable prop="price" width="110" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.count }}</span>
+          <span>{{ scope.row.price }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="产品型号" align="center">
+      <el-table-column label="商品介绍" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bindcode }}
+          {{ scope.row.商品介绍 }}
         </template>
       </el-table-column>
-      <el-table-column label="产品数量" align="center">
+      <el-table-column label="销量" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bindcode }}
+          {{ scope.row.sales }}
         </template>
       </el-table-column>
-      <el-table-column label="项目单价" align="center">
+      <el-table-column label="库存" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bindcode }}
+          {{ scope.row.stock }}
         </template>
       </el-table-column>
-      <el-table-column label="项目总价" align="center">
+      <el-table-column label="采购数量" align="center">
         <template slot-scope="scope">
-          {{ scope.row.bindcode }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" sortable prop="createtime" label="开始时间" width="200">
-        <template slot-scope="scope">
-          <!-- <i class="el-icon-time" /> -->
-          <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" sortable prop="createtime" label="到期" width="200">
-        <template slot-scope="scope">
-          <!-- <i class="el-icon-time" /> -->
-          <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" sortable prop="createtime" label="负责人" width="200">
-        <template slot-scope="scope">
-          <!-- <i class="el-icon-time" /> -->
-          <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" sortable prop="createtime" label="状态" width="200">
-        <template slot-scope="scope">
-          <!-- <i class="el-icon-time" /> -->
-          <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" width="200">
-        <template slot="header" slot-scope="scope">
-          <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-        </template>
-        <template slot-scope="scope">
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          <el-input-number v-model="scope.row.purchasecount" :min="0" :max="10000" label="描述文字" @change="addShopcar(scope.row.id,scope.row)" />
         </template>
       </el-table-column>
     </el-table>
-
+    <div style="margin-top: 20px">
+      <div style="width:300px;float:right;display:flex;flex-direction:row;">
+        <div style="line-height: 50px;margin-right:0px;color:gray;width:80px;">总价￥:</div>
+        <div style="line-height: 50px;margin-right:0px;color:red;width:100px;">{{ totalprice }}</div>
+        <el-button type="warning" @click="orderitem()">确定申请</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+
 import {
-  listBindOrder,
-  deleteBindOrder
-} from '@/api/user'
-import {
-  listdealer
-} from '@/api/userdealer'
-import store from '@/store'
+  listitem,
+  additemorder
+} from '@/api/item'
 
 export default {
   filters: {
@@ -149,61 +104,46 @@ export default {
   data() {
     return {
       activeName: 'allproject',
-      list: null,
       listLoading: true,
-      userBindOrderS: [],
-      dealers: [],
-      pageSize: 10000,
-      pageStart: 0,
-      search: ''
+      itemlist: [],
+      shopcar: [],
+      itemvos: [],
+      totalprice: 0
     }
   },
   created() {
-    this.fetchData()
+    this.listItem()
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event, tab.name, tab.index)
+    addShopcar(id, row) {
+      console.log('添加购物车', id, row)
+      if (this.shopcar.indexOf(row) === -1) {
+        this.shopcar.push(row)
+      } else if (row.purchasecount === 0) {
+        this.shopcar.pop(row)
+      }
+      this.calcTotalPrice(this.shopcar)
     },
-    fetchData() {
-      this.listLoading = true
-      listBindOrder(this.pageStart, this.pageSize).then(response => {
-        this.userBindOrderS = response.data
-        console.log(response)
-        this.listLoading = false
+    orderitem() {
+      additemorder(this.shopcar).then((response) => {
+        console.log('result', response)
       })
-      listdealer(store.getters.token).then((response) => {
-        this.dealers = response.data
-        console.log('dealers', this.dealers)
-      })
+    },
+    calcTotalPrice(shopcar) {
+      this.totalprice = 0
+      for (let i = 0; i < this.shopcar.length; i++) {
+        var itemVO = this.shopcar[i]
+        this.totalprice += itemVO.price * itemVO.purchasecount
+      }
     },
 
-    handleDelete(index, rowdata) {
-      this.$confirm('此操作将永久删除该订单, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        var itemindex = this.userBindOrderS.findIndex((item) => item.id === rowdata.id)
-        deleteBindOrder(rowdata.id).then(response => {
-          if (response.data === 1) {
-            this.userBindOrderS.splice(itemindex, 1)
-          }
-          this.$message({
-            type: 'success',
-            message: '删除成功'
-          })
-          this.listLoading = false
-        })
-      }).catch(() => {
-        console.log('已取消删除')
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+    listItem() {
+      listitem().then((response) => {
+        this.itemlist = response.data
+        this.listLoading = false
+        console.log(this.itemlist)
       })
     }
-
   }
 }
 </script>

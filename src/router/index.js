@@ -147,10 +147,10 @@ export const asyncRoutes2 = [
         meta: { title: '采购', icon: 'tree' }
       },
       {
-        path: 'dealerlist',
-        name: 'dealerlist',
-        component: () => import('@/views/dealer/orderlist/index'),
-        meta: { title: '我的项目', icon: 'tree' }
+        path: 'shopcar',
+        name: 'shopcar',
+        component: () => import('@/views/dealer/shopcar/index'),
+        meta: { title: '采购订单', icon: 'tree' }
       },
       {
         path: 'dealerbindmachine',
@@ -180,13 +180,13 @@ export const asyncRoutes4 = [
         path: 'adminorderlist',
         name: 'adminorderlist',
         component: () => import('@/views/user/orderlist/index'),
-        meta: { title: '订单浏览', icon: 'tree' }
+        meta: { title: '设备绑定订单', icon: 'tree' }
       },
       {
         path: 'adminbindmachine',
         name: 'adminbindmachine',
         component: () => import('@/views/user/bindmachine/index'),
-        meta: { title: '绑定记录', icon: 'tree' }
+        meta: { title: '设备绑定记录', icon: 'tree' }
       }
     ]
   },
@@ -240,13 +240,13 @@ export const asyncRoutes32 = [
       {
         path: 'dealerverify1',
         name: 'dealerverify1',
-        component: () => import('@/views/dealer/orderlist/index'),
+        component: () => import('@/views/processpurchase/index'),
         meta: { title: '资质审批', icon: 'tree' }
       },
       {
         path: 'dealerverify2',
         name: 'dealerverify2',
-        component: () => import('@/views/user/bindmachine/index'),
+        component: () => import('@/views/processpurchase/index'),
         meta: { title: '采购审批', icon: 'tree' }
       }
     ]

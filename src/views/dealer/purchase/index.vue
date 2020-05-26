@@ -6,7 +6,6 @@
       element-loading-text="Loading"
       border
       fit
-      height="600"
       stripe
       highlight-current-row
       :default-sort="{prop: 'count', order: 'descending'}"
@@ -16,11 +15,6 @@
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="商品">
               <span>{{ props.row.title }}</span>
-            </el-form-item>
-            <el-form-item label="">
-              <span>
-                <img :src="props.row.imgUrl" width="200" height="100">
-              </span>
             </el-form-item>
             <el-form-item label="单价">
               <span>{{ props.row.price }}</span>
@@ -77,19 +71,84 @@
       <div style="width:300px;float:right;display:flex;flex-direction:row;">
         <div style="line-height: 50px;margin-right:0px;color:gray;width:80px;">总价￥:</div>
         <div style="line-height: 50px;margin-right:0px;color:red;width:100px;">{{ totalprice }}</div>
-        <el-button type="warning" @click="orderitem()">确定申请</el-button>
+        <el-button type="warning" @click="showOrderDetail()">采购确认</el-button>
       </div>
     </div>
+    <el-dialog title="填写订单" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <span>
+        <el-form ref="form" :model="itemorderdetail" label-width="100px">
+          <el-form-item label="客户单位">
+            <el-input v-model="itemorderdetail.custorg" />
+          </el-form-item>
+          <el-form-item label="项目名称">
+            <el-input v-model="itemorderdetail.project" />
+          </el-form-item>
+          <el-form-item label="客户负责人">
+            <el-input v-model="itemorderdetail.custmanager" />
+          </el-form-item>
+          <el-form-item label="客户负责人手机号">
+            <el-input v-model="itemorderdetail.custmanagertel" />
+          </el-form-item>
+          <el-form-item label="负责人">
+            <el-input v-model="itemorderdetail.manager" />
+          </el-form-item>
+          <el-form-item label="负责人手机号">
+            <el-input v-model="itemorderdetail.managertel" />
+          </el-form-item>
+          <el-form-item label="经销区域">
+            <el-select v-model="provinceid" placeholder="请选择省" size="mini" style="width:100px;" @change="Listcities(provinceid)">
+              <el-option
+                v-for="item in provinces"
+                :key="item.areaCode"
+                :label="item.areaName"
+                :value="item.areaCode"
+              >
+                <span style="float: left">{{ item.areaName }}</span>
+              </el-option>
+            </el-select>
+
+            <el-select v-model="cityid" placeholder="请选择市" size="mini" style="width:100px;margin:0 10px" @change="Listareas(cityid)">
+              <el-option
+                v-for="item in cities"
+                :key="item.areaCode"
+                :label="item.areaName"
+                :value="item.areaCode"
+              >
+                <span style="float: left">{{ item.areaName }}</span>
+              </el-option>
+            </el-select>
+
+            <el-select v-model="areaid" placeholder="请选择区县" size="mini" style="width:110px;">
+              <el-option
+                v-for="item in areas"
+                :key="item.areaCode"
+                :label="item.areaName"
+                :value="item.areaCode"
+              >
+                <span style="float: left">{{ item.areaName }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="hideOrderDetailPanel">取 消</el-button>
+        <el-button type="primary" @click="confirmorder">提交订单</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-
 import {
-  listitem,
-  additemorder
+  listitem
 } from '@/api/item'
-
+import {
+  additemorder
+} from '@/api/itemorder'
+import {
+  listposition
+} from '@/api/area'
 export default {
   filters: {
     statusFilter(status) {
@@ -107,33 +166,93 @@ export default {
       listLoading: true,
       itemlist: [],
       shopcar: [],
+      itemorderdetail: {
+        custorg: '',
+        project: '',
+        custmanager: '',
+        custmanagertel: '',
+        manager: '',
+        managertel: ''
+      },
+      itemorderlist: [],
       itemvos: [],
-      totalprice: 0
+      totalprice: 0,
+      dialogVisible: false,
+      provinces: [],
+      cities: [],
+      areas: [],
+      provinceid: '',
+      cityid: '',
+      areaid: ''
     }
   },
   created() {
     this.listItem()
+    this.Listprovince()
+    // this.Listcities(450000)
+    // this.Listareas(451200)
   },
   methods: {
+    Listprovince() {
+      listposition(100000, 1).then(result => {
+        this.provinces = result.data
+        console.log('省级:', result)
+      })
+    },
+    Listcities(provinceid) {
+      listposition(provinceid, 2).then(result => {
+        this.cities = result.data
+        console.log('市级:', result)
+      })
+    },
+    Listareas(cityid) {
+      listposition(cityid, 3).then(result => {
+        this.areas = result.data
+        console.log('县级:', result)
+      })
+    },
+
     addShopcar(id, row) {
-      console.log('添加购物车', id, row)
-      if (this.shopcar.indexOf(row) === -1) {
-        this.shopcar.push(row)
-      } else if (row.purchasecount === 0) {
-        this.shopcar.pop(row)
+      var index = this.shopcar.findIndex(item => item.itemid === row.id)
+      var shopcaritem = this.shopcar.find(item => item.itemid === row.id)
+      if (index === -1) {
+        this.shopcar.push({ 'itemid': row.id, 'itemcount': row.purchasecount, 'itemprice': row.price })
+      } else {
+        shopcaritem.itemcount = row.purchasecount
+      }
+      if (row.purchasecount === 0) {
+        this.shopcar.pop(shopcaritem)
       }
       this.calcTotalPrice(this.shopcar)
     },
-    orderitem() {
-      additemorder(this.shopcar).then((response) => {
-        console.log('result', response)
-      })
+
+    showOrderDetail() {
+      this.dialogVisible = true
     },
+
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
+
+    confirmorder() {
+      additemorder(this.shopcar, this.itemorderdetail).then((response) => {
+      })
+      this.dialogVisible = false
+    },
+
+    hideOrderDetailPanel() {
+      this.dialogVisible = false
+    },
+
     calcTotalPrice(shopcar) {
       this.totalprice = 0
       for (let i = 0; i < this.shopcar.length; i++) {
-        var itemVO = this.shopcar[i]
-        this.totalprice += itemVO.price * itemVO.purchasecount
+        var shopcaritem = this.shopcar[i]
+        this.totalprice += shopcaritem.itemprice * shopcaritem.itemcount
       }
     },
 
@@ -141,9 +260,9 @@ export default {
       listitem().then((response) => {
         this.itemlist = response.data
         this.listLoading = false
-        console.log(this.itemlist)
       })
     }
+
   }
 }
 </script>

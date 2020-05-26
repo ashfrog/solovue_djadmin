@@ -2,11 +2,7 @@
   <div class="app-container">
     <el-table
       v-loading="listLoading"
-      :data="userBindMachineS.filter(data => !search ||
-        data.id.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.userid.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.machineid.toString().toLowerCase().includes(search.toLowerCase()) ||
-        data.bindOrderid.toLowerCase().includes(search.toLowerCase()))"
+      :data="userBindMachineS"
       element-loading-text="Loading"
       border
       fit
@@ -39,7 +35,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" width="200">
-        <template slot="header" slot-scope="scope">
+        <template slot="header">
           <el-input
             v-model="search"
             size="mini"

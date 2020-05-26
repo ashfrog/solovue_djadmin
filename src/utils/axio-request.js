@@ -78,7 +78,7 @@ service.interceptors.response.use(
       }
       if (res.data.errCode === 20001) { // 用户不存在
         store.dispatch('user/resetToken').then(() => {
-          // location.reload()
+          location.reload()
         })
       }
       return Promise.reject(new Error(res.message || 'Error'))

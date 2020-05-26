@@ -52,7 +52,7 @@
           </tbody>
         </table>
         <div class="block">
-          <el-pagination layout="prev, pager, next" :current-page="currentPage" background :total="totalItemCount" :page-size="pageSize" @current-change="pageChange" />
+          <el-pagination layout="prev, pager, next" :current-page="currentPage" :total="totalItemCount" :page-size="pageSize" @current-change="pageChange" />
         </div>
       </div>
     </div>
@@ -221,8 +221,8 @@ export default {
   }
 
   .block{
-    position: fixed;
     bottom: 20px;
+    right:20px;
   }
 
 </style>

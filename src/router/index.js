@@ -40,6 +40,12 @@ export const constantRoutes = [
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
+    },
+    {
+      path: 'requestdealer',
+      name: 'requestdealer',
+      component: () => import('@/views/dealer/requestdealer/index'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
   {
@@ -57,7 +63,6 @@ export const constantRoutes = [
     component: () => import('@/views/findpassword/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -138,7 +143,7 @@ export const asyncRoutes2 = [
     path: '/dealer',
     component: Layout,
     name: 'dealer',
-    meta: { title: '管理项目', icon: 'example' },
+    meta: { title: '项目采购', icon: 'example' },
     children: [
       {
         path: 'purchase',
@@ -147,16 +152,10 @@ export const asyncRoutes2 = [
         meta: { title: '采购', icon: 'tree' }
       },
       {
-        path: 'shopcar',
-        name: 'shopcar',
-        component: () => import('@/views/dealer/shopcar/index'),
+        path: 'purchaseorder',
+        name: 'purchaseorder',
+        component: () => import('@/views/dealer/purchaseorder/index'),
         meta: { title: '采购订单', icon: 'tree' }
-      },
-      {
-        path: 'dealerbindmachine',
-        name: 'dealerbindmachine',
-        component: () => import('@/views/user/bindmachine/index'),
-        meta: { title: '绑定记录', icon: 'tree' }
       }
     ]
   }

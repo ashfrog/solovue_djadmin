@@ -4,7 +4,6 @@
       v-loading="listLoading"
       :data="userBindMachineS"
       element-loading-text="Loading"
-      border
       fit
       highlight-current-row
     >
@@ -111,11 +110,6 @@ export default {
           this.listLoading = false
         })
       }).catch(() => {
-        console.log('已取消删除')
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
       })
     }
   }

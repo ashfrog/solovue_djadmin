@@ -4,7 +4,6 @@
       v-loading="listLoading"
       :data="userBindOrderS"
       element-loading-text="Loading"
-      border
       fit
       height="840"
       stripe
@@ -62,7 +61,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" width="200">
-        <template slot="header" slot-scope="scope">
+        <template slot="header">
           <el-input
             v-model="search"
             size="mini"
@@ -139,11 +138,6 @@ export default {
           this.listLoading = false
         })
       }).catch(() => {
-        console.log('已取消删除')
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
       })
     }
 

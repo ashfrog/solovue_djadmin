@@ -4,7 +4,6 @@
       v-loading="listLoading"
       :data="itemorderlist"
       element-loading-text="Loading"
-      border
       fit
       stripe
       highlight-current-row
@@ -29,7 +28,7 @@
               <span>{{ props.row.manager }} 手机号: {{ props.row.managertel }}</span>
             </el-form-item>
             <el-form-item label="经销区域">
-              <span>{{ props.row.expressnumber }}</span>
+              <span>{{ props.row.areaFullName }}</span>
             </el-form-item>
           </el-form>
         </template>

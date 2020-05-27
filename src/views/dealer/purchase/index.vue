@@ -118,7 +118,7 @@
               </el-option>
             </el-select>
 
-            <el-select v-model="areaid" placeholder="请选择区县" size="mini" style="width:110px;">
+            <el-select v-model="itemorderdetail.areacode" placeholder="请选择区县" size="mini" style="width:110px;">
               <el-option
                 v-for="item in areas"
                 :key="item.areaCode"
@@ -128,6 +128,9 @@
                 <span style="float: left">{{ item.areaName }}</span>
               </el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item label="详细地址">
+            <el-input v-model="itemorderdetail.areadetail" />
           </el-form-item>
         </el-form>
       </span>
@@ -172,7 +175,9 @@ export default {
         custmanager: '',
         custmanagertel: '',
         manager: '',
-        managertel: ''
+        managertel: '',
+        areacode: '',
+        areadetail: ''
       },
       itemorderlist: [],
       itemvos: [],
@@ -182,8 +187,7 @@ export default {
       cities: [],
       areas: [],
       provinceid: '',
-      cityid: '',
-      areaid: ''
+      cityid: ''
     }
   },
   created() {
@@ -240,6 +244,13 @@ export default {
 
     confirmorder() {
       additemorder(this.shopcar, this.itemorderdetail).then((response) => {
+        if (response.status === 'success') {
+          this.$notify({
+            title: '通知消息',
+            message: '订单已提交',
+            type: 'success'
+          })
+        }
       })
       this.dialogVisible = false
     },

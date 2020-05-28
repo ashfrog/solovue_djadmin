@@ -1,14 +1,7 @@
 <template>
   <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="itemorderlist"
-      element-loading-text="Loading"
-      fit
-      stripe
-      highlight-current-row
-      :default-sort="{prop: 'count', order: 'descending'}"
-    >
+    <el-table v-loading="listLoading" :data="itemorderlist" element-loading-text="Loading" fit stripe
+      highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -73,82 +66,82 @@
 </template>
 
 <script>
-import {
-  listitem
-} from '@/api/item'
-import {
-  listitemorderbydealer
-} from '@/api/itemorder'
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+  import {
+    listitem
+  } from '@/api/item'
+  import {
+    listitemorderbydealer
+  } from '@/api/itemorder'
+  export default {
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          published: 'success',
+          draft: 'gray',
+          deleted: 'danger'
+        }
+        return statusMap[status]
       }
-      return statusMap[status]
-    }
-  },
-  data() {
-    return {
-      activeName: 'allproject',
-      listLoading: true,
-      itemlist: [],
-      shopcar: [],
-      itemorderlist: [],
-      itemvos: [],
-      totalprice: 0,
-      dialogVisible: false
-    }
-  },
-  created() {
-    this.listItemOrder()
-  },
-  methods: {
-    addShopcar(id, row) {
-      if (this.shopcar.indexOf(row) === -1) {
-        this.shopcar.push(row)
-      } else if (row.purchasecount === 0) {
-        this.shopcar.pop(row)
-      }
-      this.calcTotalPrice(this.shopcar)
     },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
+    data() {
+      return {
+        activeName: 'allproject',
+        listLoading: true,
+        itemlist: [],
+        shopcar: [],
+        itemorderlist: [],
+        itemvos: [],
+        totalprice: 0,
+        dialogVisible: false
+      }
+    },
+    created() {
+      this.listItemOrder()
+    },
+    methods: {
+      addShopcar(id, row) {
+        if (this.shopcar.indexOf(row) === -1) {
+          this.shopcar.push(row)
+        } else if (row.purchasecount === 0) {
+          this.shopcar.pop(row)
+        }
+        this.calcTotalPrice(this.shopcar)
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done()
+          })
+          .catch(_ => {})
+      },
+      confirmorder() {
+        this.dialogVisible = false
+      },
+      cancelorder() {
+        this.dialogVisible = false
+      },
+      calcTotalPrice(shopcar) {
+        this.totalprice = 0
+        for (let i = 0; i < this.shopcar.length; i++) {
+          var itemVO = this.shopcar[i]
+          this.totalprice += itemVO.price * itemVO.purchasecount
+        }
+      },
+      listItem() {
+        listitem().then((response) => {
+          this.itemlist = response.data
+          this.listLoading = false
         })
-        .catch(_ => {})
-    },
-    confirmorder() {
-      this.dialogVisible = false
-    },
-    cancelorder() {
-      this.dialogVisible = false
-    },
-    calcTotalPrice(shopcar) {
-      this.totalprice = 0
-      for (let i = 0; i < this.shopcar.length; i++) {
-        var itemVO = this.shopcar[i]
-        this.totalprice += itemVO.price * itemVO.purchasecount
+      },
+      listItemOrder() {
+        listitemorderbydealer().then((response) => {
+          this.itemorderlist = response.data
+          this.listLoading = false
+          console.log(this.itemorderlist)
+        })
       }
-    },
-    listItem() {
-      listitem().then((response) => {
-        this.itemlist = response.data
-        this.listLoading = false
-      })
-    },
-    listItemOrder() {
-      listitemorderbydealer().then((response) => {
-        this.itemorderlist = response.data
-        this.listLoading = false
-        console.log(this.itemorderlist)
-      })
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

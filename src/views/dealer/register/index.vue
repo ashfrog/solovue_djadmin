@@ -55,37 +55,37 @@
 </template>
 
 <script>
-import {
-  addBindOrder
-} from '@/api/user'
+  import {
+    addBindOrder
+  } from '@/api/user'
 
-export default {
-  data() {
-    return {
-      bindorder: {
-        telphone: '',
-        count: '',
-        bindcode: ''
+  export default {
+    data() {
+      return {
+        bindorder: {
+          telphone: '',
+          count: '',
+          bindcode: ''
+        }
+      }
+    },
+    created() {
+
+    },
+    methods: {
+      addOrder() {
+        addBindOrder(this.bindorder.telphone, this.bindorder.count, this.bindorder.bindcode).then(response => {
+          this.$message({
+            message: response,
+            type: 'success'
+          })
+        })
+      },
+      changedata(e) {
+        console.log(e)
       }
     }
-  },
-  created() {
-
-  },
-  methods: {
-    addOrder() {
-      addBindOrder(this.bindorder.telphone, this.bindorder.count, this.bindorder.bindcode).then(response => {
-        this.$message({
-          message: response,
-          type: 'success'
-        })
-      })
-    },
-    changedata(e) {
-      console.log(e)
-    }
   }
-}
 </script>
 
 <style lang="scss" scoped>

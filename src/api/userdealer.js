@@ -20,6 +20,12 @@ export function getInfo(token) {
   })
 }
 
+export function gettoken() {
+  return request({
+    url: '/userdealer/gettoken'
+  })
+}
+
 export function listdealer(token) {
   return request({
     url: '/userdealer/listdealer',

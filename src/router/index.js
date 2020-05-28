@@ -34,6 +34,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
+	hidden: true,
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
@@ -45,7 +46,7 @@ export const constantRoutes = [
       path: 'requestdealer',
       name: 'requestdealer',
       component: () => import('@/views/dealer/requestdealer/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '申请资料', icon: 'dashboard' },
     }]
   },
   {

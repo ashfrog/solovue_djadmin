@@ -152,6 +152,7 @@ import {
 import {
   listposition
 } from '@/api/area'
+// import store from '@/store'
 export default {
   filters: {
     statusFilter(status) {

@@ -16,7 +16,7 @@
               Home
             </el-dropdown-item>
           </router-link>
-          <router-link to="/">
+          <router-link to="/requestdealer">
             <el-dropdown-item>
               申请合作
             </el-dropdown-item>

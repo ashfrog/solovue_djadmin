@@ -34,7 +34,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-	hidden: true,
+    hidden: true,
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
@@ -46,7 +46,7 @@ export const constantRoutes = [
       path: 'requestdealer',
       name: 'requestdealer',
       component: () => import('@/views/dealer/requestdealer/index'),
-      meta: { title: '申请资料', icon: 'dashboard' },
+      meta: { title: '申请资料', icon: 'dashboard' }
     }]
   },
   {
@@ -238,14 +238,14 @@ export const asyncRoutes32 = [
     meta: { title: '审批', icon: 'example' },
     children: [
       {
-        path: 'dealerverify1',
-        name: 'dealerverify1',
-        component: () => import('@/views/processpurchase/index'),
+        path: 'processdealerrequest',
+        name: 'processdealerrequest',
+        component: () => import('@/views/processdealerrequest/index'),
         meta: { title: '资质审批', icon: 'tree' }
       },
       {
-        path: 'dealerverify2',
-        name: 'dealerverify2',
+        path: 'processpurchase',
+        name: 'processpurchase',
         component: () => import('@/views/processpurchase/index'),
         meta: { title: '采购审批', icon: 'tree' }
       }

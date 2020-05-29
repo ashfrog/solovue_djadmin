@@ -10,17 +10,17 @@ import {
 } from '@/utils/auth'
 
 // create an axios instance
-const jsservice = axios.create({
+const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json;'
   },
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 60000 // request timeout
 })
 
 // request interceptor
-jsservice.interceptors.request.use(
+service.interceptors.request.use(
   config => {
     // do something before request is sent
 
@@ -40,7 +40,7 @@ jsservice.interceptors.request.use(
 )
 
 // response interceptor
-jsservice.interceptors.response.use(
+service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
@@ -53,7 +53,7 @@ jsservice.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log('axio-request:response=>:', res)
+    console.log('axio-jsonrequest:response=>:', res)
 
     if (res.status !== 'success') {
       Message({
@@ -96,4 +96,4 @@ jsservice.interceptors.response.use(
   }
 )
 
-export default jsservice
+export default service

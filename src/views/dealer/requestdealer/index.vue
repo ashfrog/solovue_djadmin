@@ -25,7 +25,7 @@
         </el-col>
       </el-row>
 
-      
+
 
       <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="dialogImageUrl" alt="">
@@ -33,10 +33,19 @@
 
       <el-form ref="form" :model="userdealer" label-width="80px">
         <el-form-item label="经销区域">
-          <PositionSelector ref="positionSelector" @areacodeChange="areacodeChange"></PositionSelector>
+          <PositionSelector v-model="userdealer.agencyarea_code"></PositionSelector>
         </el-form-item>
-        <el-form-item label="经销区域">
-          <el-input size="mini" v-model="userdealer.name"></el-input>
+        <el-form-item label="法人代表">
+          <el-input size="mini" v-model="userdealer.legalperson"></el-input>
+        </el-form-item>
+        <el-form-item label="公司名称">
+          <el-input size="mini" v-model="userdealer.companyname"></el-input>
+        </el-form-item>
+        <el-form-item label="公司地址">
+          <PositionSelector v-model="userdealer.companyaddress_areacode"></PositionSelector>
+        </el-form-item>
+        <el-form-item label="详细地址">
+          <el-input size="mini" v-model="userdealer.companyaddressdetail"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -49,14 +58,14 @@
 
 <script>
   import PositionSelector from '@/components/PositionSelector'
+  import {requestdealer} from '@/api/userdealer.js'
 
-  var positionselector
   export default {
     components: {
       PositionSelector
     },
     mounted() {
-      positionselector = this.$refs.positionSelector
+
     },
     data() {
       return {
@@ -69,7 +78,7 @@
           companyname: '',
           companyaddress_areacode: '',
           companyaddressdetail: ''
-        }
+        },
       }
     },
     methods: {
@@ -81,11 +90,19 @@
         this.dialogVisible = true
       },
       onSubmit() {
-        console.log('submit!');
-        console.log("code:", positionselector.areacode)
+        console.log(this.userdealer)
+        requestdealer(this.userdealer).then(result=>{
+          if (result.status === 'success') {
+            this.$notify({
+              title: '通知消息',
+              message: '提交成功',
+              type: 'success'
+            })
+          }
+          console.log("申请成功",result)
+        })
       },
-      areacodeChange(areacode) {
-        this.userdealer.userdealer = areacode
+      agencyAreacodeChange(areacode) {
         console.log('地区:::',this.userdealer)
       },
     }

@@ -1,15 +1,7 @@
 <template>
   <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="itemlist"
-      element-loading-text="Loading"
-      border
-      fit
-      stripe
-      highlight-current-row
-      :default-sort="{prop: 'count', order: 'descending'}"
-    >
+    <el-table v-loading="listLoading" :data="itemlist" element-loading-text="Loading" border fit stripe
+      highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -74,9 +66,9 @@
         <el-button type="warning" @click="showOrderDetail()">采购确认</el-button>
       </div>
     </div>
-    <el-dialog title="填写订单" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+    <el-dialog title="填写订单" :visible.sync="dialogVisible" :before-close="handleClose">
       <span>
-        <el-form ref="form" :model="itemorderdetail" label-width="100px">
+        <el-form ref="form" :model="itemorderdetail" label-width="150px">
           <el-form-item label="客户单位">
             <el-input v-model="itemorderdetail.custorg" />
           </el-form-item>
@@ -96,38 +88,7 @@
             <el-input v-model="itemorderdetail.managertel" />
           </el-form-item>
           <el-form-item label="经销区域">
-            <el-select v-model="provinceid" placeholder="请选择省" size="mini" style="width:100px;" @change="Listcities(provinceid)">
-              <el-option
-                v-for="item in provinces"
-                :key="item.areaCode"
-                :label="item.areaName"
-                :value="item.areaCode"
-              >
-                <span style="float: left">{{ item.areaName }}</span>
-              </el-option>
-            </el-select>
-
-            <el-select v-model="cityid" placeholder="请选择市" size="mini" style="width:100px;margin:0 10px" @change="Listareas(cityid)">
-              <el-option
-                v-for="item in cities"
-                :key="item.areaCode"
-                :label="item.areaName"
-                :value="item.areaCode"
-              >
-                <span style="float: left">{{ item.areaName }}</span>
-              </el-option>
-            </el-select>
-
-            <el-select v-model="itemorderdetail.areacode" placeholder="请选择区县" size="mini" style="width:110px;">
-              <el-option
-                v-for="item in areas"
-                :key="item.areaCode"
-                :label="item.areaName"
-                :value="item.areaCode"
-              >
-                <span style="float: left">{{ item.areaName }}</span>
-              </el-option>
-            </el-select>
+            <PositionSelector v-model='itemorderdetail.areacode'></PositionSelector>
           </el-form-item>
           <el-form-item label="详细地址">
             <el-input v-model="itemorderdetail.areadetail" />
@@ -143,140 +104,127 @@
 </template>
 
 <script>
-import {
-  listitem
-} from '@/api/item'
-import {
-  additemorder
-} from '@/api/itemorder'
-import {
-  listposition
-} from '@/api/area'
-// import store from '@/store'
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
-  data() {
-    return {
-      activeName: 'allproject',
-      listLoading: true,
-      itemlist: [],
-      shopcar: [],
-      itemorderdetail: {
-        custorg: '',
-        project: '',
-        custmanager: '',
-        custmanagertel: '',
-        manager: '',
-        managertel: '',
-        areacode: '',
-        areadetail: ''
-      },
-      itemorderlist: [],
-      itemvos: [],
-      totalprice: 0,
-      dialogVisible: false,
-      provinces: [],
-      cities: [],
-      areas: [],
-      provinceid: '',
-      cityid: ''
-    }
-  },
-  created() {
-    this.listItem()
-    this.Listprovince()
-    // this.Listcities(450000)
-    // this.Listareas(451200)
-  },
-  methods: {
-    Listprovince() {
-      listposition(100000, 1).then(result => {
-        this.provinces = result.data
-        console.log('省级:', result)
-      })
-    },
-    Listcities(provinceid) {
-      listposition(provinceid, 2).then(result => {
-        this.cities = result.data
-        console.log('市级:', result)
-      })
-    },
-    Listareas(cityid) {
-      listposition(cityid, 3).then(result => {
-        this.areas = result.data
-        console.log('县级:', result)
-      })
-    },
+  import {
+    listitem
+  } from '@/api/item'
+  import {
+    additemorder
+  } from '@/api/itemorder'
+  import {
+    listposition
+  } from '@/api/area'
+  import PositionSelector from '@/components/PositionSelector'
 
-    addShopcar(id, row) {
-      var index = this.shopcar.findIndex(item => item.itemid === row.id)
-      var shopcaritem = this.shopcar.find(item => item.itemid === row.id)
-      if (index === -1) {
-        this.shopcar.push({ 'itemid': row.id, 'itemcount': row.purchasecount, 'itemprice': row.price })
-      } else {
-        shopcaritem.itemcount = row.purchasecount
-      }
-      if (row.purchasecount === 0) {
-        this.shopcar.pop(shopcaritem)
-      }
-      this.calcTotalPrice(this.shopcar)
+  // import store from '@/store'
+  export default {
+    components: {
+      PositionSelector
     },
-
-    showOrderDetail() {
-      this.dialogVisible = true
-    },
-
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
-    },
-
-    confirmorder() {
-      additemorder(this.shopcar, this.itemorderdetail).then((response) => {
-        if (response.status === 'success') {
-          this.$notify({
-            title: '通知消息',
-            message: '订单已提交',
-            type: 'success'
-          })
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          published: 'success',
+          draft: 'gray',
+          deleted: 'danger'
         }
-      })
-      this.dialogVisible = false
-    },
-
-    hideOrderDetailPanel() {
-      this.dialogVisible = false
-    },
-
-    calcTotalPrice(shopcar) {
-      this.totalprice = 0
-      for (let i = 0; i < this.shopcar.length; i++) {
-        var shopcaritem = this.shopcar[i]
-        this.totalprice += shopcaritem.itemprice * shopcaritem.itemcount
+        return statusMap[status]
       }
     },
+    data() {
+      return {
+        activeName: 'allproject',
+        listLoading: true,
+        itemlist: [],
+        shopcar: [],
+        itemorderdetail: {
+          custorg: '',
+          project: '',
+          custmanager: '',
+          custmanagertel: '',
+          manager: '',
+          managertel: '',
+          areacode: '',
+          areadetail: ''
+        },
+        itemorderlist: [],
+        itemvos: [],
+        totalprice: 0,
+        dialogVisible: false,
+      }
+    },
+    created() {
+      this.listItem()
+    },
+    methods: {
+      areacodeChange(areacode) {
+        this.itemorderdetail.areacode = areacode
+        console.log('itemorderdetail', this.itemorderdetail)
+      },
 
-    listItem() {
-      listitem().then((response) => {
-        this.itemlist = response.data
-        this.listLoading = false
-      })
+      addShopcar(id, row) {
+        var index = this.shopcar.findIndex(item => item.itemid === row.id)
+        var shopcaritem = this.shopcar.find(item => item.itemid === row.id)
+        if (index === -1) {
+          this.shopcar.push({
+            'itemid': row.id,
+            'itemcount': row.purchasecount,
+            'itemprice': row.price
+          })
+        } else {
+          shopcaritem.itemcount = row.purchasecount
+        }
+        if (row.purchasecount === 0) {
+          this.shopcar.pop(shopcaritem)
+        }
+        this.calcTotalPrice(this.shopcar)
+      },
+
+      showOrderDetail() {
+        this.dialogVisible = true
+      },
+
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done()
+          })
+          .catch(_ => {})
+      },
+
+      confirmorder() {
+        additemorder(this.shopcar, this.itemorderdetail).then((response) => {
+          if (response.status === 'success') {
+            this.$notify({
+              title: '通知消息',
+              message: '订单已提交',
+              type: 'success'
+            })
+          }
+        })
+        this.dialogVisible = false
+      },
+
+      hideOrderDetailPanel() {
+        this.dialogVisible = false
+      },
+
+      calcTotalPrice(shopcar) {
+        this.totalprice = 0
+        for (let i = 0; i < this.shopcar.length; i++) {
+          var shopcaritem = this.shopcar[i]
+          this.totalprice += shopcaritem.itemprice * shopcaritem.itemcount
+        }
+      },
+
+      listItem() {
+        listitem().then((response) => {
+          this.itemlist = response.data
+          this.listLoading = false
+        })
+      }
+
     }
-
   }
-}
 </script>
 
 <style lang="scss" scoped>

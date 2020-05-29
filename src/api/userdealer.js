@@ -1,6 +1,6 @@
 import request from '@/utils/axio-request'
+import jsonrequest from '@/utils/axio-jsonrequest'
 import qs from 'qs'
-
 export function login(telphone, password) {
   return request({
     url: '/userdealer/login',
@@ -16,7 +16,9 @@ export function getInfo(token) {
   return request({
     url: '/userdealer/info',
     method: 'get',
-    params: { token }
+    params: {
+      token
+    }
   })
 }
 
@@ -30,7 +32,9 @@ export function listdealer(token) {
   return request({
     url: '/userdealer/listdealer',
     method: 'get',
-    params: { token }
+    params: {
+      token
+    }
   })
 }
 
@@ -43,6 +47,17 @@ export function register(telphone, password, smscode, page) {
       password: password,
       smscode: smscode,
       page: page
+    })
+  })
+}
+
+export function setrights(dealerid, rights) {
+  return request({
+    url: '/userdealer/setrights',
+    method: 'post',
+    data: qs.stringify({
+      dealerid: dealerid,
+      rights: rights
     })
   })
 }
@@ -68,5 +83,15 @@ export function findpassword(telphone, password, smscode, page) {
       smscode: smscode,
       page: page
     })
+  })
+}
+
+export function requestdealer(userdealer) {
+  return jsonrequest({
+    url: '/userdealer/requestdealer',
+    method: 'post',
+    data: {
+      userDealer: userdealer
+    }
   })
 }

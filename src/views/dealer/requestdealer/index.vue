@@ -3,23 +3,20 @@
     <div class="document">
       <el-row>
         <el-col :span="8">
-          <el-upload ref="upload" action="http://localhost:8083/upload/uploadidentityfront" list-type="picture-card"
-            :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :auto-upload="true" :limit="1"
-            :with-credentials="true" :class="{hide:hideUpload}">
+          <el-upload action="/prod-api/upload/uploadidentityfront" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+            :auto-upload="true" :limit="1" :with-credentials="true" :class="{hide:hideUpload}">
             <div style="font-size:10px;color:red;">上传身份证正面</div>
           </el-upload>
         </el-col>
         <el-col :span="8">
-          <el-upload ref="upload" action="http://localhost:8083/upload/uploadidentityback" list-type="picture-card"
-            :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :auto-upload="true" :limit="1"
-            :with-credentials="true">
+          <el-upload action="/prod-api/upload/uploadidentityback" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+            :auto-upload="true" :limit="1" :with-credentials="true">
             <div style="font-size:10px;color:red;">上传身份证反面</div>
           </el-upload>
         </el-col>
         <el-col :span="8">
-          <el-upload ref="upload" action="http://localhost:8083/upload/uploadbusinesslicense" list-type="picture-card"
-            :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :auto-upload="true" :limit="1"
-            :with-credentials="true">
+          <el-upload action="/prod-api/upload/uploadbusinesslicense" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+            :auto-upload="true" :limit="1" :with-credentials="true">
             <div style="font-size:10px;color:red;">上传营业执照</div>
           </el-upload>
         </el-col>
@@ -58,7 +55,9 @@
 
 <script>
   import PositionSelector from '@/components/PositionSelector'
-  import {requestdealer} from '@/api/userdealer.js'
+  import {
+    requestdealer
+  } from '@/api/userdealer.js'
 
   export default {
     components: {
@@ -91,7 +90,7 @@
       },
       onSubmit() {
         console.log(this.userdealer)
-        requestdealer(this.userdealer).then(result=>{
+        requestdealer(this.userdealer).then(result => {
           if (result.status === 'success') {
             this.$notify({
               title: '通知消息',
@@ -99,11 +98,11 @@
               type: 'success'
             })
           }
-          console.log("申请成功",result)
+          console.log("申请成功", result)
         })
       },
       agencyAreacodeChange(areacode) {
-        console.log('地区:::',this.userdealer)
+        console.log('地区:::', this.userdealer)
       },
     }
   }

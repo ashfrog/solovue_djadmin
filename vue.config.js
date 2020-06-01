@@ -19,8 +19,8 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
-  outputDir: 'dist',
+  publicPath: '/admin',
+  outputDir: 'admin',
   assetsDir: 'static',
   lintOnSave: false,
   productionSourceMap: false,
@@ -34,7 +34,7 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         // target: 'http://www.crazysolo.com:8083/',
-        target: 'http://localhost:8083/',
+        target: 'http://localhost:8083',
         changeOrigin: false,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

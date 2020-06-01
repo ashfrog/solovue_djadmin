@@ -48,7 +48,7 @@ const actions = {
         const { data } = response
         console.log(response, 'rights')
         // data.rights = 1
-        data.avatar = 'http://117.78.27.73:8070/crazylogo/avatar.jpg'
+        data.avatar = 'https://www.crazysolo.com/crazylogo/avatar.jpg'
         console.log('data', data)
         if (!data) {
           reject('Verification failed, please Login again.')

@@ -4,7 +4,7 @@
       <dropzone
         id="myVueDropzone"
         ref="dropzonefun"
-        url="http://www.crazysolo.com:8083/upload/upload"
+        url="https://www.crazysolo.com/upload/upload"
         @dropzone-fileAdded="dropzoneA"
         @dropzone-removedFile="dropzoneR"
         @dropzone-success="dropzoneS"

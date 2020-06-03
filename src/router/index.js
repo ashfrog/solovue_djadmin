@@ -95,14 +95,14 @@ export const constantRoutes = [
     path: '/user',
     component: Layout,
     name: 'user',
-    redirect: '/user/orderlist',
+    redirect: '/user/authorize',
     meta: { title: '用户中心', icon: 'example' },
     children: [
       {
-        path: 'orderlist',
-        name: 'orderlist',
-        component: () => import('@/views/user/orderlist/index'),
-        meta: { title: '购买记录', icon: 'tree' }
+        path: 'authorize',
+        name: 'authorize',
+        component: () => import('@/views/user/authorize/index'),
+        meta: { title: '授权记录', icon: 'tree' }
       },
       {
         path: 'bindmachine',
@@ -114,31 +114,12 @@ export const constantRoutes = [
   }
 ]
 
-// 用户 1
+// 用户 权限 1
 export const asyncRoutes1 = [
-  // 404 page must be placed at the end !!!
-  // {
-  //   path: '/adminstore',
-  //   component: Layout,
-  //   meta: { title: '商店管理', icon: 'example' },
-  //   children: [
-  //     {
-  //       path: 'listitem',
-  //       name: 'Listitem',
-  //       component: () => import('@/views/store/listitem/index'),
-  //       meta: { title: '资源管理', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'upload',
-  //       name: 'Upload',
-  //       component: () => import('@/views/store/upload/index'),
-  //       meta: { title: '资源上传', icon: 'tree' }
-  //     }
-  //   ]
-  // },
+
 ]
 
-// 经销商 2
+// 经销商 权限 2
 export const asyncRoutes2 = [
   {
     path: '/dealer',
@@ -168,26 +149,32 @@ export const asyncRoutes4 = [
     path: '/admin',
     component: Layout,
     name: 'admin',
-    meta: { title: '订单管理', icon: 'example' },
+    meta: { title: '绑定管理', icon: 'example' },
     children: [
       {
         path: 'adminaddorder',
         name: 'adminaddorder',
-        component: () => import('@/views/user/addorder/index'),
-        meta: { title: '添加订单', icon: 'table' }
+        component: () => import('@/views/order/addorder/index'),
+        meta: { title: '添加绑定权限', icon: 'table' }
       },
       {
         path: 'adminorderlist',
         name: 'adminorderlist',
-        component: () => import('@/views/user/orderlist/index'),
-        meta: { title: '设备绑定订单', icon: 'tree' }
+        component: () => import('@/views/order/orderlist/index'),
+        meta: { title: '绑定权限表', icon: 'tree' }
       },
       {
         path: 'adminbindmachine',
         name: 'adminbindmachine',
-        component: () => import('@/views/user/bindmachine/index'),
+        component: () => import('@/views/order/bindmachine/index'),
         meta: { title: '设备绑定记录', icon: 'tree' }
-      }
+      },
+      {
+        path: 'authoriseorder',
+        name: 'authoriseorder',
+        component: () => import('@/views/order/authoriseorder/index'),
+        meta: { title: '设备分发授权', icon: 'tree' }
+      },
     ]
   },
   // 404 page must be placed at the end !!!
@@ -196,19 +183,7 @@ export const asyncRoutes4 = [
 
 // 资源编辑人员 rights 8
 export const asyncRoutes8 = [
-  {
-    path: '/adminstore/',
-    component: Layout,
-    meta: { title: '', icon: 'example' },
-    children: [
-      {
-        path: 'listitem',
-        name: 'Listitem',
-        component: () => import('@/views/adminstore/listitem/index'),
-        meta: { title: '资源管理', icon: 'table' }
-      }
-    ]
-  }
+
 ]
 
 // 资源上传人员 rights 16
@@ -217,13 +192,19 @@ export const asyncRoutes16 = [
     path: '/adminstore',
     redirect: '/adminstore/upload',
     component: Layout,
-    meta: { title: '', icon: 'example' },
+    meta: { title: '资源管理', icon: 'example' },
     children: [
       {
         path: 'upload',
         name: 'Upload',
         component: () => import('@/views/adminstore/upload/index'),
         meta: { title: '资源上传', icon: 'tree' }
+      },
+      {
+        path: 'listitem',
+        name: 'Listitem',
+        component: () => import('@/views/adminstore/listitem/index'),
+        meta: { title: '资源编辑', icon: 'table' }
       }
     ]
   }
@@ -240,13 +221,13 @@ export const asyncRoutes32 = [
       {
         path: 'processdealerrequest',
         name: 'processdealerrequest',
-        component: () => import('@/views/processdealerrequest/index'),
+        component: () => import('@/views/approve/processdealerrequest/index'),
         meta: { title: '资质审批', icon: 'tree' }
       },
       {
         path: 'processpurchase',
         name: 'processpurchase',
-        component: () => import('@/views/processpurchase/index'),
+        component: () => import('@/views/approve/processpurchase/index'),
         meta: { title: '采购审批', icon: 'tree' }
       }
     ]

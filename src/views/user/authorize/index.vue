@@ -13,7 +13,7 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="订单编号">
+            <el-form-item label="授权编号">
               <span>{{ props.row.id }}</span>
             </el-form-item>
             <el-form-item label="用户id">
@@ -34,7 +34,7 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="ID" width="195">
+      <el-table-column align="center" sortable prop="id" label="授权编号" width="195">
         <template slot-scope="scope">
           {{ scope.row.id }}
         </template>
@@ -86,6 +86,9 @@ import {
   deleteBindOrder
 } from '@/api/user'
 
+
+import {listauthoriseorder} from '@/api/userbindorder'
+
 export default {
   filters: {
     statusFilter(status) {
@@ -113,7 +116,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      listBindOrder(this.pageStart, this.pageSize).then(response => {
+      listauthoriseorder(this.pageStart, this.pageSize).then(response => {
         this.userBindOrderS = response.data
         console.log(response)
         this.listLoading = false

@@ -7,14 +7,14 @@
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="身份证正面">
               <span>
-                <img imgUrl='props.row.identityfront' />
+                <el-image :src="props.row.identityfront" :fit="fit"></el-image>
               </span>
             </el-form-item>
             <el-form-item label="身份证反面">
-              <img :src="props.row.identityback" width="100" height="50">
+              <el-image :src="props.row.identityback"  :fit="fit"></el-image>
             </el-form-item>
             <el-form-item label="营业执照">
-              <span>{{ props.row.businesslicense }}</span>
+              <el-image :src="props.row.businesslicense" :fit="fit"></el-image>
             </el-form-item>
             <el-form-item label="telphone">
               <span>{{ props.row.custmanager }} 手机号:{{ props.row.telphone }}</span>
@@ -99,6 +99,7 @@
     },
     data() {
       return {
+        fit: 'contain',
         userdealers: [],
         userdealer: {
           account: '',
@@ -142,8 +143,8 @@
           this.userdealers = result.data
         })
       },
-      setRights(dealerid,rights) {
-        setrights(dealerid,rights).then(result => {
+      setRights(dealerid, rights) {
+        setrights(dealerid, rights).then(result => {
           if (result.status === 'success') {
             this.$notify({
               title: '通知消息',

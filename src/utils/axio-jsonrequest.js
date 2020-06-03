@@ -66,9 +66,9 @@ service.interceptors.response.use(
       if (res.data.errCode === 10000) { // 用户未登录
         // to re-login
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again',
-          'Confirm logout', {
-            confirmButtonText: 'Re-Login',
-            cancelButtonText: 'Cancel',
+          '会话过期', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
           store.dispatch('user/resetToken').then(() => {

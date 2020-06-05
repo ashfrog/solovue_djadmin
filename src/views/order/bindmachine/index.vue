@@ -55,9 +55,9 @@
 
 <script>
 import {
-  listBindMachine,
+  listBindMachinebydealerid,
   deleteBindMachine
-} from '@/api/user'
+} from '@/api/userbindorder'
 
 export default {
   filters: {
@@ -86,7 +86,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      listBindMachine(this.pageStart, this.pageSize).then(response => {
+      listBindMachinebydealerid(this.pageStart, this.pageSize).then(response => {
         this.userBindMachineS = response.data
         console.log(response)
         this.listLoading = false

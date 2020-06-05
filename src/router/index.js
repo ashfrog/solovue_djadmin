@@ -30,24 +30,30 @@ import Layout from '@/layout'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
-export const constantRoutes = [
-  {
+export const constantRoutes = [{
     path: '/',
     component: Layout,
     hidden: true,
     redirect: '/dashboard',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    },
-    {
-      path: 'requestdealer',
-      name: 'requestdealer',
-      component: () => import('@/views/dealer/requestdealer/index'),
-      meta: { title: '申请资料', icon: 'dashboard' }
-    }]
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard'
+        }
+      },
+      {
+        path: 'requestdealer',
+        name: 'requestdealer',
+        component: () => import('@/views/dealer/requestdealer/index'),
+        meta: {
+          title: '申请资料',
+          icon: 'dashboard'
+        }
+      }
+    ]
   },
   {
     path: '/login',
@@ -69,46 +75,32 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'example' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: 'Tree', icon: 'tree' }
-  //     }
-  //   ]
-  // },
   {
     path: '/user',
     component: Layout,
     name: 'user',
     redirect: '/user/authorize',
-    meta: { title: '用户中心', icon: 'example' },
-    children: [
-      {
+    meta: {
+      title: '用户中心',
+      icon: 'example'
+    },
+    children: [{
         path: 'authorize',
         name: 'authorize',
         component: () => import('@/views/user/authorize/index'),
-        meta: { title: '授权记录', icon: 'tree' }
+        meta: {
+          title: '我的授权记录',
+          icon: 'tree'
+        }
       },
       {
         path: 'bindmachine',
         name: 'bindmachine',
         component: () => import('@/views/user/bindmachine/index'),
-        meta: { title: '绑定记录', icon: 'tree' }
+        meta: {
+          title: '我的绑定记录',
+          icon: 'tree'
+        }
       }
     ]
   }
@@ -120,129 +112,147 @@ export const asyncRoutes1 = [
 ]
 
 // 经销商 权限 2
-export const asyncRoutes2 = [
-  {
+export const asyncRoutes2 = [{
     path: '/dealer',
     component: Layout,
     name: 'dealer',
-    meta: { title: '项目采购', icon: 'example' },
-    children: [
-      {
+    meta: {
+      title: '项目采购',
+      icon: 'example'
+    },
+    children: [{
         path: 'purchase',
         name: 'purchase',
         component: () => import('@/views/dealer/purchase/index'),
-        meta: { title: '采购', icon: 'tree' }
+        meta: {
+          title: '采购',
+          icon: 'tree'
+        }
       },
       {
         path: 'purchaseorder',
         name: 'purchaseorder',
         component: () => import('@/views/dealer/purchaseorder/index'),
-        meta: { title: '采购订单', icon: 'tree' }
+        meta: {
+          title: '采购订单',
+          icon: 'tree'
+        }
       }
     ]
-  }
-]
-
-// 经销商管理人员 4
-export const asyncRoutes4 = [
+  },
   {
-    path: '/admin',
+    path: '/order',
     component: Layout,
-    name: 'admin',
-    meta: { title: '绑定管理', icon: 'example' },
-    children: [
-      {
-        path: 'adminaddorder',
-        name: 'adminaddorder',
-        component: () => import('@/views/order/addorder/index'),
-        meta: { title: '添加绑定权限', icon: 'table' }
-      },
-      {
-        path: 'adminorderlist',
-        name: 'adminorderlist',
-        component: () => import('@/views/order/orderlist/index'),
-        meta: { title: '绑定权限表', icon: 'tree' }
-      },
-      {
-        path: 'adminbindmachine',
-        name: 'adminbindmachine',
-        component: () => import('@/views/order/bindmachine/index'),
-        meta: { title: '设备绑定记录', icon: 'tree' }
-      },
-      {
+    name: 'order',
+    meta: {
+      title: '绑定管理',
+      icon: 'example'
+    },
+    children: [{
         path: 'authoriseorder',
         name: 'authoriseorder',
         component: () => import('@/views/order/authoriseorder/index'),
-        meta: { title: '设备分发授权', icon: 'tree' }
+        meta: {
+          title: '分发授权',
+          icon: 'tree'
+        }
+      },
+      {
+        path: 'authoriseorderlog',
+        name: 'authoriseorderlog',
+        component: () => import('@/views/order/authoriseorderlog/index'),
+        meta: {
+          title: '授权记录',
+          icon: 'tree'
+        }
+      },
+      {
+        path: 'bindmachine',
+        name: 'bindmachine',
+        component: () => import('@/views/order/bindmachine/index'),
+        meta: {
+          title: '绑定记录',
+          icon: 'tree'
+        }
       },
     ]
   },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
 ]
 
-// 资源编辑人员 rights 8
-export const asyncRoutes8 = [
-
-]
-
-// 资源上传人员 rights 16
-export const asyncRoutes16 = [
-  {
-    path: '/adminstore',
-    redirect: '/adminstore/upload',
-    component: Layout,
-    meta: { title: '资源管理', icon: 'example' },
-    children: [
-      {
-        path: 'upload',
-        name: 'Upload',
-        component: () => import('@/views/adminstore/upload/index'),
-        meta: { title: '资源上传', icon: 'tree' }
-      },
-      {
-        path: 'listitem',
-        name: 'Listitem',
-        component: () => import('@/views/adminstore/listitem/index'),
-        meta: { title: '资源编辑', icon: 'table' }
+// 审批人员 4
+export const asyncRoutes4 = [{
+  path: '/approve',
+  component: Layout,
+  name: 'approve',
+  meta: {
+    title: '审批',
+    icon: 'example'
+  },
+  children: [{
+      path: 'processdealerrequest',
+      name: 'processdealerrequest',
+      component: () => import('@/views/approve/processdealerrequest/index'),
+      meta: {
+        title: '资质审批',
+        icon: 'tree'
       }
-    ]
-  }
-]
-
-// 经销商资质审批 和 经销商采购审批
-export const asyncRoutes32 = [
-  {
-    path: '/dealerverify',
-    component: Layout,
-    name: 'dealerverify',
-    meta: { title: '审批', icon: 'example' },
-    children: [
-      {
-        path: 'processdealerrequest',
-        name: 'processdealerrequest',
-        component: () => import('@/views/approve/processdealerrequest/index'),
-        meta: { title: '资质审批', icon: 'tree' }
-      },
-      {
-        path: 'processpurchase',
-        name: 'processpurchase',
-        component: () => import('@/views/approve/processpurchase/index'),
-        meta: { title: '采购审批', icon: 'tree' }
+    },
+    {
+      path: 'processpurchase',
+      name: 'processpurchase',
+      component: () => import('@/views/approve/processpurchase/index'),
+      meta: {
+        title: '采购审批',
+        icon: 'tree'
       }
-    ]
-  }
-]
+    }
+  ]
+}]
 
-export const asyncRoutes64 = [
-]
+// 资源管理 rights 8
+export const asyncRoutes8 = [{
+  path: '/adminstore',
+  redirect: '/adminstore/upload',
+  component: Layout,
+  meta: {
+    title: '资源管理',
+    icon: 'example'
+  },
+  children: [{
+      path: 'upload',
+      name: 'Upload',
+      component: () => import('@/views/adminstore/upload/index'),
+      meta: {
+        title: '资源上传',
+        icon: 'tree'
+      }
+    },
+    {
+      path: 'listitem',
+      name: 'Listitem',
+      component: () => import('@/views/adminstore/listitem/index'),
+      meta: {
+        title: '资源编辑',
+        icon: 'table'
+      }
+    }
+  ]
+}]
 
-export const asyncRoutes128 = [
-]
+
+export const asyncRoutes16 = []
+
+export const asyncRoutes32 = []
+
+export const asyncRoutes64 = []
+
+export const asyncRoutes128 = []
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: constantRoutes
 })
 

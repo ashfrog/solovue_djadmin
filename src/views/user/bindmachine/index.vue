@@ -55,10 +55,10 @@
 
 <script>
 import {
-  listBindMachine,
+  listBindMachinebyuserid,
   deleteBindMachine
-} from '@/api/user'
-
+} from '@/api/userbindorder'
+import store from '@/store'
 export default {
   filters: {
     statusFilter(status) {
@@ -86,7 +86,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      listBindMachine(this.pageStart, this.pageSize).then(response => {
+      listBindMachinebyuserid(this.pageStart, this.pageSize, store.getters.token).then(response => {
         this.userBindMachineS = response.data
         console.log(response)
         this.listLoading = false

@@ -63,7 +63,7 @@
       <div style="width:300px;float:right;display:flex;flex-direction:row;">
         <div style="line-height: 50px;margin-right:0px;color:gray;width:80px;">总价￥:</div>
         <div style="line-height: 50px;margin-right:0px;color:red;width:100px;">{{ totalprice }}</div>
-        <el-button type="warning" @click="showOrderDetail()">采购确认</el-button>
+        <el-button type="warning" @click="showOrderDetail()">采购下单</el-button>
       </div>
     </div>
     <el-dialog title="填写订单" :visible.sync="dialogVisible" :before-close="handleClose">

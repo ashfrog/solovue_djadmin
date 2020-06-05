@@ -63,7 +63,9 @@
       </el-table-column>
       <el-table-column label="分发设备" align="center">
         <template slot-scope="scope">
-          <el-button v-show="scope.row.state=='审核通过'" type="text" @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)">指定用户</el-button>
+          <el-button :disabled="scope.row.itemcount == scope.row.authorisedcount" v-show="scope.row.state=='审核通过'" type="text"
+            @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)">授权用户</el-button>
+          <el-button v-show="scope.row.state!='审核通过' " type="text" @click="deleteItemorder(scope.row.orderno)" style="color:#F56C6C">撤回申请</el-button>
         </template>
       </el-table-column>
 
@@ -72,11 +74,11 @@
     <el-dialog center title="授权用户" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
       <span slot="footer" class="dialog-footer">
         <el-form label-width="100px" :model="bindorder">
-          <el-input v-model="bindorder.telphone" label-width="100px" placeholder="请输入用户的手机号">
+          <el-input v-model="bindorder.telphone" label-width="100px" placeholder="请输入用户微信绑定的手机号">
             <template slot="prepend">用户:</template>
           </el-input>
           <div style="margin: 20px;" />
-          <el-input v-model="bindorder.count" placeholder="请指定数量">
+          <el-input v-model="bindorder.count" placeholder="请指定设备数量">
             <template slot="prepend">数量:</template>
           </el-input>
           <div style="margin: 20px;" />
@@ -97,7 +99,8 @@
     listitem
   } from '@/api/item'
   import {
-    listitemorderbydealer
+    listitemorderbydealer,
+    deleteitemorder
   } from '@/api/itemorder'
   import {
     addBindOrder
@@ -158,6 +161,13 @@
           })
           .catch(_ => {})
       },
+      deleteItemorder(orderno) {
+        deleteitemorder(orderno).then(response => {
+          this.itemorderlist = this.itemorderlist.filter((itemorder) => {
+            return itemorder.orderno != orderno
+          })
+        })
+      },
       confirmorder() {
         this.dialogVisible = false
       },
@@ -184,7 +194,7 @@
           if (response.status == 'success') {
             var index = this.itemorderlist.findIndex((itemorder) => itemorder.itemid === response.data.itemid &&
               itemorder.orderno === response.data.orderno)
-              this.itemorderlist[index].authorisedcount = response.data.authorisedcount
+            this.itemorderlist[index].authorisedcount = response.data.authorisedcount
             this.$message({
               message: "提交成功",
               type: 'success'

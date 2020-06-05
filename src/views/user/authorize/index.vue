@@ -84,7 +84,7 @@
 import {
   listBindOrder,
   deleteBindOrder
-} from '@/api/user'
+} from '@/api/userbindorder'
 
 
 import {listauthoriseorder} from '@/api/userbindorder'

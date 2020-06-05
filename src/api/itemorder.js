@@ -40,6 +40,16 @@ export function listitemorder(pageStart, pageSize) {
   })
 }
 
+export function deleteitemorder(orderno) {
+  return request({
+    url: '/itemorder/deleteitemorder',
+    method: 'post',
+    data: qs.stringify({
+      orderno: orderno
+    })
+  })
+}
+
 export function updateExpressNumberbyOrderno(orderno, itemid, expressnumber) {
   return request({
     url: '/itemorder/updateExpressNumberbyOrderno',

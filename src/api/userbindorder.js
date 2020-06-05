@@ -56,9 +56,43 @@ export function listBindMachine(pageStart, pageSize) {
   })
 }
 
+export function listBindMachinebydealerid(pageStart, pageSize) {
+  return request({
+    url: '/userbindorder/listBindMachinebydealerid',
+    method: 'post',
+    data: qs.stringify({
+      pageStart: pageStart,
+      pageSize: pageSize
+    })
+  })
+}
+
+export function listBindMachinebyuserid(pageStart, pageSize, userid) {
+  return request({
+    url: '/userbindorder/listBindMachinebyuserid',
+    method: 'post',
+    data: qs.stringify({
+      pageStart: pageStart,
+      pageSize: pageSize,
+      userid: userid
+    })
+  })
+}
+
 export function listauthoriseorder(pageStart, pageSize) {
   return request({
     url: '/userbindorder/listauthoriseorder',
+    method: 'post',
+    data: qs.stringify({
+      pageStart: pageStart,
+      pageSize: pageSize
+    })
+  })
+}
+
+export function listauthoriseorderlog(pageStart, pageSize) {
+  return request({
+    url: '/userbindorder/listauthoriseorderlog',
     method: 'post',
     data: qs.stringify({
       pageStart: pageStart,

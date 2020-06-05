@@ -73,6 +73,11 @@
           {{ scope.row.state }}
         </template>
       </el-table-column>
+      <el-table-column label="经销商手机" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.dealerphone }}
+        </template>
+      </el-table-column>
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
           <el-button
@@ -93,9 +98,6 @@
 
 <script>
 import {
-  listitem
-} from '@/api/item'
-import {
   listitemorder,
   updateStatebyOrderno,
   updateExpressNumberbyOrderno
@@ -114,7 +116,7 @@ export default {
   data() {
     return {
       activeName: 'allproject',
-      listLoading: true,
+      listLoading: false,
       itemlist: [],
       shopcar: [],
       itemorderlist: [],
@@ -155,12 +157,7 @@ export default {
         this.totalprice += itemVO.price * itemVO.purchasecount
       }
     },
-    listItem() {
-      listitem().then((response) => {
-        this.itemlist = response.data
-        this.listLoading = false
-      })
-    },
+
     listItemOrder() {
       listitemorder(0, 1000).then((response) => {
         this.itemorderlist = response.data

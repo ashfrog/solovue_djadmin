@@ -19,7 +19,7 @@
             <el-form-item label="用户id">
               <span>{{ props.row.userid }}</span>
             </el-form-item>
-            <el-form-item label="用户手机号">
+            <el-form-item label="绑定手机号">
               <span>{{ props.row.userphone }}</span>
             </el-form-item>
             <el-form-item label="购买数量">
@@ -71,9 +71,9 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            type="danger"
+            type="text"
             @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+          >删除授权</el-button>
         </template>
       </el-table-column>
     </el-table>

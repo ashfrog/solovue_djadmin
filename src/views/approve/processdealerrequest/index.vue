@@ -11,7 +11,7 @@
               </span>
             </el-form-item>
             <el-form-item label="身份证反面">
-              <el-image :src="props.row.identityback"  :fit="fit"></el-image>
+              <el-image :src="props.row.identityback" :fit="fit"></el-image>
             </el-form-item>
             <el-form-item label="营业执照">
               <el-image :src="props.row.businesslicense" :fit="fit"></el-image>
@@ -57,16 +57,31 @@
           <span>{{ scope.row.legalperson }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="公司地址" sortable prop="legalperson" width="110" align="center">
+      <el-table-column label="公司地址" width="110" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.companyaddress }}</span>
         </template>
       </el-table-column>
-
+      <el-table-column label="权限" sortable prop="rights" width="110" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.rights }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="状态" align="center">
+        <template slot-scope="scope">
+          <div v-if="scope.row.rights==0">
+            <el-tag type="warning">待审核</el-tag>
+          </div>
+          <div v-else>
+            <el-tag type="warning">已审核</el-tag>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="danger" @click="setRights(scope.row.dealerid, 4)">通过</el-button>
-          <el-button size="mini" type="danger" @click="setRights(scope.row.dealerid, 1)">驳回</el-button>
+          <div v-if="scope.row.rights==0">
+            <el-button size="mini" type="text" @click="setRights(scope.row, 3)">通过</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -125,9 +140,11 @@
           this.userdealers = result.data
         })
       },
-      setRights(dealerid, rights) {
-        setrights(dealerid, rights).then(result => {
+      setRights(rowdata, rights) {
+        setrights(rowdata.dealerid, rights).then(result => {
           if (result.status === 'success') {
+            rowdata.rights = result.data.rights
+            console.log(rowdata)
             this.$notify({
               title: '通知消息',
               message: '授权成功',

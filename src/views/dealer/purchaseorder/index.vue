@@ -58,7 +58,9 @@
       </el-table-column>
       <el-table-column label="订单状态" align="center">
         <template slot-scope="scope">
-          {{ scope.row.state }}
+          <el-tag type="info">
+            {{ scope.row.state }}
+          </el-tag>
         </template>
       </el-table-column>
     </el-table>

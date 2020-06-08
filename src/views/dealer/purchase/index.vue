@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="itemlist" element-loading-text="Loading" border fit stripe
-      highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
+    <el-table v-loading="listLoading" :data="itemlist" element-loading-text="Loading" fit stripe highlight-current-row
+      :default-sort="{prop: 'count', order: 'descending'}">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">

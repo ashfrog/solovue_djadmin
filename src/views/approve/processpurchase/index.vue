@@ -1,24 +1,15 @@
 <template>
   <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="itemorderlist"
-      element-loading-text="Loading"
-      fit
-      stripe
-      highlight-current-row
-      :default-sort="{prop: 'count', order: 'descending'}"
-    >
+    <el-table v-loading="listLoading" :data="itemorderlist" element-loading-text="Loading" fit stripe
+      highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="运单号">
-              <span><el-input v-model="props.row.expressnumber" size="mini" placeholder="请输入运单号" />
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="UpdateExpressNumberbyOrderno(props.row)"
-                >确认</el-button></span>
+              <span>
+                <el-input v-model="props.row.expressnumber" size="mini" placeholder="请输入运单号" />
+                <el-button size="mini" type="danger" @click="UpdateExpressNumberbyOrderno(props.row)">确认</el-button>
+              </span>
             </el-form-item>
             <el-form-item label="客户单位">
               <span>{{ props.row.custorg }}</span>
@@ -70,7 +61,7 @@
       </el-table-column>
       <el-table-column label="订单状态" align="center">
         <template slot-scope="scope">
-          {{ scope.row.state }}
+          <el-tag :type="scope.row.state=='审核通过'?'success':''">{{ scope.row.state }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="经销商手机" align="center">
@@ -80,16 +71,10 @@
       </el-table-column>
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="danger"
-            @click="UpdateStatebyOrderno(scope.row, 'ProcessComplete')"
-          >通过</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="UpdateStatebyOrderno(scope.row, 'ProcessFail')"
-          >驳回</el-button>
+          <div v-if="scope.row.state=='待审核'">
+            <el-button size="mini" type="text" @click="UpdateStatebyOrderno(scope.row, 'ProcessComplete')">通过</el-button>
+            <el-button size="mini" type="text" @click="UpdateStatebyOrderno(scope.row, 'ProcessFail')">驳回</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -97,92 +82,92 @@
 </template>
 
 <script>
-import {
-  listitemorder,
-  updateStatebyOrderno,
-  updateExpressNumberbyOrderno
-} from '@/api/itemorder'
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
-  data() {
-    return {
-      activeName: 'allproject',
-      listLoading: false,
-      itemlist: [],
-      shopcar: [],
-      itemorderlist: [],
-      itemvos: [],
-      totalprice: 0,
-      dialogVisible: false
-    }
-  },
-  created() {
-    this.listItemOrder()
-  },
-  methods: {
-    addShopcar(id, row) {
-      if (this.shopcar.indexOf(row) === -1) {
-        this.shopcar.push(row)
-      } else if (row.purchasecount === 0) {
-        this.shopcar.pop(row)
-      }
-      this.calcTotalPrice(this.shopcar)
-    },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
-    },
-    confirmorder() {
-      this.dialogVisible = false
-    },
-    cancelorder() {
-      this.dialogVisible = false
-    },
-    calcTotalPrice(shopcar) {
-      this.totalprice = 0
-      for (let i = 0; i < this.shopcar.length; i++) {
-        var itemVO = this.shopcar[i]
-        this.totalprice += itemVO.price * itemVO.purchasecount
+  import {
+    listitemorder,
+    updateStatebyOrderno,
+    updateExpressNumberbyOrderno
+  } from '@/api/itemorder'
+  export default {
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          published: 'success',
+          draft: 'gray',
+          deleted: 'danger'
+        }
+        return statusMap[status]
       }
     },
+    data() {
+      return {
+        activeName: 'allproject',
+        listLoading: false,
+        itemlist: [],
+        shopcar: [],
+        itemorderlist: [],
+        itemvos: [],
+        totalprice: 0,
+        dialogVisible: false
+      }
+    },
+    created() {
+      this.listItemOrder()
+    },
+    methods: {
+      addShopcar(id, row) {
+        if (this.shopcar.indexOf(row) === -1) {
+          this.shopcar.push(row)
+        } else if (row.purchasecount === 0) {
+          this.shopcar.pop(row)
+        }
+        this.calcTotalPrice(this.shopcar)
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done()
+          })
+          .catch(_ => {})
+      },
+      confirmorder() {
+        this.dialogVisible = false
+      },
+      cancelorder() {
+        this.dialogVisible = false
+      },
+      calcTotalPrice(shopcar) {
+        this.totalprice = 0
+        for (let i = 0; i < this.shopcar.length; i++) {
+          var itemVO = this.shopcar[i]
+          this.totalprice += itemVO.price * itemVO.purchasecount
+        }
+      },
 
-    listItemOrder() {
-      listitemorder(0, 1000).then((response) => {
-        this.itemorderlist = response.data
-        this.listLoading = false
-        console.log(this.itemorderlist)
-      })
-    },
-    UpdateStatebyOrderno(itemorder, state) {
-      updateStatebyOrderno(itemorder.orderno, itemorder.itemid, state).then((response) => {
-        if (response.status === 'success') {
-          itemorder.state = response.data
-        }
-        console.log(response)
-      })
-    },
-    UpdateExpressNumberbyOrderno(itemorder) {
-      updateExpressNumberbyOrderno(itemorder.orderno, itemorder.itemid, itemorder.expressnumber).then((response) => {
-        if (response.status === 'success') {
+      listItemOrder() {
+        listitemorder(0, 1000).then((response) => {
+          this.itemorderlist = response.data
+          this.listLoading = false
+          console.log(this.itemorderlist)
+        })
+      },
+      UpdateStatebyOrderno(itemorder, state) {
+        updateStatebyOrderno(itemorder.orderno, itemorder.itemid, state).then((response) => {
+          if (response.status === 'success') {
+            itemorder.state = response.data
+          }
           console.log(response)
-        }
-        console.log(response)
-      })
+        })
+      },
+      UpdateExpressNumberbyOrderno(itemorder) {
+        updateExpressNumberbyOrderno(itemorder.orderno, itemorder.itemid, itemorder.expressnumber).then((response) => {
+          if (response.status === 'success') {
+            console.log(response)
+          }
+          console.log(response)
+        })
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

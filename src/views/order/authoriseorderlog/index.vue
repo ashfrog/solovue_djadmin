@@ -31,7 +31,7 @@
                         <div class="grid-content bg-purple">绑定编号: {{userbind.bindOrderid}}</div>
                       </el-col>
                       <el-col :span="10">
-                        <div class="grid-content bg-purple">用户: {{userbind.id}}</div>
+                        <div class="grid-content bg-purple">绑定ID: {{userbind.id}}</div>
                       </el-col>
                       <el-col :span="8">
                         <div class="grid-content bg-purple">
@@ -84,10 +84,10 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column label="数量" align="center">
+      <el-table-column label="分发/绑定数量" align="center">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="分发数量" :open-delay="delayms" placement="top-end">
-            <el-tag type="warning">{{scope.row.count}}</el-tag>
+            <el-tag type="primary">{{scope.row.count}}</el-tag>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="已绑定数量" :open-delay="delayms" placement="top-start">
             <el-tag type="warning">{{scope.row.bindedcount}}</el-tag>

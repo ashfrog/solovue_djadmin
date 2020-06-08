@@ -45,10 +45,10 @@
           {{ new Date(scope.row.createtime).toLocaleString() }}
         </template>
       </el-table-column>
-      <el-table-column label="数量" align="center">
+      <el-table-column label="采购/分发数量" align="center">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="采购数量" :open-delay="delayms" placement="top-end">
-            <el-tag :type="scope.row.state=='审核通过' ? 'success':'danger' ">{{scope.row.itemcount}}</el-tag>
+            <el-tag :type="scope.row.state=='审核通过' ? 'primary':'danger' ">{{scope.row.itemcount}}</el-tag>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="已分发数量" :open-delay="delayms" placement="top-start">
             <el-tag :type="scope.row.state=='审核通过' ? 'warning':'danger' ">{{scope.row.authorisedcount}}</el-tag>
@@ -68,7 +68,6 @@
           <el-button v-show="scope.row.state!='审核通过' " type="text" @click="deleteItemorder(scope.row.orderno)" style="color:#F56C6C">撤回申请</el-button>
         </template>
       </el-table-column>
-
     </el-table>
 
     <el-dialog center title="授权用户" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
@@ -162,11 +161,17 @@
           .catch(_ => {})
       },
       deleteItemorder(orderno) {
-        deleteitemorder(orderno).then(response => {
-          this.itemorderlist = this.itemorderlist.filter((itemorder) => {
-            return itemorder.orderno != orderno
+        this.$confirm('此操作将彻底删除该订单, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteitemorder(orderno).then(response => {
+            this.itemorderlist = this.itemorderlist.filter((itemorder) => {
+              return itemorder.orderno != orderno
+            })
           })
-        })
+        }).catch(() => {})
       },
       confirmorder() {
         this.dialogVisible = false

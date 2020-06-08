@@ -44,9 +44,9 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            type="danger"
+            type="text"
             @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+          >解绑</el-button>
         </template>
       </el-table-column>
     </el-table>

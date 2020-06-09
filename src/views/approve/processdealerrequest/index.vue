@@ -26,10 +26,10 @@
               <span>{{ props.row.companyname }}</span>
             </el-form-item>
             <el-form-item label="经销区域">
-              <span>{{ props.row.agencyarea_code }}</span>
+              <span>{{ props.row.agencyarea }}</span>
             </el-form-item>
             <el-form-item label="公司地址">
-              <span>{{ props.row.companyaddress_areacode }}</span>
+              <span>{{ props.row.companyaddress }}</span>
             </el-form-item>
             <el-form-item label="公司详细地址">
               <span>{{ props.row.companyaddressdetail }}</span>

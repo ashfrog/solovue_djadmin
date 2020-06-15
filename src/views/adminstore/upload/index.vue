@@ -4,7 +4,7 @@
       <dropzone
         id="myVueDropzone"
         ref="dropzonefun"
-        url="https://www.crazysolo.com/upload/upload"
+        :url="uploadurl"
         @dropzone-fileAdded="dropzoneA"
         @dropzone-removedFile="dropzoneR"
         @dropzone-success="dropzoneS"
@@ -32,6 +32,7 @@ import {
   // readText
 } from '@/utils/fileutils'
 import Dropzone from '@/components/Dropzone'
+const ipconfig = require ('@/ipconfig.js')
 // import BMF from 'browser-md5-file'
 // const bmf = new BMF()
 var dropzonecomp
@@ -43,11 +44,12 @@ export default {
   data: function() {
     return {
       countarr: [],
-      count: 0
+      count: 0,
+      uploadurl:ipconfig.uploadurl+'/upload/upload'
     }
   },
   created() {
-
+    console.log("uploadurl:",this.uploadurl)
   },
   mounted() {
     dropzonecomp = this.$refs.dropzonefun

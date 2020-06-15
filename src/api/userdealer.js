@@ -15,10 +15,10 @@ export function login(telphone, password) {
 export function getInfo(token) {
   return request({
     url: '/userdealer/info',
-    method: 'get',
-    params: {
-      token
-    }
+    method: 'post',
+    data: qs.stringify({
+      token: token
+    })
   })
 }
 

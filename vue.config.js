@@ -1,7 +1,7 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
-
+const ipconfig = require('./src/ipconfig.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -33,8 +33,9 @@ module.exports = {
     },
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        target: 'https:www.crazysolo.com',
-        // target: 'http://117.78.27.73:8083/',
+        target: ipconfig.host,
+        // target: 'http://119.3.167.68:8083/',
+        // target: 'http://106.52.37.72:8083/',
         // target: 'http://localhost:8083',
         changeOrigin: false,
         pathRewrite: {

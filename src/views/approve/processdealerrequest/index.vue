@@ -69,7 +69,7 @@
       </el-table-column>
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.rights==0">
+          <div v-if="scope.row.rights==1">
             <el-tag type="warning">待审核</el-tag>
           </div>
           <div v-else>
@@ -79,7 +79,7 @@
       </el-table-column>
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.rights==0">
+          <div v-if="scope.row.rights==1">
             <el-button size="mini" type="text" @click="setRights(scope.row, 3)">通过</el-button>
           </div>
         </template>

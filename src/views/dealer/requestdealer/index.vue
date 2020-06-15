@@ -3,19 +3,19 @@
     <div class="document">
       <el-row>
         <el-col :span="8">
-          <el-upload action="/prod-api/upload/uploadidentityfront" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+          <el-upload :action="fronturl" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
             :auto-upload="true" :limit="1" :with-credentials="true" :class="{hide:hideUpload}">
             <div style="font-size:10px;color:red;">上传身份证正面</div>
           </el-upload>
         </el-col>
         <el-col :span="8">
-          <el-upload action="/prod-api/upload/uploadidentityback" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+          <el-upload :action="backurl" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
             :auto-upload="true" :limit="1" :with-credentials="true">
             <div style="font-size:10px;color:red;">上传身份证反面</div>
           </el-upload>
         </el-col>
         <el-col :span="8">
-          <el-upload action="/prod-api/upload/uploadbusinesslicense" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+          <el-upload :action="busilesslicenseurl" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
             :auto-upload="true" :limit="1" :with-credentials="true">
             <div style="font-size:10px;color:red;">上传营业执照</div>
           </el-upload>
@@ -58,16 +58,17 @@
   import {
     requestdealer
   } from '@/api/userdealer.js'
-
   export default {
     components: {
       PositionSelector
     },
     mounted() {
-
     },
     data() {
       return {
+        fronturl:process.env.VUE_APP_BASE_API+'/upload/uploadidentityfront',
+        backurl:process.env.VUE_APP_BASE_API+'/upload/uploadidentityback',
+        busilesslicenseurl:process.env.VUE_APP_BASE_API+'/upload/uploadbusinesslicense',
         dialogImageUrl: '',
         dialogVisible: false,
         hideUpload: false,

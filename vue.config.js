@@ -34,9 +34,6 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         target: ipconfig.host,
-        // target: 'http://119.3.167.68:8083/',
-        // target: 'http://106.52.37.72:8083/',
-        // target: 'http://localhost:8083',
         changeOrigin: false,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

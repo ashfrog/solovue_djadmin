@@ -11,6 +11,13 @@ export function getocken(platform) {
   })
 }
 
+export function listappinfo() {
+  return request({
+    url: '/wxapp/listappinfo',
+    method: 'get'
+  })
+}
+
 export function getwxacodeunlimit(scene, path, platform) {
   return request({
     url: '/wxapp/getwxlitcodeunlimit',

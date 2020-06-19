@@ -53,9 +53,8 @@ jsservice.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log('axio-request:response=>:', res)
 
-    if (res.status !== 'success') {
+    if (res.status === 'fail') {
       Message({
         message: res.data.errMsg || 'Error',
         type: 'error',

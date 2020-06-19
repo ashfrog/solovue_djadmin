@@ -12,13 +12,10 @@ export function login(telphone, password) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
     url: '/userdealer/info',
-    method: 'post',
-    data: qs.stringify({
-      token: token
-    })
+    method: 'post'
   })
 }
 

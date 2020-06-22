@@ -34,11 +34,11 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         target: ipconfig.host,
-        changeOrigin: false,
+        changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
         },
-        secure: false
+        secure: true
       }
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy

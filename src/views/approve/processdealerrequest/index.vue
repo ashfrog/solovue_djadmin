@@ -135,7 +135,7 @@
     methods: {
       listDealer() {
         console.log("管理")
-        listdealer("").then(result => {
+        listdealer().then(result => {
           console.log("经销商管理:", result)
           this.userdealers = result.data
         })

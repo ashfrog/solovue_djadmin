@@ -99,15 +99,12 @@ export default {
       //     // console.log('progress number:', progress)
       //   },
       // )
-      this.$message({
-        message: 'Addfile success',
-        type: 'success'
-      })
     },
     dropzoneS(file) {
       // console.log('dropzoneS', file)
-      this.$message({
-        message: 'Upload success',
+      this.$notify({
+        title: '通知消息',
+        message: file.filename+'上传成功',
         type: 'success'
       })
     },
@@ -119,10 +116,6 @@ export default {
     },
     dropzoneR(file) {
       // console.log('dropzoneR', file)
-      this.$message({
-        message: 'Delete success',
-        type: 'success'
-      })
     },
     removeAllFiles() {
       dropzonecomp.dropzone.removeAllFiles(true)

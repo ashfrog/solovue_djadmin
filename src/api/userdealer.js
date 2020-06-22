@@ -25,13 +25,10 @@ export function gettoken() {
   })
 }
 
-export function listdealer(token) {
+export function listdealer() {
   return request({
     url: '/userdealer/listdealer',
-    method: 'get',
-    params: {
-      token
-    }
+    method: 'get'
   })
 }
 

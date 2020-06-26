@@ -69,17 +69,17 @@
       </el-table-column>
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.rights==1">
+          <div v-if="scope.row.verified == 0">
             <el-tag type="warning">待审核</el-tag>
           </div>
-          <div v-else>
+          <div v-if="scope.row.verified == 1">
             <el-tag type="warning">已审核</el-tag>
           </div>
         </template>
       </el-table-column>
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.rights==1">
+          <div v-if="scope.row.rights==1 && scope.row.verified == 0">
             <el-button size="mini" type="text" @click="setRights(scope.row, 3)">通过</el-button>
           </div>
         </template>
@@ -143,6 +143,7 @@
       setRights(rowdata, rights) {
         setrights(rowdata.dealerid, rights).then(result => {
           if (result.status === 'success') {
+            rowdata.verified = result.data.verified
             rowdata.rights = result.data.rights
             console.log(rowdata)
             this.$notify({

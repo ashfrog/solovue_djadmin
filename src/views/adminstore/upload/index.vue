@@ -45,7 +45,7 @@ export default {
     return {
       countarr: [],
       count: 0,
-      uploadurl:ipconfig.uploadurl+'/upload/upload'
+      uploadurl:ipconfig.filehost+':8083/upload/upload'
     }
   },
   created() {
@@ -102,17 +102,18 @@ export default {
     },
     dropzoneS(file) {
       // console.log('dropzoneS', file)
-      this.$notify({
-        title: '通知消息',
-        message: file.filename+'上传成功',
-        type: 'success'
-      })
+      
     },
     dropzoneSend(file, xhr, formData) {
       // console.log('dropzoneSending', xhr)
     },
     dropzoneSuccessmultiple(file, error, xhr) {
       this.processQueue()
+      this.$notify({
+        title: '通知消息',
+        message: '上传成功',
+        type: 'success'
+      })
     },
     dropzoneR(file) {
       // console.log('dropzoneR', file)

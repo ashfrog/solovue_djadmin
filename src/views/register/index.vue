@@ -43,8 +43,7 @@
           auto-complete="on"
           style="width:65%;display:inline-block"
         />
-        <el-button v-if="show" type="warning" round size="mini" style="display:inline-block;margin-left:30px;" @click.native.prevent="requestsmscode">点击获取{{ count }}</el-button>
-        <el-button v-if="!show" :disabled="true" type="info" round size="mini" style="display:inline-block" @click.native.prevent="requestsmscode">{{ count }}秒后重新获取</el-button>
+        <el-button :disabled="count>0" type="warning" round size="mini" style="position:absolute;display:inline-block;right:0;top:10px;" @click.native.prevent="requestsmscode">{{count>0?count+'秒后获取':'点击获取'}}</el-button>
       </el-form-item>
 
       <el-form-item prop="password">

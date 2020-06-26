@@ -1,22 +1,23 @@
 <template>
   <div>
-    <el-select filterable v-model="provinceid" placeholder="请选择省" size="mini" @change="Listcities(provinceid)">
+    <el-select class="selecter" filterable v-model="provinceid" placeholder="请选择省" size="mini" @change="Listcities(provinceid)">
       <el-option v-for="item in provinces" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
         <span style="float: left">{{ item.areaName }}</span>
       </el-option>
     </el-select>
-
-    <el-select filterable no-match-text="" v-model="cityid" placeholder="请选择市" size="mini" style="margin:0 10px" @change="Listareas(cityid)">
+    <span class="space"></span>
+    <el-select class="selecter" filterable no-match-text="" v-model="cityid" placeholder="请选择市" size="mini" @change="Listareas(cityid)">
       <el-option v-for="item in cities" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
-        <span style="float: left">{{ item.areaName }}</span>
+        <span style="float: left;">{{ item.areaName }}</span>
       </el-option>
     </el-select>
-
-    <el-select filterable v-model="selectcode" placeholder="请选择区县" size="mini" @change="areacodeChange">
+    <span class="space"> </span>
+    <el-select class="selecter" filterable v-model="selectcode" placeholder="请选择区县" size="mini" @change="areacodeChange">
       <el-option v-for="item in areas" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
         <span style="float: left">{{ item.areaName }}</span>
       </el-option>
     </el-select>
+    <span class="space"> </span>
   </div>
 </template>
 
@@ -26,7 +27,7 @@
   } from '@/api/area'
   export default {
     name: 'PositionSelector',
-    props:['areacode'],
+    props: ['areacode'],
     model: {
       prop: 'areacode',
       event: 'acc'
@@ -61,7 +62,7 @@
         listposition(cityid, 3).then(result => {
           this.areas = result.data
         })
-        this.selectcode =''
+        this.selectcode = ''
       },
       areacodeChange() {
         this.$emit('acc', this.selectcode)
@@ -75,5 +76,16 @@
   }
 </script>
 
-<style>
+<style scoped>
+  .selecter {
+    width: 120px;
+  }
+
+  .space {
+    margin:0 2px;
+  }
+
+  .input{
+    width:60px;
+  }
 </style>

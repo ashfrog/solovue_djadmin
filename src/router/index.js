@@ -117,7 +117,7 @@ export const asyncRoutes2 = [{
   component: Layout,
   name: 'dealer',
   meta: {
-    title: '项目采购',
+    title: '订单',
     icon: 'example'
   },
   children: [{
@@ -125,7 +125,7 @@ export const asyncRoutes2 = [{
     name: 'purchase',
     component: () => import('@/views/dealer/purchase/index'),
     meta: {
-      title: '采购',
+      title: '在线下单',
       icon: 'tree'
     }
   },
@@ -134,7 +134,7 @@ export const asyncRoutes2 = [{
     name: 'purchaseorder',
     component: () => import('@/views/dealer/purchaseorder/index'),
     meta: {
-      title: '采购订单',
+      title: '订单管理',
       icon: 'tree'
     }
   }

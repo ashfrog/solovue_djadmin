@@ -84,7 +84,7 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column label="分发/绑定数量" align="center">
+      <el-table-column label="分发|绑定数量" align="center">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="分发数量" :open-delay="delayms" placement="top-end">
             <el-tag type="primary">{{scope.row.count}}</el-tag>

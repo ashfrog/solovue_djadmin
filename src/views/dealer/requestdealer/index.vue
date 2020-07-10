@@ -1,21 +1,27 @@
 <template>
-  <div>
-    <div class="label">注: 红色*为必填</div>
-    <div class="title">
-      <label>经销商信息</label>
-    </div>
-    <div class="divborder">
-      <el-row>
-        <el-col :span="8" class="uploadimg">
+  <div class="grid-content">
+    <div v-if="!showagreement" class="grid-content">
+      <div class="title">申请材料</div>
+      <el-row style="margin-bottom: 20px;">
+        <el-col :span="8">
           <ElUpload :uploadurl="fronturl" text="上传身份证正面"></ElUpload>
         </el-col>
-        <el-col :span="8" class="uploadimg">
+        <el-col :span="8">
           <ElUpload :uploadurl="backurl" text="上传身份证反面"></ElUpload>
         </el-col>
-        <el-col :span="8" class="uploadimg">
+        <el-col :span="8">
           <ElUpload :uploadurl="busilesslicenseurl" text="上传营业执照"></ElUpload>
         </el-col>
       </el-row>
+      <el-row>
+        <el-button @click="downloadFile(confidentialurl,'保密承诺函.docx')" size="mini" type="text">下载协议</el-button>
+      </el-row>
+      <el-row style="margin-bottom: 20px;">
+        <el-col :span="8">
+          <ElUpload :uploadurl="securecyurl" text="上传协议"></ElUpload>
+        </el-col>
+      </el-row>
+      <div class="title">经销商信息</div>
       <el-form :label-position="labelPosition" ref="userdealer" :rules="validrules" :model="userdealer" label-width="120px">
         <el-row>
           <el-col :span="8">
@@ -35,11 +41,27 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">
+          <el-col :span="8">
+            <el-form-item label="联系人" prop="legalperson">
+              <el-input class="input" size="mini" v-model="userdealer.dealername"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="联系方式" prop="legalperson">
+              <el-input class="input" size="mini" v-model="userdealer.telphone"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col>
             <el-form-item label="公司地址" prop="companyaddress_areacode">
               <el-row>
-                <el-col :span="8"><PositionSelector v-model="userdealer.companyaddress_areacode"></PositionSelector></el-col>
-                <el-col :span="6" ><el-input class="input" size="mini" placeholder="详细地址" v-model="userdealer.companyaddressdetail"></el-input></el-col>
+                <el-col class="selectorgroup">
+                  <PositionSelector v-model="userdealer.companyaddress_areacode"></PositionSelector>
+                </el-col>
+                <el-col :span="6">
+                  <el-input class="input" size="mini" placeholder="详细地址" v-model="userdealer.companyaddressdetail"></el-input>
+                </el-col>
               </el-row>
             </el-form-item>
           </el-col>
@@ -82,7 +104,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <!-- <UserAgreement v-if="showagreement" @accept="accept" @refuse="refuse"></UserAgreement> -->
+    <UserAgreement v-if="showagreement" @accept="accept" @refuse="refuse"></UserAgreement>
   </div>
 </template>
 
@@ -90,6 +112,8 @@
   import PositionSelector from '@/components/PositionSelector'
   import UserAgreement from '@/components/UserAgreement'
   import ElUpload from '@/components/ELUpload'
+  import {downloadfile} from '@/utils/file'
+  const ipconfig = require('@/ipconfig.js')
   import {
     requestdealer
   } from '@/api/userdealer.js'
@@ -102,11 +126,13 @@
     mounted() {},
     data() {
       return {
-        hideadd:false,
+        confidentialurl: ipconfig.filehost + '/document/doc/保密承诺函.docx',
+        hideadd: false,
         labelPosition: 'right',
         fronturl: process.env.VUE_APP_BASE_API + '/upload/uploadidentityfront',
         backurl: process.env.VUE_APP_BASE_API + '/upload/uploadidentityback',
         busilesslicenseurl: process.env.VUE_APP_BASE_API + '/upload/uploadbusinesslicense',
+        securecyurl:process.env.VUE_APP_BASE_API+'/upload/uploadsecret',
         userdealer: {
           agencyarea_code: '',
           legalperson: '',
@@ -170,6 +196,9 @@
       }
     },
     methods: {
+      downloadFile(src,fileName){
+        downloadfile(src,fileName)
+      },
       onSubmit() {
         this.$refs['userdealer'].validate((valid) => {
           if (valid) {
@@ -198,41 +227,14 @@
           path: '/dashboard'
         })
       },
+
+
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .uoloadSty .el-upload--picture-card {
-    width: 110px;
-    height: 110px;
-    line-height: 110px;
-  }
-
-  .disUoloadSty .el-upload--picture-card {
-    display: none;
-    /* 上传按钮隐藏 */
-  }
-
-  .label {
-    font-family: "Arial"; //,Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    color: red;
-    font-size: 10px;
-  }
-
-  .divborder {
-    border: 1px solid #ECECEC;
-  }
-
-  .title {
-    background: #F5F7F6;
-    color: #4975C0;
-    border-left: 5px solid #4975C0;
-    text-indent: 2px;
-    font-size: 14px;
-    padding: 6px;
-    font-weight: lighter;
-  }
+  @import "@/styles/orderstyle.scss";
 
   .uploadimg {
     display: flex;

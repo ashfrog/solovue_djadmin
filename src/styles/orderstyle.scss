@@ -1,0 +1,34 @@
+// global transition css
+  .title {
+    background: #F5F7F6;
+    color: #4975C0;
+    border-left: 5px solid #4975C0;
+    text-indent: 2px;
+    font-size: 14px;
+    padding: 6px;
+    font-weight: lighter;
+    font-family: "Arial"; //,Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    font-size: 10px;
+    margin:5px 5px;
+  }
+
+  .el-row {
+    margin-bottom: 0px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .el-col {
+  }
+
+  .grid-content {
+    min-width: 800px;
+    max-width: 1200px;
+    margin:5px auto;
+    border: 1px solid #EDEDED;
+  }
+
+  .selectorgroup{
+     width: 370px;
+  }

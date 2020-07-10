@@ -1,9 +1,9 @@
 <template>
   <div>
     <div style="display:flex;flex-direction:row">
-      <el-upload :class="{disUoloadSty:hideadd}" :action="uploadurl" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-change="handleChange"
-        :on-remove="handleRemove" :auto-upload="true" :limit="1" :with-credentials="true">
-        <div style="font-size:10px;color:red;">{{text}}</div>
+      <el-upload  :class="{disUoloadSty:hideadd}"  :action="uploadurl" list-type="picture" :on-preview="handlePictureCardPreview"
+        :on-change="handleChange" :on-remove="handleRemove" :auto-upload="true" :limit="1" :with-credentials="true">
+        <el-button size="small" type="text">{{text}}</el-button>
       </el-upload>
     </div>
     <el-dialog :visible.sync="dialogVisible">
@@ -16,24 +16,23 @@
   export default {
     name: 'ELUpload',
     props: {
-     uploadurl: {
+      uploadurl: {
         type: String,
       },
-      text:{
+      text: {
         type: String,
         default: '点击上传'
       },
-      imgsrc:{
+      imgsrc: {
         type: String
       }
     },
-    created() {
-    },
+    created() {},
     data() {
       return {
-        hideadd:false,
+        hideadd: false,
         dialogVisible: false,
-        dialogImageUrl:''
+        dialogImageUrl: ''
       }
     },
     methods: {
@@ -42,14 +41,15 @@
       },
       handleRemove(file, fileList) {
         console.log('remove', file, fileList.length)
-        if(fileList.length==0){
+        if (fileList.length == 0) {
           this.hideadd = false
         }
       },
       handleChange(file, fileList) {
         console.log('change', file, fileList.length)
-        if(fileList.length>0){
+        if (fileList.length > 0) {
           this.hideadd = true
+          console.log("hidden")
         }
       },
       handlePictureCardPreview(file) {
@@ -60,7 +60,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .disUoloadSty .el-upload--picture-card {
     display: none;
     /* 上传按钮隐藏 */

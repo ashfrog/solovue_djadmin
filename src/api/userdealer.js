@@ -89,3 +89,10 @@ export function requestdealer(userdealer) {
     }
   })
 }
+
+export function getdealerinvoice() {
+  return request({
+    url: '/userdealer/getdealerinvoice',
+    method: 'get'
+  })
+}

@@ -16,6 +16,9 @@
             <el-form-item label="营业执照">
               <el-image :src="props.row.businesslicense" :fit="fit"></el-image>
             </el-form-item>
+            <el-form-item label="协议书">
+              <el-image :src="props.row.secrecy_agreement" :fit="fit"></el-image>
+            </el-form-item>
             <el-form-item label="telphone">
               <span>{{ props.row.custmanager }} 手机号:{{ props.row.telphone }}</span>
             </el-form-item>
@@ -30,9 +33,6 @@
             </el-form-item>
             <el-form-item label="公司地址">
               <span>{{ props.row.companyaddress }}</span>
-            </el-form-item>
-            <el-form-item label="公司详细地址">
-              <span>{{ props.row.companyaddressdetail }}</span>
             </el-form-item>
           </el-form>
         </template>

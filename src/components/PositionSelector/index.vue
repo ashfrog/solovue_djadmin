@@ -1,23 +1,27 @@
 <template>
-  <div>
-    <el-select class="selecter" filterable v-model="provinceid" placeholder="请选择省" size="mini" @change="Listcities(provinceid)">
-      <el-option v-for="item in provinces" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
-        <span style="float: left">{{ item.areaName }}</span>
-      </el-option>
-    </el-select>
-    <span class="space"></span>
-    <el-select class="selecter" filterable no-match-text="" v-model="cityid" placeholder="请选择市" size="mini" @change="Listareas(cityid)">
-      <el-option v-for="item in cities" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
-        <span style="float: left;">{{ item.areaName }}</span>
-      </el-option>
-    </el-select>
-    <span class="space"> </span>
-    <el-select class="selecter" filterable v-model="selectcode" placeholder="请选择区县" size="mini" @change="areacodeChange">
-      <el-option v-for="item in areas" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
-        <span style="float: left">{{ item.areaName }}</span>
-      </el-option>
-    </el-select>
-    <span class="space"> </span>
+  <div class="selectorgroup">
+      <el-row style="display: flex;flex-direction: row;">
+        <el-col :span="24">
+          <el-select class="selecter" filterable v-model="provinceid" placeholder="省" size="mini" @change="Listcities(provinceid)">
+            <el-option v-for="item in provinces" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
+              <span style="float: left">{{ item.areaName }}</span>
+            </el-option>
+          </el-select>
+          <span class="space"></span>
+          <el-select class="selecter" filterable no-match-text="" v-model="cityid" placeholder="市" size="mini" @change="Listareas(cityid)">
+            <el-option v-for="item in cities" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
+              <span style="float: left;">{{ item.areaName }}</span>
+            </el-option>
+          </el-select>
+          <span class="space"> </span>
+          <el-select class="selecter" filterable v-model="selectcode" placeholder="区" size="mini" @change="areacodeChange">
+            <el-option v-for="item in areas" :key="item.areaCode" :label="item.areaName" :value="item.areaCode">
+              <span style="float: left">{{ item.areaName }}</span>
+            </el-option>
+          </el-select>
+          <span class="space"></span>
+        </el-col>
+      </el-row>
   </div>
 </template>
 
@@ -27,13 +31,24 @@
   } from '@/api/area'
   export default {
     name: 'PositionSelector',
-    props: ['areacode'],
+    props: {
+      areacode: {
+        default: 0
+      },
+      areatext: {
+        type: String,
+        default: '地址'
+      },
+      areadetail: {
+        type: String,
+        default: ''
+      }
+    },
     model: {
       prop: 'areacode',
       event: 'acc'
     },
     created() {
-      console.log("创建自定义控件")
       this.Listprovince()
     },
     data() {
@@ -43,7 +58,8 @@
         areas: [],
         provinceid: '',
         cityid: '',
-        selectcode: ''
+        selectcode: '',
+        editmode: true,
       }
     },
     methods: {
@@ -66,26 +82,26 @@
       },
       areacodeChange() {
         this.$emit('acc', this.selectcode)
-        // this.$emit('areacodeChange', this.areacode)
       },
       clear() {
         Object.assign(this.$data, this.$options.data()) //初始化数据
       },
     },
-
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import "../../styles/orderstyle.scss";
+
   .selecter {
     width: 120px;
   }
 
   .space {
-    margin:0 2px;
+    margin: 0 1px;
   }
 
-  .input{
-    width:60px;
+  .input {
+    width: 60px;
   }
 </style>

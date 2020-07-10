@@ -1,4 +1,5 @@
 import request from '@/utils/axio-request'
+import jsonrequest from '@/utils/axio-jsonrequest'
 import qs from 'qs'
 
 export function additemorder(shopcar, itemorderdetail) {
@@ -9,6 +10,16 @@ export function additemorder(shopcar, itemorderdetail) {
       shopcar: shopcar,
       itemorderdetail: itemorderdetail
     })
+  })
+}
+
+export function updateitemorder(itemorder) {
+  return jsonrequest({
+    url: '/itemorder/updateitemorder',
+    method: 'post',
+    data: {
+      itemOrder: itemorder
+    }
   })
 }
 
@@ -26,6 +37,23 @@ export function listitemorderbydealer() {
   return request({
     url: '/itemorder/listitemorderbydealer',
     method: 'get'
+  })
+}
+
+export function listauthoriseorderbydealer() {
+  return request({
+    url: '/itemorder/listauthoriseorderbydealer',
+    method: 'get'
+  })
+}
+
+export function getitemorderbyorderno(orderno) {
+  return request({
+    url: '/itemorder/getitemorderbyorderno',
+    method: 'get',
+    params: {
+      orderno: orderno
+    }
   })
 }
 

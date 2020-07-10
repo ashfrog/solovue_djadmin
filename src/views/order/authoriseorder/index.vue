@@ -64,8 +64,8 @@
       <el-table-column label="分发设备" align="center">
         <template slot-scope="scope">
           <el-button :disabled="scope.row.itemcount == scope.row.authorisedcount" v-show="scope.row.state=='审核通过'" type="text"
-            @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)">授权用户</el-button>
-          <el-button v-show="scope.row.state!='审核通过' " type="text" @click="deleteItemorder(scope.row.orderno)" style="color:#F56C6C">撤回申请</el-button>
+            @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)">{{scope.row.itemcount == scope.row.authorisedcount?'授权已满':'授权用户'}}</el-button>
+          <el-button v-show="scope.row.state!='审核通过' " type="text"  style="color:#F56C6C">待审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -98,7 +98,7 @@
     listitem
   } from '@/api/item'
   import {
-    listitemorderbydealer,
+    listauthoriseorderbydealer,
     deleteitemorder
   } from '@/api/itemorder'
   import {
@@ -161,7 +161,7 @@
           .catch(_ => {})
       },
       deleteItemorder(orderno) {
-        this.$confirm('此操作将彻底删除该订单, 是否继续?', '提示', {
+        this.$confirm('此操作将删除与该订单关联的项目, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -208,7 +208,7 @@
         })
       },
       listItemOrder() {
-        listitemorderbydealer().then((response) => {
+        listauthoriseorderbydealer().then((response) => {
           this.itemorderlist = response.data
           this.listLoading = false
           console.log(this.itemorderlist)

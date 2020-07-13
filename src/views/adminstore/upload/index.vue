@@ -45,7 +45,7 @@ export default {
     return {
       countarr: [],
       count: 0,
-      uploadurl:ipconfig.filehost+':8083/upload/upload'
+      uploadurl:ipconfig.filehost+':8082/upload/upload'
     }
   },
   created() {

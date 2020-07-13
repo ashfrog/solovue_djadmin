@@ -16,7 +16,7 @@ const service = axios.create({
     'Content-Type': 'application/json;'
   },
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 60000 // request timeout
+  timeout: 10000 // request timeout
 })
 
 // request interceptor

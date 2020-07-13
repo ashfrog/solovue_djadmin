@@ -15,7 +15,7 @@ export function login(telphone, password) {
 export function getInfo() {
   return request({
     url: '/userdealer/info',
-    method: 'post'
+    method: 'get'
   })
 }
 

@@ -50,7 +50,7 @@
         loadingInstance1.close()
       }, 500);
       loadingTask = pdf.createLoadingTask({
-        url: ipconfig.host + '/document/pdf/用户协议.pdf',
+        url: ipconfig.host + '/const/pdf/用户协议.pdf',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

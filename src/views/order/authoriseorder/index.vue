@@ -1,7 +1,14 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="itemorderlist" element-loading-text="Loading" fit stripe
-      highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
+    <el-table
+      v-loading="listLoading"
+      :data="itemorderlist"
+      element-loading-text="Loading"
+      fit
+      stripe
+      highlight-current-row
+      :default-sort="{prop: 'count', order: 'descending'}"
+    >
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -48,24 +55,28 @@
       <el-table-column label="采购/分发数量" align="center">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="采购数量" :open-delay="delayms" placement="top-end">
-            <el-tag :type="scope.row.state=='审核通过' ? 'primary':'danger' ">{{scope.row.itemcount}}</el-tag>
+            <el-tag :type="scope.row.state=='审核通过' ? 'primary':'danger' ">{{ scope.row.itemcount }}</el-tag>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="已分发数量" :open-delay="delayms" placement="top-start">
-            <el-tag :type="scope.row.state=='审核通过' ? 'warning':'danger' ">{{scope.row.authorisedcount}}</el-tag>
+            <el-tag :type="scope.row.state=='审核通过' ? 'warning':'danger' ">{{ scope.row.authorisedcount }}</el-tag>
           </el-tooltip>
 
         </template>
       </el-table-column>
       <el-table-column label="订单状态" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.state=='审核通过' ? 'success':'danger' ">{{scope.row.state}}</el-tag>
+          <el-tag :type="scope.row.state=='审核通过' ? 'success':'danger' ">{{ scope.row.state }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="分发设备" align="center">
         <template slot-scope="scope">
-          <el-button :disabled="scope.row.itemcount == scope.row.authorisedcount" v-show="scope.row.state=='审核通过'" type="text"
-            @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)">{{scope.row.itemcount == scope.row.authorisedcount?'授权已满':'授权用户'}}</el-button>
-          <el-button v-show="scope.row.state!='审核通过' " type="text"  style="color:#F56C6C">待审核</el-button>
+          <el-button
+            v-show="scope.row.state=='审核通过'"
+            :disabled="scope.row.itemcount == scope.row.authorisedcount"
+            type="text"
+            @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)"
+          >{{ scope.row.itemcount == scope.row.authorisedcount?'授权已满':'授权用户' }}</el-button>
+          <el-button v-show="scope.row.state!='审核通过' " disabled type="text" style="color:#F56C6C">待审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -94,128 +105,128 @@
 </template>
 
 <script>
-  import {
-    listitem
-  } from '@/api/item'
-  import {
-    listauthoriseorderbydealer,
-    deleteitemorder
-  } from '@/api/itemorder'
-  import {
-    addBindOrder
-  } from '@/api/userbindorder'
+import {
+  listitem
+} from '@/api/item'
+import {
+  listauthoriseorderbydealer,
+  deleteitemorder
+} from '@/api/itemorder'
+import {
+  addBindOrder
+} from '@/api/userbindorder'
 
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        delayms: 300,
-        activeName: 'allproject',
-        listLoading: true,
-        itemlist: [],
-        shopcar: [],
-        itemorderlist: [],
-        itemvos: [],
-        totalprice: 0,
-        dialogVisible: false,
-        bindorder: {
-          telphone: '',
-          count: '',
-          orderno: '',
-          itemid: '',
-          bindcode: ''
-        }
-      }
-    },
-    created() {
-      this.listItemOrder()
-    },
-    methods: {
-      prepareBindOrder(orderno, itemid) {
-        this.dialogVisible = true
-        this.bindorder.orderno = orderno
-        this.bindorder.itemid = itemid
-      },
-      addShopcar(id, row) {
-        if (this.shopcar.indexOf(row) === -1) {
-          this.shopcar.push(row)
-        } else if (row.purchasecount === 0) {
-          this.shopcar.pop(row)
-        }
-        this.calcTotalPrice(this.shopcar)
-      },
-      handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done()
-          })
-          .catch(_ => {})
-      },
-      deleteItemorder(orderno) {
-        this.$confirm('此操作将删除与该订单关联的项目, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          deleteitemorder(orderno).then(response => {
-            this.itemorderlist = this.itemorderlist.filter((itemorder) => {
-              return itemorder.orderno != orderno
-            })
-          })
-        }).catch(() => {})
-      },
-      confirmorder() {
-        this.dialogVisible = false
-      },
-      cancelorder() {
-        this.dialogVisible = false
-      },
-      calcTotalPrice(shopcar) {
-        this.totalprice = 0
-        for (let i = 0; i < this.shopcar.length; i++) {
-          var itemVO = this.shopcar[i]
-          this.totalprice += itemVO.price * itemVO.purchasecount
-        }
-      },
-      listItem() {
-        listitem().then((response) => {
-          this.itemlist = response.data
-          this.listLoading = false
-        })
-      },
-      addOrder() {
-        this.dialogVisible = false;
-        addBindOrder(this.bindorder.telphone, this.bindorder.count, this.bindorder.orderno, this.bindorder.itemid, this
-          .bindorder.bindcode).then(response => {
-          if (response.status == 'success') {
-            var index = this.itemorderlist.findIndex((itemorder) => itemorder.itemid === response.data.itemid &&
-              itemorder.orderno === response.data.orderno)
-            this.itemorderlist[index].authorisedcount = response.data.authorisedcount
-            this.$message({
-              message: "提交成功",
-              type: 'success'
-            })
-          }
-        })
-      },
-      listItemOrder() {
-        listauthoriseorderbydealer().then((response) => {
-          this.itemorderlist = response.data
-          this.listLoading = false
-          console.log(this.itemorderlist)
-        })
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      delayms: 300,
+      activeName: 'allproject',
+      listLoading: true,
+      itemlist: [],
+      shopcar: [],
+      itemorderlist: [],
+      itemvos: [],
+      totalprice: 0,
+      dialogVisible: false,
+      bindorder: {
+        telphone: '',
+        count: '',
+        orderno: '',
+        itemid: '',
+        bindcode: ''
       }
     }
+  },
+  created() {
+    this.listItemOrder()
+  },
+  methods: {
+    prepareBindOrder(orderno, itemid) {
+      this.dialogVisible = true
+      this.bindorder.orderno = orderno
+      this.bindorder.itemid = itemid
+    },
+    addShopcar(id, row) {
+      if (this.shopcar.indexOf(row) === -1) {
+        this.shopcar.push(row)
+      } else if (row.purchasecount === 0) {
+        this.shopcar.pop(row)
+      }
+      this.calcTotalPrice(this.shopcar)
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
+    deleteItemorder(orderno) {
+      this.$confirm('此操作将删除与该订单关联的项目, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteitemorder(orderno).then(response => {
+          this.itemorderlist = this.itemorderlist.filter((itemorder) => {
+            return itemorder.orderno !== orderno
+          })
+        })
+      }).catch(() => {})
+    },
+    confirmorder() {
+      this.dialogVisible = false
+    },
+    cancelorder() {
+      this.dialogVisible = false
+    },
+    calcTotalPrice(shopcar) {
+      this.totalprice = 0
+      for (let i = 0; i < this.shopcar.length; i++) {
+        var itemVO = this.shopcar[i]
+        this.totalprice += itemVO.price * itemVO.purchasecount
+      }
+    },
+    listItem() {
+      listitem().then((response) => {
+        this.itemlist = response.data
+        this.listLoading = false
+      })
+    },
+    addOrder() {
+      this.dialogVisible = false
+      addBindOrder(this.bindorder.telphone, this.bindorder.count, this.bindorder.orderno, this.bindorder.itemid, this
+        .bindorder.bindcode).then(response => {
+        if (response.status === 'success') {
+          var index = this.itemorderlist.findIndex((itemorder) => itemorder.itemid === response.data.itemid &&
+              itemorder.orderno === response.data.orderno)
+          this.itemorderlist[index].authorisedcount = response.data.authorisedcount
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          })
+        }
+      })
+    },
+    listItemOrder() {
+      listauthoriseorderbydealer().then((response) => {
+        this.itemorderlist = response.data
+        this.listLoading = false
+        console.log(this.itemorderlist)
+      })
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

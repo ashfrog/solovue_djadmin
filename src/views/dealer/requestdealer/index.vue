@@ -126,7 +126,7 @@
     mounted() {},
     data() {
       return {
-        confidentialurl: ipconfig.filehost + '/document/doc/保密承诺函.docx',
+        confidentialurl: ipconfig.host + '/const/doc/保密承诺函.docx',
         hideadd: false,
         labelPosition: 'right',
         fronturl: process.env.VUE_APP_BASE_API + '/upload/uploadidentityfront',

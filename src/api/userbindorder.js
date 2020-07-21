@@ -25,9 +25,9 @@ export function listBindOrder(pageStart, pageSize) {
   })
 }
 
-export function deleteBindOrder(id) {
+export function deletebindorder(id) {
   return request({
-    url: '/userbindorder/deleteBindOrder',
+    url: '/userbindorder/deletebindorder',
     method: 'post',
     data: qs.stringify({
       id: id

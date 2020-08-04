@@ -12,6 +12,13 @@ export function login(telphone, password) {
   })
 }
 
+export function logout() {
+  return request({
+    url: '/userdealer/logout',
+    method: 'get'
+  })
+}
+
 export function getInfo() {
   return request({
     url: '/userdealer/info',

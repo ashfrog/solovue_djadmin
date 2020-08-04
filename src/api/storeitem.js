@@ -82,10 +82,3 @@ export function deleteitem(itemid) {
     })
   })
 }
-
-export function getFilenameBymd5(md5) {
-  return request({
-    url: '/upload/getItemMD5?md5=' + md5,
-    method: 'get'
-  })
-}

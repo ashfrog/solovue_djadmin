@@ -63,7 +63,7 @@
 import {
   validUsername
 } from '@/utils/validate'
-const ipconfig = require ('../../ipconfig.js')
+const ipconfig = require('../../ipconfig.js')
 const defaultSettings = require('../../settings.js')
 export default {
   name: 'Login',
@@ -113,7 +113,7 @@ export default {
     }
   },
   created() {
-    console.log('created',ipconfig.host,ipconfig.uploadurl)
+    console.log('created', ipconfig.host, ipconfig.uploadurl)
   },
   methods: {
     showPwd() {

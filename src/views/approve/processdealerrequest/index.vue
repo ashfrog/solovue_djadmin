@@ -1,23 +1,30 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="userdealers" element-loading-text="Loading" fit stripe
-      highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
+    <el-table
+      v-loading="listLoading"
+      :data="userdealers"
+      element-loading-text="Loading"
+      fit
+      stripe
+      highlight-current-row
+      :default-sort="{prop: 'count', order: 'descending'}"
+    >
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="身份证正面">
               <span>
-                <el-image :src="props.row.identityfront" :fit="fit"></el-image>
+                <el-image :src="props.row.identityfront" :fit="fit" />
               </span>
             </el-form-item>
             <el-form-item label="身份证反面">
-              <el-image :src="props.row.identityback" :fit="fit"></el-image>
+              <el-image :src="props.row.identityback" :fit="fit" />
             </el-form-item>
             <el-form-item label="营业执照">
-              <el-image :src="props.row.businesslicense" :fit="fit"></el-image>
+              <el-image :src="props.row.businesslicense" :fit="fit" />
             </el-form-item>
             <el-form-item label="协议书">
-              <el-image :src="props.row.secrecy_agreement" :fit="fit"></el-image>
+              <el-image :src="props.row.secrecy_agreement" :fit="fit" />
             </el-form-item>
             <el-form-item label="telphone">
               <span>{{ props.row.custmanager }} 手机号:{{ props.row.telphone }}</span>
@@ -89,73 +96,73 @@
 </template>
 
 <script>
-  import {
-    listdealer,
-    setrights
-  } from '@/api/userdealer'
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+import {
+  listdealer,
+  setrights
+} from '@/api/userdealer'
+export default {
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        fit: 'contain',
-        userdealers: [],
-        userdealer: {
-          account: '',
-          agencyarea_code: '',
-          businesslicense: '',
-          companyaddress_areacode: '',
-          companyaddressdetail: '',
-          companyname: '',
-          dealerid: '',
-          dealerlevel: '',
-          dealername: '',
-          dealerparentid: '',
-          identityback: '',
-          identityfront: '',
-          legalperson: '',
-          rights: '',
-          telphone: '',
-          verified: ''
-        },
-        listLoading: false,
-      }
-    },
-    created() {
-      this.listDealer()
-    },
-    methods: {
-      listDealer() {
-        console.log("管理")
-        listdealer().then(result => {
-          console.log("经销商管理:", result)
-          this.userdealers = result.data
-        })
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      fit: 'contain',
+      userdealers: [],
+      userdealer: {
+        account: '',
+        agencyarea_code: '',
+        businesslicense: '',
+        companyaddress_areacode: '',
+        companyaddressdetail: '',
+        companyname: '',
+        dealerid: '',
+        dealerlevel: '',
+        dealername: '',
+        dealerparentid: '',
+        identityback: '',
+        identityfront: '',
+        legalperson: '',
+        rights: '',
+        telphone: '',
+        verified: ''
       },
-      setRights(rowdata, rights) {
-        setrights(rowdata.dealerid, rights).then(result => {
-          if (result.status === 'success') {
-            rowdata.verified = result.data.verified
-            rowdata.rights = result.data.rights
-            console.log(rowdata)
-            this.$notify({
-              title: '通知消息',
-              message: '授权成功',
-              type: 'success'
-            })
-          }
-        })
-      }
+      listLoading: false
+    }
+  },
+  created() {
+    this.listDealer()
+  },
+  methods: {
+    listDealer() {
+      console.log('管理')
+      listdealer().then(result => {
+        console.log('经销商管理:', result)
+        this.userdealers = result.data
+      })
+    },
+    setRights(rowdata, rights) {
+      setrights(rowdata.dealerid, rights).then(result => {
+        if (result.status === 'success') {
+          rowdata.verified = result.data.verified
+          rowdata.rights = result.data.rights
+          console.log(rowdata)
+          this.$notify({
+            title: '通知消息',
+            message: '授权成功',
+            type: 'success'
+          })
+        }
+      })
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

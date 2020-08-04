@@ -28,14 +28,10 @@
         </template>
       </el-table-column>
       <el-table-column align="center" sortable prop="orderno" label="订单号" width="95">
-        <template slot-scope="scope">
-          {{ scope.row.orderno }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.orderno }}</template>
       </el-table-column>
       <el-table-column align="center" sortable prop="project" label="项目" width="95">
-        <template slot-scope="scope">
-          {{ scope.row.project }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.project }}</template>
       </el-table-column>
       <el-table-column label="图片" width="195">
         <template slot-scope="scope">
@@ -48,19 +44,30 @@
         </template>
       </el-table-column>
       <el-table-column label="下单时间" align="center">
-        <template slot-scope="scope">
-          {{ new Date(scope.row.createtime).toLocaleString() }}
-        </template>
+        <template slot-scope="scope">{{ new Date(scope.row.createtime).toLocaleString() }}</template>
       </el-table-column>
       <el-table-column label="采购/分发数量" align="center">
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="采购数量" :open-delay="delayms" placement="top-end">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="采购数量"
+            :open-delay="delayms"
+            placement="top-end"
+          >
             <el-tag :type="scope.row.state=='审核通过' ? 'primary':'danger' ">{{ scope.row.itemcount }}</el-tag>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="已分发数量" :open-delay="delayms" placement="top-start">
-            <el-tag :type="scope.row.state=='审核通过' ? 'warning':'danger' ">{{ scope.row.authorisedcount }}</el-tag>
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="已分发数量"
+            :open-delay="delayms"
+            placement="top-start"
+          >
+            <el-tag
+              :type="scope.row.state=='审核通过' ? 'warning':'danger' "
+            >{{ scope.row.authorisedcount }}</el-tag>
           </el-tooltip>
-
         </template>
       </el-table-column>
       <el-table-column label="订单状态" align="center">
@@ -76,15 +83,20 @@
             type="text"
             @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)"
           >{{ scope.row.itemcount == scope.row.authorisedcount?'授权已满':'授权用户' }}</el-button>
-          <el-button v-show="scope.row.state!='审核通过' " disabled type="text" style="color:#F56C6C">待审核</el-button>
+          <el-button
+            v-show="scope.row.state!='审核通过' "
+            disabled
+            type="text"
+            style="color:#F56C6C"
+          >待审核</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog center title="授权用户" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+    <el-dialog center title="授权用户" :visible.sync="dialogVisible" :before-close="handleClose">
       <span slot="footer" class="dialog-footer">
         <el-form label-width="100px" :model="bindorder">
-          <el-input v-model="bindorder.telphone" label-width="100px" placeholder="请输入用户微信绑定的手机号">
+          <el-input v-model="bindorder.telphone" placeholder="请输入用户微信绑定的手机号">
             <template slot="prepend">用户:</template>
           </el-input>
           <div style="margin: 20px;" />
@@ -105,16 +117,9 @@
 </template>
 
 <script>
-import {
-  listitem
-} from '@/api/item'
-import {
-  listauthoriseorderbydealer,
-  deleteitemorder
-} from '@/api/itemorder'
-import {
-  addBindOrder
-} from '@/api/userbindorder'
+import { listitem } from '@/api/item'
+import { listauthoriseorderbydealer, deleteitemorder } from '@/api/itemorder'
+import { addBindOrder } from '@/api/userbindorder'
 
 export default {
   filters: {
@@ -166,23 +171,25 @@ export default {
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
-        .then(_ => {
+        .then((_) => {
           done()
         })
-        .catch(_ => {})
+        .catch((_) => {})
     },
     deleteItemorder(orderno) {
       this.$confirm('此操作将删除与该订单关联的项目, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        deleteitemorder(orderno).then(response => {
-          this.itemorderlist = this.itemorderlist.filter((itemorder) => {
-            return itemorder.orderno !== orderno
+      })
+        .then(() => {
+          deleteitemorder(orderno).then((response) => {
+            this.itemorderlist = this.itemorderlist.filter((itemorder) => {
+              return itemorder.orderno !== orderno
+            })
           })
         })
-      }).catch(() => {})
+        .catch(() => {})
     },
     confirmorder() {
       this.dialogVisible = false
@@ -205,12 +212,21 @@ export default {
     },
     addOrder() {
       this.dialogVisible = false
-      addBindOrder(this.bindorder.telphone, this.bindorder.count, this.bindorder.orderno, this.bindorder.itemid, this
-        .bindorder.bindcode).then(response => {
+      addBindOrder(
+        this.bindorder.telphone,
+        this.bindorder.count,
+        this.bindorder.orderno,
+        this.bindorder.itemid,
+        this.bindorder.bindcode
+      ).then((response) => {
         if (response.status === 'success') {
-          var index = this.itemorderlist.findIndex((itemorder) => itemorder.itemid === response.data.itemid &&
-              itemorder.orderno === response.data.orderno)
-          this.itemorderlist[index].authorisedcount = response.data.authorisedcount
+          var index = this.itemorderlist.findIndex(
+            (itemorder) =>
+              itemorder.itemid === response.data.itemid &&
+              itemorder.orderno === response.data.orderno
+          )
+          this.itemorderlist[index].authorisedcount =
+            response.data.authorisedcount
           this.$message({
             message: '提交成功',
             type: 'success'
@@ -230,28 +246,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .tbrow {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }
+.tbrow {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .tbtag {
-    width: 100px;
-  }
+.tbtag {
+  width: 100px;
+}
 
-  .demo-table-expand {
-    font-size: 0;
-  }
+.demo-table-expand {
+  font-size: 0;
+}
 
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
 
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

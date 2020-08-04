@@ -24,15 +24,13 @@
   </div>
 </template>
 <script>
-import {
-// getFilenameBymd5
-} from '@/api/storeitem'
+
 import {
   getsuffix
   // readText
 } from '@/utils/fileutils'
 import Dropzone from '@/components/Dropzone'
-const ipconfig = require ('@/ipconfig.js')
+const ipconfig = require('@/ipconfig.js')
 // import BMF from 'browser-md5-file'
 // const bmf = new BMF()
 var dropzonecomp
@@ -45,11 +43,11 @@ export default {
     return {
       countarr: [],
       count: 0,
-      uploadurl:ipconfig.filehost+':8082/upload/upload'
+      uploadurl: ipconfig.filehost + ':8088/upload/upload'
     }
   },
   created() {
-    console.log("uploadurl:",this.uploadurl)
+    console.log('uploadurl:', this.uploadurl)
   },
   mounted() {
     dropzonecomp = this.$refs.dropzonefun
@@ -65,44 +63,11 @@ export default {
         this.countarr.push(this.count)
         this.count = 0
         console.log(this.countarr)
-        // var that = this
-        // readText(file).then(function(text) {
-        //   console.log(text)
-        //   console.log(file.name, that.count++)
-        // })
       }
-
-      // bmf.md5(
-      //   file,
-      //   (err, md5) => {
-      //     if (err) {
-      //       this.$message({
-      //         message: 'MD5校验出错' + 'err:' + err,
-      //         type: 'error'
-      //       })
-      //     }
-      //     // dropzonecomp.removeFile(file)
-      //     // getFilenameBymd5().then(response => {
-      //     //   var server_filename = response.data.data
-      //     //   if (server_filename == null) {
-      //     //     console.log('新文件', response)
-      //     //     file.filename = '新文件'
-      //     //   } else {
-      //     //     console.log('已存在文件', response)
-      //     //     file.filename = server_filename
-      //     //   }
-      //     // })
-      //     // console.log('md5 string:', md5)
-      //     // console.log('file.md5', file.md5)
-      //   },
-      //   progress => {
-      //     // console.log('progress number:', progress)
-      //   },
-      // )
     },
     dropzoneS(file) {
       // console.log('dropzoneS', file)
-      
+
     },
     dropzoneSend(file, xhr, formData) {
       // console.log('dropzoneSending', xhr)

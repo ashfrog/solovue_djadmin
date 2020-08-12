@@ -1,13 +1,14 @@
 import request from '@/utils/axio-request'
 import jsonrequest from '@/utils/axio-jsonrequest'
 import qs from 'qs'
-export function login(telphone, password) {
+export function login(telphone, password, rememberme) {
   return request({
     url: '/userdealer/login',
     method: 'post',
     data: qs.stringify({
-      telphone: telphone,
-      password: password
+      username: telphone,
+      password: password,
+      'remember-me': rememberme
     })
   })
 }

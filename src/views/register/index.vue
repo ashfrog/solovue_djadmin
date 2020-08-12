@@ -25,7 +25,7 @@
           type="text"
           tabindex="1"
           auto-complete="on"
-          style="width:65%;display:inline-block"
+          style="width:85%;display:inline-block"
         />
       </el-form-item>
 
@@ -188,32 +188,17 @@ export default {
         path: '/login'
       })
     }
-    // handleRegister() {
-    //   this.$refs.loginForm.validate(valid => {
-    //     // if (true) {
-    //     console.log('this.redirect ', this.redirect)
-    //     this.loading = true
-    //     this.$store.dispatch('user/login', this.loginForm).then(() => {
-    //       console.log('登录')
-    //       this.$router.push({
-    //         path: this.redirect || '/'
-    //       })
-    //       this.loading = false
-    //     }).catch((e) => {
-    //       this.loading = false
-    //       console.log('登录失败', e)
-    //     })
-    //   })
-    // }
   }
 }
 </script>
 
-<style lang="scss">
+
+
+<style lang="scss" scoped>
   /* 修复input 背景不协调 和光标变色 */
   /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-  $bg:#283443;
+  $bg:#fff;
   $light_gray:#fff;
   $cursor: #fff;
 
@@ -254,12 +239,9 @@ export default {
       color: #454545;
     }
   }
-</style>
 
-<style lang="scss" scoped>
-  $bg:#2d3a4b;
   $dark_gray:#889aa4;
-  $light_gray:#eee;
+  $light_gray:#00A0D8;
 
   .login-container {
     min-height: 100%;

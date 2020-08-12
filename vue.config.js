@@ -33,24 +33,14 @@ module.exports = {
     },
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        target: ipconfig.host,
+        // target: 'https://www.crazysolo.com',
+        target: 'http://localhost:8083',
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
         },
         secure: false
       }
-      // change xxx-api/login => mock/login
-      // detail: https://cli.vuejs.org/config/#devserver-proxy
-      // [process.env.VUE_APP_BASE_API]: {
-      //   target: `http://192.168.0.1:${port}/mock`,
-      //   // target: 'https:localhost:${port}/',
-      //   changeOrigin: false,
-      //   // pathRewrite: {
-      //   //   ['^' + process.env.VUE_APP_BASE_API]: ''
-      //   // },
-      //   secure: false
-      // }
     }
     // after: require('./mock/mock-server.js')
   },

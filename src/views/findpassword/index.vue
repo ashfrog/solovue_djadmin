@@ -191,11 +191,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+
+
+<style lang="scss" scoped>
   /* 修复input 背景不协调 和光标变色 */
   /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
-  $bg:#283443;
+$bg:#fff;
   $light_gray:#fff;
   $cursor: #fff;
 
@@ -236,12 +237,11 @@ export default {
       color: #454545;
     }
   }
-</style>
 
-<style lang="scss" scoped>
-  $bg:#2d3a4b;
   $dark_gray:#889aa4;
-  $light_gray:#eee;
+  $light_gray:#00A0D8;
+  $dark_gray:#889aa4;
+  $light_gray:#00A0D8;
   .underlinetext{
       color: #E6A23C;text-decoration:underline;
     }

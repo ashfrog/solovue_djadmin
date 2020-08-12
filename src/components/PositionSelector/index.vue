@@ -94,7 +94,7 @@
   @import "../../styles/orderstyle.scss";
 
   .selecter {
-    width: 120px;
+    width: 80px;
   }
 
   .space {

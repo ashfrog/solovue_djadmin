@@ -43,7 +43,7 @@ export default {
     return {
       countarr: [],
       count: 0,
-      uploadurl: ipconfig.filehost + ':8088/upload/upload'
+      uploadurl: process.env.VUE_APP_BASE_API + '/upload/upload'
     }
   },
   created() {

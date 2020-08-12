@@ -1,55 +1,40 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
-
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
+      label-position="left">
       <div class="title-container">
-        <h3 class="title">CrazySOLO登录</h3>
+        <h3 class="title">CrazySOLO系统登录</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="username" >
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="请输入手机号"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
+        <el-input ref="username" v-model="loginForm.username" placeholder="请输入手机号" name="username" type="text" tabindex="1"
+          auto-complete="on" />
       </el-form-item>
 
-      <el-form-item prop="password">
+      <el-form-item prop="password" >
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="请输入密码"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
+        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="请输入密码"
+          name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <div class="underlinetext" style="float:left;" @click="handleFindPassword()">忘记密码?</div>
-      <div class="underlinetext" style="float:right;" @click="handleRegister()">还没有账号?注册</div>
+
+      <div class="underlinetext" style="float:left;" >
+        <el-checkbox v-model="loginForm.remenberme" label="记住我">
+        </el-checkbox>
+      </div>
+      <div class="underlinetext" style="float:left;color:gray">(不是自己电脑不要勾选此项)</div>
+
+      <div class="underlinetext" style="float:right;" @click="handleRegister()">注册账号</div>
+      <div class="underlinetext" style="float:right;margin:0 10px" @click="handleFindPassword()">忘记密码</div>
+
 
       <el-button :loading="loading" style="float:left;width:100%;margin-top:20px;" type="warning" @click.native.prevent="handleLogin">登录</el-button>
       <!-- <el-button type="warning" style="float:right;width:48%" @click.native.prevent="handleRegister">注册</el-button> -->
@@ -60,112 +45,111 @@
 </template>
 
 <script>
-import {
-  validUsername
-} from '@/utils/validate'
-const ipconfig = require('../../ipconfig.js')
-const defaultSettings = require('../../settings.js')
-export default {
-  name: 'Login',
-  data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
-    return {
-      loginForm: {
-        username: '',
-        password: ''
-      },
-      loginRules: {
-        username: [{
-          required: true,
-          trigger: 'blur',
-          validator: validateUsername
-        }],
-        password: [{
-          required: true,
-          trigger: 'blur',
-          validator: validatePassword
-        }]
-      },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined
-    }
-  },
-  watch: {
-    $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
-    }
-  },
-  created() {
-    console.log('created', ipconfig.host, ipconfig.uploadurl)
-  },
-  methods: {
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
-      } else {
-        this.passwordType = 'password'
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
-
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          console.log('this.redirect ', this.redirect)
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            console.log('登录成功')
-            this.$router.push({
-              path: this.redirect || '/'
-            })
-            this.loading = false
-          }).catch((e) => {
-            this.loading = false
-            console.log('登录失败', e)
-          })
+  import {
+    validUsername
+  } from '@/utils/validate'
+  const ipconfig = require('../../ipconfig.js')
+  const defaultSettings = require('../../settings.js')
+  export default {
+    name: 'Login',
+    data() {
+      const validateUsername = (rule, value, callback) => {
+        if (!validUsername(value)) {
+          callback(new Error('请输入正确的手机号'))
+        } else {
+          callback()
         }
-      })
+      }
+      const validatePassword = (rule, value, callback) => {
+        if (value.length < 6) {
+          callback(new Error('密码至少6位'))
+        } else {
+          callback()
+        }
+      }
+      return {
+        loginForm: {
+          username: '',
+          password: '',
+          remenberme: true,
+        },
+        loginRules: {
+          username: [{
+            required: true,
+            trigger: 'blur',
+            validator: validateUsername
+          }],
+          password: [{
+            required: true,
+            trigger: 'blur',
+            validator: validatePassword
+          }]
+        },
+        loading: false,
+        passwordType: 'password',
+        redirect: undefined
+      }
     },
+    watch: {
+      $route: {
+        handler: function(route) {
+          this.redirect = route.query && route.query.redirect
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      showPwd() {
+        if (this.passwordType === 'password') {
+          this.passwordType = ''
+        } else {
+          this.passwordType = 'password'
+        }
+        this.$nextTick(() => {
+          this.$refs.password.focus()
+        })
+      },
 
-    handleRegister() {
-      this.$router.push({
-        path: '/register'
-      })
-    },
-    handleFindPassword() {
-      this.$router.push({
-        path: '/findpassword'
-      })
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            console.log('this.redirect ', this.redirect)
+            this.loading = true
+            this.$store.dispatch('user/login', this.loginForm).then(() => {
+              console.log('登录成功')
+              this.$router.push({
+                path: this.redirect || '/'
+              })
+              this.loading = false
+            }).catch((e) => {
+              this.loading = false
+              console.log('登录失败', e)
+            })
+          }
+        })
+      },
+
+      handleRegister() {
+        this.$router.push({
+          path: '/register'
+        })
+      },
+      handleFindPassword() {
+        this.$router.push({
+          path: '/findpassword'
+        })
+      }
     }
   }
-}
 </script>
 
-<style lang="scss">
+
+<style lang="scss" scoped>
   /* 修复input 背景不协调 和光标变色 */
   /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
   $bg:#283443;
-  $light_gray:#fff;
+  $light_gray:#f0f0f0;
   $cursor: #fff;
 
   @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -205,12 +189,9 @@ export default {
       color: #454545;
     }
   }
-</style>
-
-<style lang="scss" scoped>
-  $bg:#2d3a4b;
+  $bg:#FFFFFF;
   $dark_gray:#889aa4;
-  $light_gray:#eee;
+  $light_gray:#00A0D8;
 
   .underlinetext {
     color: #E6A23C;

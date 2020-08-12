@@ -125,7 +125,7 @@ export default {
   },
   data() {
     return {
-      confidentialurl: ipconfig.host + '/const/doc/保密承诺函.docx',
+      confidentialurl: process.env.VUE_APP_BASE_API + '/const/doc/保密承诺函.docx',
       hideadd: false,
       labelPosition: 'right',
       fronturl: process.env.VUE_APP_BASE_API + '/upload/uploadidentityfront',

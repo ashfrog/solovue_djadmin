@@ -43,7 +43,7 @@
           auto-complete="on"
           style="width:65%;display:inline-block"
         />
-        <el-button :disabled="count>0" type="warning" round size="mini" style="position:absolute;display:inline-block;right:0;top:10px;" @click.native.prevent="requestsmscode">{{count>0?count+'秒后获取':'点击获取'}}</el-button>
+        <el-button :disabled="count>0" type="warning" round size="mini" style="position:absolute;display:inline-block;right:0;top:10px;" @click.native.prevent="requestsmscode">{{ count>0?count+'秒后获取':'点击获取' }}</el-button>
       </el-form-item>
 
       <el-form-item prop="password">
@@ -142,7 +142,7 @@ export default {
       })
     },
     requestsmscode() {
-      requestsmscode(this.loginForm.telphone, 'findpassword').then((result) => {
+      requestsmscode(this.loginForm.telphone, 'FindPasswordCode').then((result) => {
         this.$message({
           type: 'success',
           message: result.data
@@ -170,7 +170,7 @@ export default {
     findpassword() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode, 'findpassword').then((result) => {
+          findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode, 'FindPasswordCode').then((result) => {
             this.$message({
               type: 'success',
               message: result.data
@@ -190,8 +190,6 @@ export default {
   }
 }
 </script>
-
-
 
 <style lang="scss" scoped>
   /* 修复input 背景不协调 和光标变色 */

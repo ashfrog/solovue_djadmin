@@ -34,9 +34,9 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="授权编号" width="195">
+      <el-table-column align="center" sortable prop="id" label="订单编号" width="195">
         <template slot-scope="scope">
-          {{ scope.row.id }}
+          {{ scope.row.orderno }}
         </template>
       </el-table-column>
       <el-table-column label="用户id" sortable prop="userid" width="95">

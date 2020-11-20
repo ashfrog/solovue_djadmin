@@ -17,7 +17,7 @@
           {{ scope.row.userid }}
         </template>
       </el-table-column>
-      <el-table-column label="订单id" width="110" align="center">
+      <el-table-column label="订单授权id" width="110" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.bindOrderid }}</span>
         </template>

@@ -1,0 +1,16 @@
+{
+  "id": "2336772",
+  "name": "CrazySOLO",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "CrazySOLO",
+  "glyphs": [
+    {
+      "icon_id": "19402435",
+      "name": "返 回",
+      "font_class": "fanhui",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    }
+  ]
+}

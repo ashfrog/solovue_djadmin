@@ -3,6 +3,7 @@
     <el-table
       v-loading="listLoading"
       :data="userBindMachineS"
+	  height="100vh"
       element-loading-text="Loading"
       fit
       highlight-current-row

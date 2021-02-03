@@ -6,8 +6,8 @@
           <thead>
             <tr>
               <th style="width:10%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'imagePath')}">图片</el-button></th>
-              <th style="width:10%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'itemName')}">名称</el-button></th>
-              <th style="width:8%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'categoryId')}">分类</el-button></th>
+              <th style="width:10%;min-width: 6.25rem;"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'itemName')}">名称</el-button></th>
+              <th style="width:8%;min-width: 6.25rem;"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'categoryId')}">分类</el-button></th>
               <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'itemPrice')}">价格</el-button></th>
               <th style="width:10%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'createTime')}">创建时间</el-button></th>
               <th style="width:5%"><el-button size="mini" type="info" @click="(e)=>{orderBy(e,'id')}">ID</el-button></th>
@@ -219,5 +219,7 @@ export default {
     bottom: 20px;
     right:20px;
   }
-
+  .container{
+    overflow: auto;
+  }
 </style>

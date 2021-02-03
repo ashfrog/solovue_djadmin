@@ -6,6 +6,7 @@
       element-loading-text="Loading"
       fit
       stripe
+	  height="100vh"
       highlight-current-row
       :default-sort="{prop: 'count', order: 'descending'}"
     >

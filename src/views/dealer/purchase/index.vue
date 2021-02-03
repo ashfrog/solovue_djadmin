@@ -4,7 +4,7 @@
       <div v-show="!dialogVisible">
         <div class="title">商品列表</div>
         <el-table v-loading="listLoading" :data="itemlist" element-loading-text="Loading" fit stripe
-          highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
+          highlight-current-row :default-sort="{prop: 'count', order: 'descending'}" class="content">
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form size="mini" label-position="left" inline class="demo-table-expand">
@@ -63,17 +63,17 @@
           </el-table-column>
         </el-table>
         <div style="margin-top: 20px">
-          <div style="width:300px;float:right;display:flex;flex-direction:row;">
-            <div style="line-height: 50px;margin-right:0px;color:gray;width:80px;">总价￥:</div>
-            <div style="line-height: 50px;margin-right:0px;color:red;width:100px;">{{ totalprice }}</div>
+          <div style="width:300px;display:flex;flex-direction:row;position:absolute;right:10px;margin-top:30px;">
+            <div style="line-height: 50px;color:gray;width:80px;">总价￥:</div>
+            <div style="line-height: 50px;color:red;width:100px;">{{ totalprice }}</div>
             <el-button type="warning" @click="showOrderDetail()">采购下单</el-button>
           </div>
         </div>
       </div>
 
 
-      <div v-show="dialogVisible">
-        <el-form size="mini" ref="itemorderdetail" :model="itemorderdetail" label-width="140px">
+      <div v-show="dialogVisible" >
+        <el-form size="mini" ref="itemorderdetail" :model="itemorderdetail" label-width="140px" class="content">
           <div class="title">经销商信息</div>
           <el-row>
             <el-col :span="8">
@@ -139,13 +139,13 @@
             </el-col>
           </el-row>
           <div class="title">订购商品信息</div>
-          <el-table v-loading="listLoading" :data="itemlistvo" element-loading-text="Loading" fit stripe :default-sort="{prop: 'count', order: 'descending'}">
+          <el-table class="content" v-loading="listLoading" :data="itemlistvo" element-loading-text="Loading" fit stripe :default-sort="{prop: 'count', order: 'descending'}">
             <el-table-column align="center" sortable prop="title" label="商品" width="195">
               <template slot-scope="scope">
                 {{ scope.row.title }}
               </template>
             </el-table-column>
-            <el-table-column label="图片" sortable prop="img_url" width="195">
+            <el-table-column label="图片" sortable prop="img_url" width="105">
               <template slot-scope="scope">
                 <img :src="scope.row.imgUrl" width="50" height="30">
               </template>
@@ -160,10 +160,9 @@
                 {{ scope.row.descript }}
               </template>
             </el-table-column>
-            <el-table-column label="采购数量" align="center">
+            <el-table-column label="采购数量" align="center" width="400">
               <template slot-scope="scope">
-                <el-input-number disabled size="mini" v-model="scope.row.purchasecount" :min="0" :max="10000" label="描述文字"
-                  @change="addShopcar(scope.row.id,scope.row)" />
+                {{scope.row.purchasecount}}
               </template>
             </el-table-column>
           </el-table>
@@ -446,19 +445,12 @@
 <style lang="scss" scoped>
   @import "@/styles/orderstyle.scss";
 
+.grid-content{
+  overflow: auto;
+}
 
-  .demo-table-expand {
-    font-size: 0;
-  }
-
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+.content{
+  overflow: auto;
+  min-width: 70rem;
+}
 </style>

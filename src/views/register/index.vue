@@ -14,9 +14,6 @@
       </div>
 
       <el-form-item prop="telphone">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
         <el-input
           ref="telphone"
           v-model="loginForm.telphone"
@@ -25,14 +22,10 @@
           type="text"
           tabindex="1"
           auto-complete="on"
-          style="width:85%;display:inline-block"
         />
       </el-form-item>
 
       <el-form-item prop="code">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
         <el-input
           ref="smscode"
           v-model="loginForm.smscode"
@@ -41,15 +34,11 @@
           type="text"
           tabindex="1"
           auto-complete="on"
-          style="width:65%;display:inline-block"
         />
-        <el-button :disabled="count>0" type="warning" round size="mini" style="position:absolute;display:inline-block;right:0;top:10px;" @click.native.prevent="requestsmscode">{{ count>0?count+'秒后获取':'点击获取' }}</el-button>
+        <el-button :disabled="count>0" type="warning" round size="mini" style="position:absolute;display:inline-block;right:2px;top:6px;" @click.native.prevent="requestsmscode">{{ count>0?count+'秒后获取':'点击获取' }}</el-button>
       </el-form-item>
 
       <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
         <el-input
           :key="passwordType"
           ref="password"
@@ -61,9 +50,6 @@
           auto-complete="on"
           @keyup.enter.native="handleRegister"
         />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
       </el-form-item>
       <div class="underlinetext" style="float:right;" @click="toLogin()">去登录?</div>
       <el-button :loading="loading" style="width:100%;margin-top:20px;" type="warning" @click.native.prevent="handleRegister">注册</el-button>
@@ -196,7 +182,7 @@ export default {
   /* 修复input 背景不协调 和光标变色 */
   /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-  $bg:#fff;
+  $bg:#000;
   $light_gray:#fff;
   $cursor: #fff;
 
@@ -210,8 +196,7 @@ export default {
   .login-container {
     .el-input {
       display: inline-block;
-      height: 47px;
-      width: 85%;
+
 
       input {
         background: transparent;
@@ -220,7 +205,7 @@ export default {
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;
-        height: 47px;
+
         caret-color: $cursor;
 
         &:-webkit-autofill {

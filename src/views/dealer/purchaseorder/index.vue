@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div v-show="!dialogVisible" class="grid-content">
+    <div v-show="!dialogVisible" >
       <div class="title">订单信息</div>
       <el-table
         v-loading="listLoading"
@@ -10,32 +10,9 @@
         fit
         stripe
         highlight-current-row
+		height="100vh"
         :default-sort="{prop: 'count', order: 'descending'}"
       >
-        <!-- <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form size="mini" label-position="left" inline class="demo-table-expand">
-              <el-form-item label="运单号">
-                <span>{{ props.row.expressnumber }}</span>
-              </el-form-item>
-              <el-form-item label="最终用户">
-                <span>{{ props.row.custorg }}</span>
-              </el-form-item>
-              <el-form-item label="项目名称">
-                <span>{{ props.row.project }}</span>
-              </el-form-item>
-              <el-form-item label="客户负责人">
-                <span>{{ props.row.custmanager }} 手机号:{{ props.row.custmanagertel }}</span>
-              </el-form-item>
-              <el-form-item label="负责人">
-                <span>{{ props.row.manager }} 手机号: {{ props.row.managertel }}</span>
-              </el-form-item>
-              <el-form-item label="经销区域">
-                <span>{{ props.row.areaFullName }}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column> -->
         <el-table-column align="center" prop="orderno" label="订单号">
           <template slot-scope="scope">
             {{ scope.row.orderno }}
@@ -94,8 +71,8 @@
     </div>
 
     <div v-show="dialogVisible">
-      <div class="grid-content">
-        <el-form ref="itemorderdetail" :disabled="!editmode" size="mini" :model="itemorderdetail" label-width="140px">
+      <div >
+        <el-form class="grid-content" ref="itemorderdetail" :disabled="!editmode" size="mini" :model="itemorderdetail" label-width="140px">
           <div class="title">经销商信息</div>
           <el-row>
             <el-col :span="8">
@@ -165,11 +142,13 @@
           </el-row>
           <div class="title">订购商品信息</div>
           <el-table
+          class="grid-content"
             v-loading="listLoading"
             :data="itemorderdetail.itemOrderItemVOS"
             element-loading-text="Loading"
             fit
             stripe
+			height="100vh"
             :default-sort="{prop: 'count', order: 'descending'}"
             style="width: 100%"
           >
@@ -195,7 +174,7 @@
             </el-table-column>
             <el-table-column label="采购数量" align="center">
               <template slot-scope="scope">
-                <el-input-number v-model="scope.row.itemcount" size="mini" :min="0" :max="10000" label="描述文字" @change="addShopcar(scope.row.id,scope.row)" />
+                {{scope.row.itemcount}}
               </template>
             </el-table-column>
           </el-table>
@@ -502,5 +481,12 @@ export default {
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+
+  .grid-content{
+min-width: 60rem;
+  }
+  .app-container{
+    overflow: auto;
   }
 </style>

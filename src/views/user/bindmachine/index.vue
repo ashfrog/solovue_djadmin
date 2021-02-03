@@ -6,6 +6,7 @@
       element-loading-text="Loading"
       fit
       highlight-current-row
+      height="100vh"
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
@@ -25,6 +26,11 @@
       <el-table-column label="机器码" align="center">
         <template slot-scope="scope">
           {{ scope.row.machineid }}
+        </template>
+      </el-table-column>
+      <el-table-column label="设备名" align="center" width="200">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.devicename" size="mini" @change="changedata" @blur="(e)=>{onDeviceNameInputBlur(e,scope.row)}" />
         </template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="绑定时间" width="200">
@@ -56,7 +62,8 @@
 <script>
 import {
   listBindMachinebyuserid,
-  deleteBindMachine
+  deleteBindMachine,
+  renamedevice
 } from '@/api/userbindorder'
 import store from '@/store'
 export default {
@@ -77,7 +84,8 @@ export default {
       userBindMachineS: [],
       pageSize: 10000,
       pageStart: 0,
-      search: ''
+      search: '',
+      dataChange:false
     }
   },
   created() {
@@ -111,7 +119,13 @@ export default {
         })
       }).catch(() => {
       })
-    }
+    },
+    changedata: function() {
+      this.dataChange = true
+    },
+    onDeviceNameInputBlur(e, item) {
+      renamedevice(item.machineid, item.devicename)
+    },
   }
 }
 </script>

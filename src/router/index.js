@@ -103,6 +103,44 @@ export const constantRoutes = [{
     }
   }
   ]
+},
+{
+  path: '/media',
+  component: Layout,
+  name: 'media',
+  redirect: '/media/uploadmovie',
+  meta: {
+    title: '媒体库',
+    icon: 'example'
+  },
+  children: [{
+    path: 'uploadmovie',
+    name: 'uploadmovie',
+    component: () => import('@/views/media/uploadmovie/index'),
+    meta: {
+      title: '上传视频',
+      icon: 'tree'
+    }
+  },
+  {
+    path: 'usermedia',
+    name: 'usermedia',
+    component: () => import('@/views/media/usermedia/index'),
+    meta: {
+      title: '我的视频',
+      icon: 'tree'
+    }
+  },
+  {
+    path: 'usermediaset',
+    name: 'usermediaset',
+    component: () => import('@/views/media/usermediaset/index'),
+    meta: {
+      title: '配置策略',
+      icon: 'tree'
+    }
+  }
+  ]
 }
 ]
 

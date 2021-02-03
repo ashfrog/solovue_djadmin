@@ -5,7 +5,7 @@
       :data="userBindOrderS"
       element-loading-text="Loading"
       fit
-      height="840"
+      height="100vh"
       stripe
       highlight-current-row
       :default-sort="{prop: 'count', order: 'descending'}"

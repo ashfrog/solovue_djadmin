@@ -1,165 +1,143 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
+      label-position="left">
       <div class="title-container">
         <h3 class="title">CrazySOLO系统登录</h3>
       </div>
 
       <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="请输入手机号"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
+        <el-input ref="username" v-model="loginForm.username" placeholder="请输入手机号" name="username" type="text" tabindex="1"
+          auto-complete="on" />
       </el-form-item>
 
       <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="请输入密码"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
+        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="请输入密码"
+          name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
+<!--        <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
+        </span> -->
       </el-form-item>
 
-      <div class="underlinetext" style="float:left;">
+      <div style="float:left;">
         <el-checkbox v-model="loginForm.remenberme" label="记住我" />
+        <span style="color:gray;font-size: 10px;line-height: 19px;margin:0px 10px;text-indent: 2px;">不是自己电脑不要勾选此项</span>
       </div>
-      <div class="underlinetext" style="float:left;color:gray">(不是自己电脑不要勾选此项)</div>
 
-      <div class="underlinetext" style="float:right;" @click="handleRegister()">注册账号</div>
-      <div class="underlinetext" style="float:right;margin:0 10px" @click="handleFindPassword()">忘记密码</div>
 
+      <div class="underlinetext" style="float:right;" >
+        <span style="margin:5px;" @click="handleRegister()">注册账号</span>
+        <span @click="handleFindPassword()">忘记密码?</span>
+      </div>
       <el-button :loading="loading" style="float:left;width:100%;margin-top:20px;" type="warning" @click.native.prevent="handleLogin">登录</el-button>
       <!-- <el-button type="warning" style="float:right;width:48%" @click.native.prevent="handleRegister">注册</el-button> -->
 
     </el-form>
 
+    <div class="footer_content_copyright">Copyright©2012-2022 重庆物鲸数字科技有限公司版权所有
+      <a href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" target="_blank">备案号： 渝ICP备19011486号-1</a></div>
+  </div>
+
   </div>
 </template>
 
 <script>
-import {
-  validUsername
-} from '@/utils/validate'
-const ipconfig = require('../../ipconfig.js')
-const defaultSettings = require('../../settings.js')
-export default {
-  name: 'Login',
-  data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('请输入正确的手机号'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 8) {
-        callback(new Error('密码至少8位'))
-      } else {
-        callback()
-      }
-    }
-    return {
-      loginForm: {
-        username: '',
-        password: '',
-        remenberme: true
-      },
-      loginRules: {
-        username: [{
-          required: true,
-          trigger: 'blur',
-          validator: validateUsername
-        }],
-        password: [{
-          required: true,
-          trigger: 'blur',
-          validator: validatePassword
-        }]
-      },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined
-    }
-  },
-  watch: {
-    $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
-      } else {
-        this.passwordType = 'password'
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
-
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          console.log('this.redirect ', this.redirect)
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            console.log('登录成功')
-            this.$router.push({
-              path: this.redirect || '/'
-            })
-            this.loading = false
-          }).catch((e) => {
-            this.loading = false
-            console.log('登录失败', e)
-          })
+  import {
+    validUsername
+  } from '@/utils/validate'
+  const ipconfig = require('../../ipconfig.js')
+  const defaultSettings = require('../../settings.js')
+  export default {
+    name: 'Login',
+    data() {
+      const validateUsername = (rule, value, callback) => {
+        if (!validUsername(value)) {
+          callback(new Error('请输入正确的手机号'))
+        } else {
+          callback()
         }
-      })
+      }
+      const validatePassword = (rule, value, callback) => {
+        if (value.length < 8) {
+          callback(new Error('密码至少8位'))
+        } else {
+          callback()
+        }
+      }
+      return {
+        loginForm: {
+          username: '',
+          password: '',
+          remenberme: true
+        },
+        loginRules: {
+          username: [{
+            required: true,
+            trigger: 'blur',
+            validator: validateUsername
+          }],
+          password: [{
+            required: true,
+            trigger: 'blur',
+            validator: validatePassword
+          }]
+        },
+        loading: false,
+        passwordType: 'password',
+        redirect: undefined
+      }
     },
+    watch: {
+      $route: {
+        handler: function(route) {
+          this.redirect = route.query && route.query.redirect
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      showPwd() {
+        if (this.passwordType === 'password') {
+          this.passwordType = ''
+        } else {
+          this.passwordType = 'password'
+        }
+        this.$nextTick(() => {
+          this.$refs.password.focus()
+        })
+      },
 
-    handleRegister() {
-      this.$router.push({
-        path: '/register'
-      })
-    },
-    handleFindPassword() {
-      this.$router.push({
-        path: '/findpassword'
-      })
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            console.log('this.redirect ', this.redirect)
+            this.loading = true
+            this.$store.dispatch('user/login', this.loginForm).then(() => {
+              console.log('登录成功')
+              this.$router.push({
+                path: this.redirect || '/'
+              })
+              this.loading = false
+            }).catch((e) => {
+              this.loading = false
+              console.log('登录失败', e)
+            })
+          }
+        })
+      },
+
+      handleRegister() {
+        this.$router.push({
+          path: '/register'
+        })
+      },
+      handleFindPassword() {
+        this.$router.push({
+          path: '/findpassword'
+        })
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -180,8 +158,7 @@ export default {
   .login-container {
     .el-input {
       display: inline-block;
-      height: 47px;
-      width: 85%;
+
 
       input {
         background: transparent;
@@ -202,12 +179,13 @@ export default {
 
     .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255,0.1);
       border-radius: 5px;
       color: #454545;
     }
   }
-  $bg:#FFFFFF;
+
+  $bg:#000000;
   $dark_gray:#889aa4;
   $light_gray:#00A0D8;
 
@@ -230,9 +208,10 @@ export default {
       position: relative;
       width: 520px;
       max-width: 100%;
-      padding: 160px 35px 0;
+      padding: 160px 35px;
       margin: 0 auto;
       overflow: hidden;
+      min-height: 95vh;
     }
 
     .tips {
@@ -268,13 +247,22 @@ export default {
     }
 
     .show-pwd {
+      line-height: 50px;
       position: absolute;
-      right: 10px;
-      top: 7px;
-      font-size: 16px;
+      font-size: 20px;
+      padding:0px 10px;
       color: $dark_gray;
       cursor: pointer;
       user-select: none;
     }
+  }
+
+  .footer_content_copyright {
+    display: flex;
+    justify-content: center;
+    color: gray;
+    font-size: 10px;
+    width: 80vw;
+    margin: auto;
   }
 </style>

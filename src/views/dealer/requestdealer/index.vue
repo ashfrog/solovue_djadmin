@@ -1,6 +1,6 @@
 <template>
   <div class="grid-content">
-    <div v-if="!showagreement" class="grid-content">
+    <div v-if="!showagreement" class="content">
       <div class="title">申请材料</div>
       <el-row style="margin-bottom: 20px;">
         <el-col :span="8">
@@ -100,7 +100,7 @@
         </el-row>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button>取消</el-button>
+          <el-button @click="refuse">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -238,5 +238,12 @@ export default {
   .uploadimg {
     display: flex;
     justify-content: center;
+  }
+
+  .grid-content{
+    overflow: auto;
+  }
+  .content{
+    min-width: 50rem;
   }
 </style>

@@ -68,13 +68,13 @@
             placeholder="输入关键字搜索"
           />
         </template>
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <el-button
             size="mini"
             type="text"
             @click="handleDelete(scope.$index, scope.row)"
           >删除授权</el-button>
-        </template>
+        </template> -->
       </el-table-column>
     </el-table>
   </div>

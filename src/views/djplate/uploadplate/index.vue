@@ -15,11 +15,11 @@
       </div>
     </div>
     <div>
-      <p style="color:red">注:上传文件命名格式为*_img.jpg，*_mov.mp4，*_zd.json</p>
+      <p style="color:red">注:上传文件命名格式为*_img.jpg，*_plate.ab，*_zz.json</p>
       <p>*为文件名</p>
       <p>*_img.jpg为缩略图</p>
-      <p>*_mov.mp4为广告视频</p>
-      <p style="color:red">*_zd.json为必须的配置文件(放每组资源后面 文件内容可为空 支持批量上传</p>
+      <p>*_plate.ab为小板块</p>
+      <p style="color:red">*_zz.json为必须的配置文件(放每组资源后面 文件内容可为空 支持批量上传)</p>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@
       return {
         countarr: [],
         count: 0,
-        uploadurl: process.env.VUE_APP_BASE_API + '/uploadad/upload'
+        uploadurl: process.env.VUE_APP_BASE_API + '/uploadpanel/upload'
       }
     },
     created() {

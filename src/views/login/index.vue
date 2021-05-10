@@ -14,7 +14,7 @@
       <el-form-item prop="password">
         <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="请输入密码"
           name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
-<!--        <span class="show-pwd" @click="showPwd">
+        <!--        <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span> -->
       </el-form-item>
@@ -25,14 +25,15 @@
       </div>
 
 
-      <div class="underlinetext" style="float:right;" >
+      <div class="underlinetext" style="float:right;">
         <span style="margin:5px;" @click="handleRegister()">注册账号</span>
         <span @click="handleFindPassword()">忘记密码?</span>
       </div>
-      <el-button :loading="loading" style="float:left;width:100%;margin-top:20px;" type="warning" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button :loading="loading" style="float:left;width:100%;margin-top:20px;" type="primary" @click.native.prevent="handleLogin">登录</el-button>
       <!-- <el-button type="warning" style="float:right;width:48%" @click.native.prevent="handleRegister">注册</el-button> -->
 
     </el-form>
+    <Vcode :show="isShow" @success="success" @close="close" />
 
     <div class="footer_content_copyright">Copyright©2012-2022 重庆物鲸数字科技有限公司版权所有
       <a href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" target="_blank">备案号： 渝ICP备19011486号-1</a></div>
@@ -45,6 +46,7 @@
   import {
     validUsername
   } from '@/utils/validate'
+  import Vcode from "vue-puzzle-vcode";
   const ipconfig = require('../../ipconfig.js')
   const defaultSettings = require('../../settings.js')
   export default {
@@ -68,7 +70,7 @@
         loginForm: {
           username: '',
           password: '',
-          remenberme: true
+          remenberme: true,
         },
         loginRules: {
           username: [{
@@ -84,8 +86,12 @@
         },
         loading: false,
         passwordType: 'password',
-        redirect: undefined
+        redirect: undefined,
+        isShow: false, // 验证码模态框是否出现
       }
+    },
+    components: {
+      Vcode
     },
     watch: {
       $route: {
@@ -106,26 +112,6 @@
           this.$refs.password.focus()
         })
       },
-
-      handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            console.log('this.redirect ', this.redirect)
-            this.loading = true
-            this.$store.dispatch('user/login', this.loginForm).then(() => {
-              console.log('登录成功')
-              this.$router.push({
-                path: this.redirect || '/'
-              })
-              this.loading = false
-            }).catch((e) => {
-              this.loading = false
-              console.log('登录失败', e)
-            })
-          }
-        })
-      },
-
       handleRegister() {
         this.$router.push({
           path: '/register'
@@ -135,6 +121,38 @@
         this.$router.push({
           path: '/findpassword'
         })
+      },
+
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            this.isShow = true;
+          }
+        })
+      },
+      //服务器验证
+      login() {
+        console.log('this.redirect ', this.redirect)
+        this.loading = true
+        this.$store.dispatch('user/login', this.loginForm).then(() => {
+          console.log('登录成功')
+          this.$router.push({
+            path: this.redirect || '/'
+          })
+          this.loading = false
+        }).catch((e) => {
+          this.loading = false
+          console.log('登录失败', e)
+        })
+      },
+      // 通过验证
+      success() {
+        this.isShow = false;
+        this.login();
+      },
+      // 关闭模态框
+      close() {
+        this.isShow = false;
       }
     }
   }
@@ -179,7 +197,7 @@
 
     .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 5px;
       color: #454545;
     }
@@ -190,7 +208,7 @@
   $light_gray:#00A0D8;
 
   .underlinetext {
-    color: #E6A23C;
+    color: #00A0D8;
     text-decoration: underline;
   }
 
@@ -250,7 +268,7 @@
       line-height: 50px;
       position: absolute;
       font-size: 20px;
-      padding:0px 10px;
+      padding: 0px 10px;
       color: $dark_gray;
       cursor: pointer;
       user-select: none;

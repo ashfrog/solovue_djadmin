@@ -6,6 +6,13 @@
   "description": "CrazySOLO",
   "glyphs": [
     {
+      "icon_id": "14478390",
+      "name": "关  闭",
+      "font_class": "guanbi",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
       "icon_id": "19402435",
       "name": "返 回",
       "font_class": "fanhui",

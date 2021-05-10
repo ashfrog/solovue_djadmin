@@ -1,72 +1,95 @@
 <template>
   <div class="app-container">
     <div id="app" class="container">
-      <div class="tab-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th style="width:10%">
-                <el-button size="mini" type="info">视频</el-button>
-              </th>
-              <th style="width:30%">
-                <el-button size="mini" type="info">名称</el-button>
-              </th>
-              <th style="width:10%">
-                <el-button size="mini" type="info">创建时间</el-button>
-              </th>
-              <th style="width:5%">
-                <el-tag type="success">操作</el-tag>
-              </th>
-              <th style="width:5%">
-                <el-tag type="success">删除</el-tag>
-              </th>
-            </tr>
-          </thead>
-          <tbody id="container">
-            <tr v-for="(itemVO,index) in usermedias" :key="itemVO.iId" align="center">
-              <td><img class="img-thumbnail" :src="itemVO.imgpath"></td>
-              <td>
-                <el-input v-model="itemVO.moviename" size="mini" @change="changedata" @blur="(e)=>{onNameInputBlur(e,itemVO)}" />
-              </td>
-              <td>
-                <el-tag size="medium" type="info">{{ new Date(itemVO.updatetime).toLocaleString() }}</el-tag>
-              </td>
-              <td>
-                <el-button size="mini" type="text" circle :data-itemid="itemVO.id" @click="(e)=>{playmovie(e,itemVO)}">预览</el-button>
-              </td>
-              <td>
-                <el-button size="mini" type="danger" icon="el-icon-delete" circle @click="(e)=>{deleteitem(e,index,itemVO.id)}" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!--        <div :class="{'video-modal':true,'show':showvideo}" @click.stop="showvideo=false">
-          <div :class="{'modal-body':true}" @click.stop="">
-            <video ref="video" class="video" controls="controls" autoplay>
-              <source :src="src" type="video/mp4" />
-            </video>
-            <div class="close" @click="showvideo=false">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#iconguanbi"></use>
-              </svg>
-            </div>
+      <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="模板资源" name="template">
+          <div class="tab-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">缩略图</el-button>
+                  </th>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">资源路径</el-button>
+                  </th>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">上传时间</el-button>
+                  </th>
+                  <th style="width:5%">
+                    <el-tag type="success">删除</el-tag>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="container">
+                <tr v-for="(itemVO,index) in djmbplates" :key="itemVO.iId" align="center">
+                  <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
+                  <td>
+                    <el-tag size="mini">{{itemVO.abpath}}</el-tag>
+                  </td>
+                  <td>
+                    <el-tag size="medium" type="info">{{ new Date(itemVO.updatetime).toLocaleString() }}</el-tag>
+                  </td>
+                  <td>
+                    <el-button size="mini" type="danger" icon="el-icon-delete" circle
+                      @click="(e)=>{deleteitem(e,index,itemVO.id)}" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <MVideo :src="src" @close="showvideo=false" :show="showvideo"></MVideo>
           </div>
-        </div> -->
 
-        <MVideo :src="src"  @close="showvideo=false" :show="showvideo"></MVideo>
-      </div>
+        </el-tab-pane>
+        <el-tab-pane label="组件资源" name="plate">
+          <div class="tab-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">缩略图</el-button>
+                  </th>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">资源路径</el-button>
+                  </th>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">上传时间</el-button>
+                  </th>
+                  <th style="width:5%">
+                    <el-tag type="success">删除</el-tag>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="container">
+                <tr v-for="(itemVO,index) in djplates" :key="itemVO.iId" align="center">
+                  <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
+                  <td>
+                    <el-tag size="mini">{{itemVO.abpath}}</el-tag>
+                  </td>
+                  <td>
+                    <el-tag size="medium" type="info">{{ new Date(itemVO.updatetime).toLocaleString() }}</el-tag>
+                  </td>
+                  <td>
+                    <el-button size="mini" type="danger" icon="el-icon-delete" circle
+                      @click="(e)=>{deleteitem(e,index,itemVO.id)}" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <MVideo :src="src" @close="showvideo=false" :show="showvideo"></MVideo>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
 
 <script>
   import {
-    listbylogin,
-    getuseradset,
-    deletemediabyid,
-    updatename,
-  } from '@/api/userad'
+    listpage,
+    listmbpage,
+    deleteplatebyid
+  } from '@/api/djplate'
 
   import MVideo from '@/components/MVideo'
 
@@ -87,6 +110,7 @@
     },
     data() {
       return {
+        activeName:'template',
         list: null,
         movtitle: '视频',
         listLoading: true,
@@ -102,7 +126,8 @@
         dialogVisible: false,
         usermedias: [],
         src: '',
-        showvideo: false
+        showvideo: false,
+        djplates: [],
       }
     },
     created() {
@@ -121,13 +146,14 @@
         // })
       },
       fetchData() {
-        listbylogin().then(response => {
-          console.log("response", response)
-          this.usermedias = response.data;
+        listmbpage(0, 20).then(response => {
+          console.log(response)
+          this.djmbplates = response.data
         })
-        // getuseradset("a").then((res) => {
-        //   console.log("res", res)
-        // })
+        listpage(0, 20).then(response => {
+          console.log(response)
+          this.djplates = response.data
+        })
       },
       changedata: function() {
         this.dataChange = true
@@ -136,16 +162,16 @@
         console.log("index")
         console.log("index", index)
 
-        var delitem = this.usermedias.findIndex(item => item.id === itemid)
+        // var delitem = this.djplates.findIndex(item => item.id === itemid)
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           console.log("id", itemid)
-          deletemediabyid(itemid).then(data => {
+          deleteplatebyid(itemid).then(data => {
             if (data.status === 'success') {
-              this.usermedias.splice(index, 1)
+              this.djplates.splice(index, 1)
               this.$message({
                 message: '删除成功',
                 type: 'success'
@@ -177,8 +203,8 @@
           console.log(this.currentPage)
         })
       },
-      closemovie(){
-        this.showvideo=false
+      closemovie() {
+        this.showvideo = false
       }
     }
   }

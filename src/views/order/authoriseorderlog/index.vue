@@ -68,12 +68,12 @@
       <el-table-column align="center" sortable prop="project" label="项目" width="95">
         <template slot-scope="scope">{{ scope.row.project }}</template>
       </el-table-column>
-      <el-table-column label="图片" width="195">
+      <el-table-column label="图片" width="120">
         <template slot-scope="scope">
-          <img :src="scope.row.imgUrl" width="100" height="50">
+          <img :src="scope.row.imgUrl" width="80" height="50">
         </template>
       </el-table-column>
-      <el-table-column label="单价" sortable prop="unitprice" width="110" align="center">
+      <el-table-column label="单价" sortable prop="unitprice" width="80" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.unitprice }}</span>
         </template>
@@ -85,7 +85,7 @@
         <template slot-scope="scope">{{ new Date(scope.row.createtime).toLocaleString() }}</template>
       </el-table-column>
 
-      <el-table-column label="用户手机号" align="center">
+      <el-table-column label="用户手机号" align="center" width="110">
         <template slot-scope="scope">
           <el-tooltip
             class="item"
@@ -98,7 +98,7 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column label="分发|绑定数量" align="center">
+      <el-table-column label="分发|绑定数量" align="center" width="100">
         <template slot-scope="scope">
           <el-tooltip
             class="item"

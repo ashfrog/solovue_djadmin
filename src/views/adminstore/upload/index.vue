@@ -1,16 +1,9 @@
 <template>
   <div class="components-container">
     <div class="editor-container">
-      <dropzone
-        id="myVueDropzone"
-        ref="dropzonefun"
-        :url="uploadurl"
-        @dropzone-fileAdded="dropzoneA"
-        @dropzone-removedFile="dropzoneR"
-        @dropzone-success="dropzoneS"
-        @dropzone-sending="dropzoneSend"
-        @dropzone-successmultiple="dropzoneSuccessmultiple"
-      />
+      <dropzone id="myVueDropzone" ref="dropzonefun" :url="uploadurl" @dropzone-fileAdded="dropzoneA"
+        @dropzone-removedFile="dropzoneR" @dropzone-success="dropzoneS" @dropzone-sending="dropzoneSend"
+        @dropzone-successmultiple="dropzoneSuccessmultiple" />
     </div>
     <div class="btn-row">
       <div>
@@ -21,97 +14,111 @@
         <el-button type="primary" @click="removeAllFiles">清空文件</el-button>
       </div>
     </div>
+    <div>
+      <p style="color:red">注:上传文件命名格式为*_img.jpg，*_mov.mp4，*_preview.mp4，*_previewframe.jpg，*_adr.ab，*_win64.ab，*_back.mp4，*_outline.mp4，*_zd.json</p>
+      <p>*为文件名</p>
+      <p>*_img.jpg为缩略图</p>
+      <p>*_preview.mp4为预览视频</p>
+      <p>*_mov.mp4为主要视频</p>
+      <p style="color:red">*_zz.json为必须的配置文件(放每组资源后面 文件内容可为空 支持批量上传) </p>
+    </div>
   </div>
 </template>
 <script>
-
-import {
-  getsuffix
-  // readText
-} from '@/utils/fileutils'
-import Dropzone from '@/components/Dropzone'
-const ipconfig = require('@/ipconfig.js')
-// import BMF from 'browser-md5-file'
-// const bmf = new BMF()
-var dropzonecomp
-export default {
-  name: 'DropzoneDemo',
-  components: {
-    Dropzone
-  },
-  data: function() {
-    return {
-      countarr: [],
-      count: 0,
-      uploadurl: process.env.VUE_APP_BASE_API + '/upload/upload'
-    }
-  },
-  created() {
-    console.log('uploadurl:', this.uploadurl)
-  },
-  mounted() {
-    dropzonecomp = this.$refs.dropzonefun
-  },
-  methods: {
-    dropzoneA(file) {
-      if (file.name === 'Thumbs.db') {
-        dropzonecomp.removeFile(file)
-      }
-      var suffix = getsuffix(file.name)
-      this.count++
-      if (suffix === 'json') {
-        this.countarr.push(this.count)
-        this.count = 0
-        console.log(this.countarr)
+  import {
+    getsuffix
+    // readText
+  } from '@/utils/fileutils'
+  import Dropzone from '@/components/Dropzone'
+  const ipconfig = require('@/ipconfig.js')
+  // import BMF from 'browser-md5-file'
+  // const bmf = new BMF()
+  var dropzonecomp
+  export default {
+    name: 'DropzoneDemo',
+    components: {
+      Dropzone
+    },
+    data: function() {
+      return {
+        countarr: [],
+        count: 0,
+        uploadurl: process.env.VUE_APP_BASE_API + '/upload/upload'
       }
     },
-    dropzoneS(file) {
-      // console.log('dropzoneS', file)
+    created() {
+      console.log('uploadurl:', this.uploadurl)
+    },
+    mounted() {
+      dropzonecomp = this.$refs.dropzonefun
+    },
+    methods: {
+      dropzoneA(file) {
+        if (file.name === 'Thumbs.db') {
+          dropzonecomp.removeFile(file)
+        }
+        var suffix = getsuffix(file.name)
+        this.count++
+        if (suffix === 'json') {
+          this.countarr.push(this.count)
+          this.count = 0
+          console.log(this.countarr)
+        }
+      },
+      dropzoneS(file) {
+        // console.log('dropzoneS', file)
 
-    },
-    dropzoneSend(file, xhr, formData) {
-      // console.log('dropzoneSending', xhr)
-    },
-    dropzoneSuccessmultiple(file, error, xhr) {
-      this.processQueue()
-      this.$notify({
-        title: '通知消息',
-        message: '上传成功',
-        type: 'success'
-      })
-    },
-    dropzoneR(file) {
-      // console.log('dropzoneR', file)
-    },
-    removeAllFiles() {
-      dropzonecomp.dropzone.removeAllFiles(true)
-      this.countarr.splice(0, this.countarr.length)
-    },
-    processQueue() {
-      dropzonecomp.resetparallelUploads(this.countarr[0])
-      console.log('剩余上传数量:', this.countarr.length)
-      this.$message({
-        message: '剩余上传数量:' + this.countarr.length,
-        type: 'success'
-      })
-      this.countarr.splice(0, 1)
-      dropzonecomp.dropzone.processQueue()
+      },
+      dropzoneSend(file, xhr, formData) {
+        // console.log('dropzoneSending', xhr)
+      },
+      dropzoneSuccessmultiple(file, error, xhr) {
+        this.processQueue()
+        this.$notify({
+          title: '通知消息',
+          message: '上传成功',
+          type: 'success'
+        })
+      },
+      dropzoneR(file) {
+        // console.log('dropzoneR', file)
+      },
+      removeAllFiles() {
+        dropzonecomp.dropzone.removeAllFiles(true)
+        this.countarr.splice(0, this.countarr.length)
+      },
+      processQueue() {
+        dropzonecomp.resetparallelUploads(this.countarr[0])
+        console.log('剩余上传数量:', this.countarr.length)
+        this.$message({
+          message: '剩余上传数量:' + this.countarr.length,
+          type: 'success'
+        })
+        this.countarr.splice(0, 1)
+        dropzonecomp.dropzone.processQueue()
+      }
+
     }
-
   }
-}
 </script>
 
 <style scoped>
-  .btn-row{
-    display:flex;
+  .btn-row {
+    display: flex;
     flex-direction: row;
     justify-content: center;
   }
 
   .btnstyle {
-    width:100px;
-    height:30px;
+    width: 100px;
+    height: 30px;
     line-height: 30px;
+  }
+
+  p {
+    text-align: left;
+    color: gray;
+    font-size: 15px;
+    text-indent: 2em;
   }
 </style>

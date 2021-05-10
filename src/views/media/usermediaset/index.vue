@@ -76,7 +76,7 @@
           <el-button type="text" @click="saveUseradSet">保存</el-button>
           <!--          <el-button @click="sortByTimeup" type="primary" size="medium">升序</el-button>
           <el-button @click="sortByTimedown" type="primary" size="medium">降序</el-button> -->
-          <el-button type="text" @click="ReloadUseradSet" size="medium">重置</el-button>
+          <!-- <el-button type="text" @click="ReloadUseradSet" size="medium">重置</el-button> -->
           <el-button type="text" @click="ClearUseradSet" size="medium">清空</el-button>
           <el-button type="text" @click="ClickReturn" size="medium">返回</el-button>
         </div>

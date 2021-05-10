@@ -8,14 +8,14 @@
       </div>
 
       <el-form-item prop="username">
-        <el-input class="inputbox" ref="username" v-model="loginForm.telphone" placeholder="请输入手机号" name="username" type="text" tabindex="1"
-          auto-complete="on" />
+        <el-input class="inputbox" ref="username" v-model="loginForm.telphone" placeholder="请输入手机号" name="username"
+          type="text" tabindex="1" auto-complete="on" />
       </el-form-item>
 
       <el-form-item prop="code">
         <el-input ref="smscode" v-model="loginForm.smscode" placeholder="输入短信验证码" name="smscode" type="text" tabindex="1"
           auto-complete="on" style="display:inline-block" />
-        <el-button :disabled="count>0" type="warning" round size="mini" style="position:absolute;display:inline-block;right:2px;top:6px;"
+        <el-button :disabled="count>0" type="primary" round size="mini" style="position:absolute;display:inline-block;right:2px;top:6px;"
           @click.native.prevent="requestsmscode">{{ count>0?count+'秒后获取':'点击获取' }}</el-button>
       </el-form-item>
 
@@ -26,10 +26,9 @@
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span> -->
       </el-form-item>
-      <div class="underlinetext" style="float:right;" @click="toLogin()">去登录?</div>
-      <el-button :loading="loading" style="width:100%;margin-top:20px;" type="warning" @click.native.prevent="findpassword">确认</el-button>
-
-
+      <div class="underlinetext" style="float:right;" @click="toLogin()">去登录></div>
+      <el-button :loading="loading" style="width:100%;margin-top:20px;" type="primary" @click.native.prevent="findpassword">确认</el-button>
+      <Vcode :show="isShow" @success="success" @close="close" />
     </el-form>
   </div>
 </template>
@@ -42,8 +41,12 @@
     findpassword,
     requestsmscode
   } from '@/api/userdealer.js'
+  import Vcode from "vue-puzzle-vcode";
   export default {
     name: 'Login',
+    components: {
+      Vcode
+    },
     data() {
       const validateUsername = (rule, value, callback) => {
         if (!validUsername(value)) {
@@ -82,7 +85,8 @@
         redirect: undefined,
         count: '',
         show: true,
-        timer: null
+        timer: null,
+        isShow: false
       }
     },
     watch: {
@@ -105,13 +109,7 @@
         })
       },
       requestsmscode() {
-        requestsmscode(this.loginForm.telphone, 'FindPasswordCode').then((result) => {
-          this.$message({
-            type: 'success',
-            message: result.data
-          })
-          this.countdown()
-        })
+        this.isShow = true;
       },
       countdown() {
         const TIME_COUNT = 60
@@ -150,6 +148,21 @@
         this.$router.push({
           path: '/login'
         })
+      },
+      // 通过验证
+      success() {
+        this.isShow = false;
+        requestsmscode(this.loginForm.telphone, 'FindPasswordCode').then((result) => {
+          this.$message({
+            type: 'success',
+            message: result.data
+          })
+          this.countdown()
+        })
+      },
+      // 关闭模态框
+      close() {
+        this.isShow = false;
       }
     }
   }
@@ -206,8 +219,8 @@
   $light_gray:#00A0D8;
 
   .underlinetext {
-    color: #E6A23C;
-    text-decoration: underline;
+    color: #00A0D8;
+    // text-decoration: underline;
   }
 
   .underlinetext:hover {

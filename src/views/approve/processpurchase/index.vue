@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div v-show="!dialogVisible" class="grid-content">
-      <div class="title">订单信息</div>
+      <div class="title">报备信息</div>
       <el-table height="100vh" v-loading="listLoading" size="mini" :data="itemorderlist" element-loading-text="Loading" fit stripe
         highlight-current-row :default-sort="{prop: 'count', order: 'descending'}">
         <el-table-column align="center" prop="orderno" label="订单号">

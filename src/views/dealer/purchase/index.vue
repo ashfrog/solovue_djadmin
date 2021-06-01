@@ -66,7 +66,7 @@
           <div style="width:300px;display:flex;flex-direction:row;position:absolute;right:10px;margin-top:30px;">
             <div style="line-height: 50px;color:gray;width:80px;">总价￥:</div>
             <div style="line-height: 50px;color:red;width:100px;">{{ totalprice }}</div>
-            <el-button type="warning" @click="showOrderDetail()">采购下单</el-button>
+            <el-button type="warning" @click="showOrderDetail()">开始报备</el-button>
           </div>
         </div>
       </div>
@@ -296,7 +296,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer" style="width:100%;justify-content:center;display:flex;flex-direction:row;margin:20px 20px;">
           <el-button @click="hideOrderDetailPanel">取 消</el-button>
-          <el-button type="primary" @click="confirmorder">提交订单</el-button>
+          <el-button type="primary" @click="confirmorder">提交</el-button>
         </span>
       </div>
 

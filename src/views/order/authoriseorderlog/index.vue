@@ -125,6 +125,11 @@
           <el-tag :type="scope.row.state=='ProcessComplete' ? 'success':'danger' ">已生效</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="备注" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.bindcode}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="deleteBindOrder(scope.row)">删除</el-button>

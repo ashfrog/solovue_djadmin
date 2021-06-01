@@ -105,7 +105,7 @@
             <template slot="prepend">数量:</template>
           </el-input>
           <div style="margin: 20px;" />
-          <el-input v-model="bindorder.bindcode" placeholder="备注信息">
+          <el-input v-model="bindorder.bindcode" placeholder="备注信息 用户能看到">
             <template slot="prepend">备注:</template>
           </el-input>
           <div style="margin: 20px;" />

@@ -2,11 +2,11 @@
   <div v-if="show" :class="{'video-modal':true,'show':show}" @click.stop="close">
     <div :class="{'modal-body':true}" @click.stop="">
       <video :key="src" ref="video" class="video" controls="controls" autoplay>
-        <source :src="src" type="video/mp4" />
+        <source :src="src" type="video/mp4">
       </video>
       <div class="close" @click="close">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconguanbi"></use>
+          <use xlink:href="#iconguanbi" />
         </svg>
       </div>
     </div>
@@ -14,29 +14,29 @@
 </template>
 
 <script>
-  export default {
-    name: 'MVideo',
-    props: {
-      src: {
-        default: ""
-      },
-      show: {
-        type: Boolean,
-        default: true
-      }
-    },
+export default {
+  name: 'MVideo',
+  props: {
+    // src: {
+    //   default: ''
+    // },
+    show: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {
 
-    methods: {
-      close() {
-        this.$emit('close');
-      }
-    },
-    data() {
-      return {
+    }
+  },
 
-      }
+  methods: {
+    close() {
+      this.$emit('close')
     }
   }
+}
 </script>
 
 <style>

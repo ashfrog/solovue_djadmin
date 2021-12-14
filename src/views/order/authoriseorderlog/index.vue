@@ -6,7 +6,7 @@
       element-loading-text="Loading"
       fit
       stripe
-	  height="100vh"
+      height="100vh"
       highlight-current-row
       :default-sort="{prop: 'count', order: 'descending'}"
     >
@@ -127,7 +127,7 @@
       </el-table-column>
       <el-table-column label="备注" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.bindcode}}</span>
+          <span>{{ scope.row.bindcode }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">

@@ -101,10 +101,10 @@ export function listauthoriseorderlog(pageStart, pageSize) {
   })
 }
 
-export function renamedevice(machineid,devicename){
+export function renamedevice(machineid, devicename) {
   return request({
     url: '/userbind/renamedevice',
-    method:'post',
+    method: 'post',
     data: qs.stringify({
       machineid,
       devicename

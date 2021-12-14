@@ -1,19 +1,41 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
-      label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
         <h3 class="title">CrazySOLO系统登录</h3>
       </div>
 
       <el-form-item prop="username">
-        <el-input ref="username" v-model="loginForm.username" placeholder="请输入手机号" name="username" type="text" tabindex="1"
-          auto-complete="on" />
+        <el-input
+          ref="username"
+          v-model="loginForm.username"
+          placeholder="请输入手机号"
+          name="username"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
       </el-form-item>
 
       <el-form-item prop="password">
-        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="请输入密码"
-          name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
+        <el-input
+          :key="passwordType"
+          ref="password"
+          v-model="loginForm.password"
+          :type="passwordType"
+          placeholder="请输入密码"
+          name="password"
+          tabindex="2"
+          auto-complete="on"
+          @keyup.enter.native="handleLogin"
+        />
         <!--        <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span> -->
@@ -23,7 +45,6 @@
         <el-checkbox v-model="loginForm.remenberme" label="记住我" />
         <span style="color:gray;font-size: 10px;line-height: 19px;margin:0px 10px;text-indent: 2px;">不是自己电脑不要勾选此项</span>
       </div>
-
 
       <div class="underlinetext" style="float:right;">
         <span style="margin:5px;" @click="handleRegister()">注册账号</span>
@@ -38,124 +59,122 @@
     <div class="footer_content_copyright">Copyright©2012-2022 重庆物鲸数字科技有限公司版权所有
       <a href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" target="_blank">备案号： 渝ICP备19011486号-1</a></div>
   </div>
-
-  </div>
 </template>
 
 <script>
-  import {
-    validUsername
-  } from '@/utils/validate'
-  import Vcode from "vue-puzzle-vcode";
-  const ipconfig = require('../../ipconfig.js')
-  const defaultSettings = require('../../settings.js')
-  export default {
-    name: 'Login',
-    data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!validUsername(value)) {
-          callback(new Error('请输入正确的手机号'))
-        } else {
-          callback()
-        }
-      }
-      const validatePassword = (rule, value, callback) => {
-        if (value.length < 8) {
-          callback(new Error('密码至少8位'))
-        } else {
-          callback()
-        }
-      }
-      return {
-        loginForm: {
-          username: '',
-          password: '',
-          remenberme: true,
-        },
-        loginRules: {
-          username: [{
-            required: true,
-            trigger: 'blur',
-            validator: validateUsername
-          }],
-          password: [{
-            required: true,
-            trigger: 'blur',
-            validator: validatePassword
-          }]
-        },
-        loading: false,
-        passwordType: 'password',
-        redirect: undefined,
-        isShow: false, // 验证码模态框是否出现
-      }
-    },
-    components: {
-      Vcode
-    },
-    watch: {
-      $route: {
-        handler: function(route) {
-          this.redirect = route.query && route.query.redirect
-        },
-        immediate: true
-      }
-    },
-    methods: {
-      showPwd() {
-        if (this.passwordType === 'password') {
-          this.passwordType = ''
-        } else {
-          this.passwordType = 'password'
-        }
-        this.$nextTick(() => {
-          this.$refs.password.focus()
-        })
-      },
-      handleRegister() {
-        this.$router.push({
-          path: '/register'
-        })
-      },
-      handleFindPassword() {
-        this.$router.push({
-          path: '/findpassword'
-        })
-      },
-
-      handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            this.isShow = true;
-          }
-        })
-      },
-      //服务器验证
-      login() {
-        console.log('this.redirect ', this.redirect)
-        this.loading = true
-        this.$store.dispatch('user/login', this.loginForm).then(() => {
-          console.log('登录成功')
-          this.$router.push({
-            path: this.redirect || '/'
-          })
-          this.loading = false
-        }).catch((e) => {
-          this.loading = false
-          console.log('登录失败', e)
-        })
-      },
-      // 通过验证
-      success() {
-        this.isShow = false;
-        this.login();
-      },
-      // 关闭模态框
-      close() {
-        this.isShow = false;
+import {
+  validUsername
+} from '@/utils/validate'
+import Vcode from 'vue-puzzle-vcode'
+// const ipconfig = require('../../ipconfig.js')
+// const defaultSettings = require('../../settings.js')
+export default {
+  name: 'Login',
+  components: {
+    Vcode
+  },
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!validUsername(value)) {
+        callback(new Error('请输入正确的手机号'))
+      } else {
+        callback()
       }
     }
+    const validatePassword = (rule, value, callback) => {
+      if (value.length < 8) {
+        callback(new Error('密码至少8位'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      loginForm: {
+        username: '',
+        password: '',
+        remenberme: true
+      },
+      loginRules: {
+        username: [{
+          required: true,
+          trigger: 'blur',
+          validator: validateUsername
+        }],
+        password: [{
+          required: true,
+          trigger: 'blur',
+          validator: validatePassword
+        }]
+      },
+      loading: false,
+      passwordType: 'password',
+      redirect: undefined,
+      isShow: false // 验证码模态框是否出现
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    showPwd() {
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
+      } else {
+        this.passwordType = 'password'
+      }
+      this.$nextTick(() => {
+        this.$refs.password.focus()
+      })
+    },
+    handleRegister() {
+      this.$router.push({
+        path: '/register'
+      })
+    },
+    handleFindPassword() {
+      this.$router.push({
+        path: '/findpassword'
+      })
+    },
+
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.isShow = true
+        }
+      })
+    },
+    // 服务器验证
+    login() {
+      console.log('this.redirect ', this.redirect)
+      this.loading = true
+      this.$store.dispatch('user/login', this.loginForm).then(() => {
+        console.log('登录成功')
+        this.$router.push({
+          path: this.redirect || '/'
+        })
+        this.loading = false
+      }).catch((e) => {
+        this.loading = false
+        console.log('登录失败', e)
+      })
+    },
+    // 通过验证
+    success() {
+      this.isShow = false
+      this.login()
+    },
+    // 关闭模态框
+    close() {
+      this.isShow = false
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -176,7 +195,6 @@
   .login-container {
     .el-input {
       display: inline-block;
-
 
       input {
         background: transparent;

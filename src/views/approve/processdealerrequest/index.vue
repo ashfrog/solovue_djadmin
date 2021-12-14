@@ -6,7 +6,7 @@
       element-loading-text="Loading"
       fit
       stripe
-	  height="100vh"
+      height="100vh"
       highlight-current-row
       :default-sort="{prop: 'count', order: 'descending'}"
     >
@@ -87,7 +87,7 @@
       </el-table-column>
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
-          <div v-if="scope.row.rights==1 && scope.row.verified == 0">
+          <div v-if="scope.row.verified == 0">
             <el-button size="mini" type="text" @click="setRights(scope.row, 3)">通过</el-button>
           </div>
         </template>

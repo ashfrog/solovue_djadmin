@@ -1,27 +1,64 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
-      label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
 
       <div class="title-container">
         <h3 class="title">密码找回</h3>
       </div>
 
       <el-form-item prop="username">
-        <el-input class="inputbox" ref="username" v-model="loginForm.telphone" placeholder="请输入手机号" name="username"
-          type="text" tabindex="1" auto-complete="on" />
+        <el-input
+          ref="username"
+          v-model="loginForm.telphone"
+          class="inputbox"
+          placeholder="请输入手机号"
+          name="username"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
       </el-form-item>
 
       <el-form-item prop="code">
-        <el-input ref="smscode" v-model="loginForm.smscode" placeholder="输入短信验证码" name="smscode" type="text" tabindex="1"
-          auto-complete="on" style="display:inline-block" />
-        <el-button :disabled="count>0" type="primary" round size="mini" style="position:absolute;display:inline-block;right:2px;top:6px;"
-          @click.native.prevent="requestsmscode">{{ count>0?count+'秒后获取':'点击获取' }}</el-button>
+        <el-input
+          ref="smscode"
+          v-model="loginForm.smscode"
+          placeholder="输入短信验证码"
+          name="smscode"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+          style="display:inline-block"
+        />
+        <el-button
+          :disabled="count>0"
+          type="primary"
+          round
+          size="mini"
+          style="position:absolute;display:inline-block;right:2px;top:6px;"
+          @click.native.prevent="requestsmscode"
+        >{{ count>0?count+'秒后获取':'点击获取' }}</el-button>
       </el-form-item>
 
       <el-form-item prop="password">
-        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="输入6-18位数字或字母为新密码"
-          name="password" tabindex="2" auto-complete="on" @keyup.enter.native="findpassword" />
+        <el-input
+          :key="passwordType"
+          ref="password"
+          v-model="loginForm.password"
+          :type="passwordType"
+          placeholder="输入6-18位数字或字母为新密码"
+          name="password"
+          tabindex="2"
+          auto-complete="on"
+          @keyup.enter.native="findpassword"
+        />
         <!--          <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span> -->
@@ -34,138 +71,138 @@
 </template>
 
 <script>
-  import {
-    validUsername
-  } from '@/utils/validate'
-  import {
-    findpassword,
-    requestsmscode
-  } from '@/api/userdealer.js'
-  import Vcode from "vue-puzzle-vcode";
-  export default {
-    name: 'Login',
-    components: {
-      Vcode
-    },
-    data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!validUsername(value)) {
-          callback(new Error('Please enter the correct user name'))
-        } else {
-          callback()
-        }
-      }
-      const validatePassword = (rule, value, callback) => {
-        if (value.length < 8) {
-          callback(new Error('密码不能少于8位'))
-        } else {
-          callback()
-        }
-      }
-      return {
-        loginForm: {
-          telphone: '',
-          password: '',
-          smscode: ''
-        },
-        loginRules: {
-          telphone: [{
-            required: true,
-            trigger: 'blur',
-            validator: validateUsername
-          }],
-          password: [{
-            required: true,
-            trigger: 'blur',
-            validator: validatePassword
-          }]
-        },
-        loading: false,
-        passwordType: 'password',
-        redirect: undefined,
-        count: '',
-        show: true,
-        timer: null,
-        isShow: false
-      }
-    },
-    watch: {
-      $route: {
-        handler: function(route) {
-          this.redirect = route.query && route.query.redirect
-        },
-        immediate: true
-      }
-    },
-    methods: {
-      showPwd() {
-        if (this.passwordType === 'password') {
-          this.passwordType = ''
-        } else {
-          this.passwordType = 'password'
-        }
-        this.$nextTick(() => {
-          this.$refs.password.focus()
-        })
-      },
-      requestsmscode() {
-        this.isShow = true;
-      },
-      countdown() {
-        const TIME_COUNT = 60
-        if (!this.timer) {
-          this.count = TIME_COUNT
-          this.show = false
-          this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-              this.count--
-            } else {
-              this.show = true
-              clearInterval(this.timer)
-              this.timer = null
-              this.count = ''
-            }
-          }, 1000)
-        }
-      },
-      findpassword() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode,
-              'FindPasswordCode').then((result) => {
-              this.$message({
-                type: 'success',
-                message: result.data
-              })
-              this.$router.push({
-                path: '/login'
-              })
-            })
-          }
-        })
-      },
-      toLogin() {
-        this.$router.push({
-          path: '/login'
-        })
-      },
-      // 通过验证
-      success() {
-        this.isShow = false;
-        requestsmscode(this.loginForm.telphone, 'FindPasswordCode').then((result) => {
-          this.$message({
-            type: 'success',
-            message: result.data
-          })
-          this.countdown()
-        })
-      },
-      // 关闭模态框
-      close() {
-        this.isShow = false;
+import {
+  validUsername
+} from '@/utils/validate'
+import {
+  findpassword,
+  requestsmscode
+} from '@/api/userdealer.js'
+import Vcode from 'vue-puzzle-vcode'
+export default {
+  name: 'Login',
+  components: {
+    Vcode
+  },
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!validUsername(value)) {
+        callback(new Error('Please enter the correct user name'))
+      } else {
+        callback()
       }
     }
+    const validatePassword = (rule, value, callback) => {
+      if (value.length < 8) {
+        callback(new Error('密码不能少于8位'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      loginForm: {
+        telphone: '',
+        password: '',
+        smscode: ''
+      },
+      loginRules: {
+        telphone: [{
+          required: true,
+          trigger: 'blur',
+          validator: validateUsername
+        }],
+        password: [{
+          required: true,
+          trigger: 'blur',
+          validator: validatePassword
+        }]
+      },
+      loading: false,
+      passwordType: 'password',
+      redirect: undefined,
+      count: '',
+      show: true,
+      timer: null,
+      isShow: false
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    showPwd() {
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
+      } else {
+        this.passwordType = 'password'
+      }
+      this.$nextTick(() => {
+        this.$refs.password.focus()
+      })
+    },
+    requestsmscode() {
+      this.isShow = true
+    },
+    countdown() {
+      const TIME_COUNT = 60
+      if (!this.timer) {
+        this.count = TIME_COUNT
+        this.show = false
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count--
+          } else {
+            this.show = true
+            clearInterval(this.timer)
+            this.timer = null
+            this.count = ''
+          }
+        }, 1000)
+      }
+    },
+    findpassword() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          findpassword(this.loginForm.telphone, this.loginForm.password, this.loginForm.smscode,
+            'FindPasswordCode').then((result) => {
+            this.$message({
+              type: 'success',
+              message: result.data
+            })
+            this.$router.push({
+              path: '/login'
+            })
+          })
+        }
+      })
+    },
+    toLogin() {
+      this.$router.push({
+        path: '/login'
+      })
+    },
+    // 通过验证
+    success() {
+      this.isShow = false
+      requestsmscode(this.loginForm.telphone, 'FindPasswordCode').then((result) => {
+        this.$message({
+          type: 'success',
+          message: result.data
+        })
+        this.countdown()
+      })
+    },
+    // 关闭模态框
+    close() {
+      this.isShow = false
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

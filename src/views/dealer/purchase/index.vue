@@ -3,8 +3,16 @@
     <div class="grid-content">
       <div v-show="!dialogVisible">
         <div class="title">商品列表</div>
-        <el-table v-loading="listLoading" :data="itemlist" element-loading-text="Loading" fit stripe
-          highlight-current-row :default-sort="{prop: 'count', order: 'descending'}" class="content">
+        <el-table
+          v-loading="listLoading"
+          :data="itemlist"
+          element-loading-text="Loading"
+          fit
+          stripe
+          highlight-current-row
+          :default-sort="{prop: 'count', order: 'descending'}"
+          class="content"
+        >
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form size="mini" label-position="left" inline class="demo-table-expand">
@@ -26,14 +34,14 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column align="center" sortable prop="title" label="商品" >
+          <el-table-column align="center" sortable prop="title" label="商品">
             <template slot-scope="scope">
               {{ scope.row.title }}
             </template>
           </el-table-column>
-          <el-table-column label="图片" sortable prop="img_url" >
+          <el-table-column label="图片" sortable prop="img_url">
             <template slot-scope="scope">
-              <img :src="scope.row.imgUrl" width="50px" height="30px">
+              <img :src="scope.row.imgUrl" width="80px" height="45px">
             </template>
           </el-table-column>
           <el-table-column label="单价" sortable prop="price" align="center">
@@ -56,9 +64,9 @@
               {{ scope.row.stock }}
             </template>
           </el-table-column>
-          <el-table-column label="采购数量" align="center">
+          <el-table-column label="采购数量" align="center" width="160">
             <template slot-scope="scope">
-              <el-input-number size="mini" v-model="scope.row.purchasecount" :min="0" :max="999" label="描述文字" @change="addShopcar(scope.row.id,scope.row)" />
+              <el-input-number v-model="scope.row.purchasecount" size="mini" :min="0" :max="999" label="描述文字" @change="addShopcar(scope.row.id,scope.row)" />
             </template>
           </el-table-column>
         </el-table>
@@ -71,9 +79,8 @@
         </div>
       </div>
 
-
-      <div v-show="dialogVisible" >
-        <el-form size="mini" ref="itemorderdetail" :model="itemorderdetail" label-width="140px" class="content">
+      <div v-show="dialogVisible">
+        <el-form ref="itemorderdetail" size="mini" :model="itemorderdetail" label-width="140px" class="content">
           <div class="title">经销商信息</div>
           <el-row>
             <el-col :span="8">
@@ -85,12 +92,12 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="收件人" prop="custorg">
-                <el-input size="mini" v-model="itemorderdetail.manager" />
+                <el-input v-model="itemorderdetail.manager" size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="收件人电话" prop="manager">
-                <el-input size="mini" v-model="itemorderdetail.managertel" />
+                <el-input v-model="itemorderdetail.managertel" size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -98,10 +105,10 @@
             <el-col>
               <el-form-item label="收货地址" prop="receive_areacode">
                 <el-col class="selectorgroup">
-                  <PositionSelector size="mini" v-model='itemorderdetail.receive_areacode'></PositionSelector>
+                  <PositionSelector v-model="itemorderdetail.receive_areacode" size="mini" />
                 </el-col>
                 <el-col :span="6">
-                  <el-input size="mini" placeholder="详细地址" v-model="itemorderdetail.receive_detail" />
+                  <el-input v-model="itemorderdetail.receive_detail" size="mini" placeholder="详细地址" />
                 </el-col>
               </el-form-item>
             </el-col>
@@ -110,36 +117,36 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="联系人" prop="dealername">
-                <el-input disabled size="mini" v-model="userdealer.dealername" />
+                <el-input v-model="userdealer.dealername" disabled size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="联系方式" prop="telphone">
-                <el-input disabled size="mini" v-model="userdealer.telphone" />
+                <el-input v-model="userdealer.telphone" disabled size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="16">
               <el-form-item label="经销商地址" prop="companyaddress">
-                <el-input disabled size="mini" v-model="userdealer.companyaddress" />
+                <el-input v-model="userdealer.companyaddress" disabled size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="录单人" prop="recorder">
-                <el-input size="mini" v-model="itemorderdetail.recorder" />
+                <el-input v-model="itemorderdetail.recorder" size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="录单人电话" prop="recordertel">
-                <el-input size="mini" v-model="itemorderdetail.recordertel" />
+                <el-input v-model="itemorderdetail.recordertel" size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
           <div class="title">订购商品信息</div>
-          <el-table class="content" v-loading="listLoading" :data="itemlistvo" element-loading-text="Loading" fit stripe :default-sort="{prop: 'count', order: 'descending'}">
+          <el-table v-loading="listLoading" class="content" :data="itemlistvo" element-loading-text="Loading" fit stripe :default-sort="{prop: 'count', order: 'descending'}">
             <el-table-column align="center" sortable prop="title" label="商品" width="195">
               <template slot-scope="scope">
                 {{ scope.row.title }}
@@ -162,7 +169,7 @@
             </el-table-column>
             <el-table-column label="采购数量" align="center" width="400">
               <template slot-scope="scope">
-                {{scope.row.purchasecount}}
+                {{ scope.row.purchasecount }}
               </template>
             </el-table-column>
           </el-table>
@@ -170,36 +177,36 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="最终用户全称" prop="custorg">
-                <el-input size="mini" v-model="itemorderdetail.custorg" />
+                <el-input v-model="itemorderdetail.custorg" size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="项目名称" prop="project">
-                <el-input size="mini" v-model="itemorderdetail.project" />
+                <el-input v-model="itemorderdetail.project" size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="客户负责人" prop="custmanager">
-                <el-input size="mini" v-model="itemorderdetail.custmanager" />
+                <el-input v-model="itemorderdetail.custmanager" size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="客户负责人手机号" prop="custmanagertel">
-                <el-input size="mini" v-model="itemorderdetail.custmanagertel" />
+                <el-input v-model="itemorderdetail.custmanagertel" size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="采购联系人" prop="manager">
-                <el-input size="mini" v-model="itemorderdetail.buyer" />
+                <el-input v-model="itemorderdetail.buyer" size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="移动电话" prop="managertel">
-                <el-input size="mini" v-model="itemorderdetail.buyertel" />
+                <el-input v-model="itemorderdetail.buyertel" size="mini" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -208,10 +215,10 @@
               <el-form-item label="最终用户地址" prop="areacode">
                 <el-row>
                   <el-col class="selectorgroup">
-                    <PositionSelector size="mini" v-model='itemorderdetail.areacode'></PositionSelector>
+                    <PositionSelector v-model="itemorderdetail.areacode" size="mini" />
                   </el-col>
                   <el-col :span="8">
-                    <el-input size="mini" placeholder="详细地址" v-model="itemorderdetail.areadetail" />
+                    <el-input v-model="itemorderdetail.areadetail" size="mini" placeholder="详细地址" />
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -221,48 +228,48 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="税号">
-                <el-input size="mini" disabled v-model="userdealer.taxcode" />
+                <el-input v-model="userdealer.taxcode" size="mini" disabled />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="开户行">
-                <el-input size="mini" disabled v-model="userdealer.bankname" />
+                <el-input v-model="userdealer.bankname" size="mini" disabled />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="开户行账号">
-                <el-input size="mini" disabled v-model="userdealer.bankaccount" />
+                <el-input v-model="userdealer.bankaccount" size="mini" disabled />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="开户行地址">
-                <el-input size="mini" disabled v-model="userdealer.bankaddr" />
+                <el-input v-model="userdealer.bankaddr" size="mini" disabled />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="地址">
-                <el-input size="mini" disabled v-model="userdealer.bankaddr" />
+                <el-input v-model="userdealer.bankaddr" size="mini" disabled />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="电话">
-                <el-input size="mini" disabled v-model="userdealer.telphone" />
+                <el-input v-model="userdealer.telphone" size="mini" disabled />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="发票收件人">
-                <el-input size="mini" v-model="itemorderdetail.invoice_receiver" />
+                <el-input v-model="itemorderdetail.invoice_receiver" size="mini" />
               </el-form-item>
             </el-col>
             <el-col :span="16">
               <el-form-item label="发票收件人电话">
                 <el-row>
                   <el-col :span="6">
-                    <el-input size="mini" v-model="itemorderdetail.invoice_receiver_tel" />
+                    <el-input v-model="itemorderdetail.invoice_receiver_tel" size="mini" />
                   </el-col>
                   <el-col :span="10">
                     <div style="color:red;">请优先提供手机号; 如是座机请加区号</div>
@@ -276,10 +283,10 @@
               <el-form-item label="发票收件人地址" prop="invoice_receiver_areacode">
                 <el-row>
                   <el-col class="selectorgroup">
-                    <PositionSelector size="mini" v-model='itemorderdetail.invoice_receiver_areacode'></PositionSelector>
+                    <PositionSelector v-model="itemorderdetail.invoice_receiver_areacode" size="mini" />
                   </el-col>
                   <el-col :span="8">
-                    <el-input size="mini" placeholder="详细地址" v-model="itemorderdetail.invoice_receiver_areadetail" />
+                    <el-input v-model="itemorderdetail.invoice_receiver_areadetail" size="mini" placeholder="详细地址" />
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -288,7 +295,7 @@
           <el-row>
             <el-col :span="23">
               <el-form-item label="备注">
-                    <el-input size="mini" placeholder="备注" v-model="itemorderdetail.note" />
+                <el-input v-model="itemorderdetail.note" size="mini" placeholder="备注" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -306,140 +313,140 @@
 </template>
 
 <script>
-  import {
-    listitem
-  } from '@/api/item'
-  import {
-    additemorder
-  } from '@/api/itemorder'
-  import {
-    listposition
-  } from '@/api/area'
-  import {
-    getdealerinvoice
-  } from '@/api/userdealer'
-  import PositionSelector from '@/components/PositionSelector'
+import {
+  listitem
+} from '@/api/item'
+import {
+  additemorder
+} from '@/api/itemorder'
+// import {
+//   listposition
+// } from '@/api/area'
+import {
+  getdealerinvoice
+} from '@/api/userdealer'
+import PositionSelector from '@/components/PositionSelector'
 
-  // import store from '@/store'
-  export default {
-    components: {
-      PositionSelector
-    },
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+// import store from '@/store'
+export default {
+  components: {
+    PositionSelector
+  },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        listLoading: true,
-        itemlist: [],
-        itemlistvo: [],
-        shopcar: [],
-        userdealer: [],
-        itemorderdetail: {
-          custorg: '',
-          project: '',
-          custmanager: '',
-          custmanagertel: '',
-          manager: '',
-          managertel: '',
-          areacode: '',
-          areadetail: ''
-        },
-        itemorderlist: [],
-        itemvos: [],
-        totalprice: 0,
-        dialogVisible: false,
-      }
-    },
-    created() {
-      this.listItem()
-      getdealerinvoice().then((res) => {
-        console.log("userdealer", res.data)
-        this.userdealer = res.data;
-      })
-    },
-    methods: {
-      addShopcar(id, row) {
-        var index = this.shopcar.findIndex(item => item.itemid === row.id)
-        var shopcaritem = this.shopcar.find(item => item.itemid === row.id)
-        if (row.purchasecount == undefined) {
-          row.purchasecount = 0
-        }
-        if (index === -1) {
-          this.shopcar.push({
-            'itemid': row.id,
-            'itemcount': row.purchasecount,
-            'itemprice': row.price
-          })
-        } else {
-          shopcaritem.itemcount = row.purchasecount
-        }
-        if (row.purchasecount === 0) {
-          this.shopcar.pop(shopcaritem)
-        }
-        this.calcTotalPrice(this.shopcar)
-      },
-
-      showOrderDetail() {
-        this.itemlistvo = this.itemlist.filter((item) => {
-          return item.purchasecount > 0
-        })
-        if (this.itemlistvo.length > 0) {
-          this.dialogVisible = true
-        } else {
-          this.$message({
-            type: 'warning',
-            message: '采购数量不能为0'
-          })
-        }
-        console.log(this.itemlistvo)
-      },
-
-      confirmorder() {
-        additemorder(this.shopcar, this.itemorderdetail).then((response) => {
-          if (response.status === 'success') {
-            this.$notify({
-              title: '通知消息',
-              message: '订单已提交',
-              type: 'success'
-            })
-            this.$router.push({
-              path: '/dealer/purchaseorder'
-            })
-          }
-        })
-        this.dialogVisible = false
-      },
-
-      hideOrderDetailPanel() {
-        this.dialogVisible = false
-      },
-
-      calcTotalPrice(shopcar) {
-        this.totalprice = 0
-        for (let i = 0; i < this.shopcar.length; i++) {
-          var shopcaritem = this.shopcar[i]
-          this.totalprice += shopcaritem.itemprice * shopcaritem.itemcount
-        }
-      },
-
-      listItem() {
-        listitem().then((response) => {
-          this.itemlist = response.data
-          console.log(response.data)
-          this.listLoading = false
-        })
-      }
-
+      return statusMap[status]
     }
+  },
+  data() {
+    return {
+      listLoading: true,
+      itemlist: [],
+      itemlistvo: [],
+      shopcar: [],
+      userdealer: [],
+      itemorderdetail: {
+        custorg: '',
+        project: '',
+        custmanager: '',
+        custmanagertel: '',
+        manager: '',
+        managertel: '',
+        areacode: '',
+        areadetail: ''
+      },
+      itemorderlist: [],
+      itemvos: [],
+      totalprice: 0,
+      dialogVisible: false
+    }
+  },
+  created() {
+    this.listItem()
+    getdealerinvoice().then((res) => {
+      console.log('userdealer', res.data)
+      this.userdealer = res.data
+    })
+  },
+  methods: {
+    addShopcar(id, row) {
+      var index = this.shopcar.findIndex(item => item.itemid === row.id)
+      var shopcaritem = this.shopcar.find(item => item.itemid === row.id)
+      if (row.purchasecount === undefined) {
+        row.purchasecount = 0
+      }
+      if (index === -1) {
+        this.shopcar.push({
+          'itemid': row.id,
+          'itemcount': row.purchasecount,
+          'itemprice': row.price
+        })
+      } else {
+        shopcaritem.itemcount = row.purchasecount
+      }
+      if (row.purchasecount === 0) {
+        this.shopcar.pop(shopcaritem)
+      }
+      this.calcTotalPrice(this.shopcar)
+    },
+
+    showOrderDetail() {
+      this.itemlistvo = this.itemlist.filter((item) => {
+        return item.purchasecount > 0
+      })
+      if (this.itemlistvo.length > 0) {
+        this.dialogVisible = true
+      } else {
+        this.$message({
+          type: 'warning',
+          message: '采购数量不能为0'
+        })
+      }
+      console.log(this.itemlistvo)
+    },
+
+    confirmorder() {
+      additemorder(this.shopcar, this.itemorderdetail).then((response) => {
+        if (response.status === 'success') {
+          this.$notify({
+            title: '通知消息',
+            message: '订单已提交',
+            type: 'success'
+          })
+          this.$router.push({
+            path: '/dealer/purchaseorder'
+          })
+        }
+      })
+      this.dialogVisible = false
+    },
+
+    hideOrderDetailPanel() {
+      this.dialogVisible = false
+    },
+
+    calcTotalPrice(shopcar) {
+      this.totalprice = 0
+      for (let i = 0; i < this.shopcar.length; i++) {
+        var shopcaritem = this.shopcar[i]
+        this.totalprice += shopcaritem.itemprice * shopcaritem.itemcount
+      }
+    },
+
+    listItem() {
+      listitem().then((response) => {
+        this.itemlist = response.data
+        console.log(response.data)
+        this.listLoading = false
+      })
+    }
+
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -451,6 +458,6 @@
 
 .content{
   overflow: auto;
-  min-width: 70rem;
+  // min-width: 40rem;
 }
 </style>

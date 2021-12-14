@@ -1,7 +1,7 @@
 import request from '@/utils/axio-request'
 import qs from 'qs'
 
-export function listpage(pageStart,pageSize) {
+export function listpage(pageStart, pageSize) {
   return request({
     url: '/djplate/listpage',
     method: 'get',
@@ -11,7 +11,7 @@ export function listpage(pageStart,pageSize) {
     }
   })
 }
-export function listmbpage(pageStart,pageSize) {
+export function listmbpage(pageStart, pageSize) {
   return request({
     url: '/djplate/listmbpage',
     method: 'get',

@@ -131,8 +131,12 @@
           <p>10.1
             您使用本服务即视为您已阅读并同意受本协议的约束。腾讯有权在必要时修改本协议条款。您可以在相关页面中查阅最新的协议条款。本协议条款变更后，如果您继续使用本服务，即视为您已接受修改后的协议。如果您不接受修改后的协议，应当停止使用本服务。</p>
           <p>10.2 本协议内容同时包括《腾讯服务协议》（链接地址：<a href="http://www.qq.com/contract.shtml" target="_blank">http://www.qq.com/contract.shtml</a>）、《QQ号码规则》（链接地址：<a
-              href="http://zc.qq.com/chs/agreement1_chs.html" target="_blank">http://zc.qq.com/chs/agreement1_chs.html</a>）、《QQ空间使用规则》（链接地址：<a
-              href="http://qzone.qq.com/web/rule.html" target="_blank">http://qzone.qq.com/web/rule.html</a>）及腾讯可能不断发布的关于本服务的相关协议、业务规则等内容。上述内容一经正式发布，即为本协议不可分割的组成部分，您同样应当遵守。上述内容与本协议存在冲突的，以本协议为准。您对前述任何业务规则、协议的接受，即视为您对本协议全部的接受。</p>
+            href="http://zc.qq.com/chs/agreement1_chs.html"
+            target="_blank"
+          >http://zc.qq.com/chs/agreement1_chs.html</a>）、《QQ空间使用规则》（链接地址：<a
+            href="http://qzone.qq.com/web/rule.html"
+            target="_blank"
+          >http://qzone.qq.com/web/rule.html</a>）及腾讯可能不断发布的关于本服务的相关协议、业务规则等内容。上述内容一经正式发布，即为本协议不可分割的组成部分，您同样应当遵守。上述内容与本协议存在冲突的，以本协议为准。您对前述任何业务规则、协议的接受，即视为您对本协议全部的接受。</p>
           <p class="b">10.3 本协议签订地为中华人民共和国广东省深圳市南山区。</p>
           <p>10.4 本协议的成立、生效、履行、解释及纠纷解决，适用中华人民共和国大陆地区法律（不包括冲突法）。</p>
           <p class="b">10.5 若您和腾讯之间发生任何纠纷或争议，首先应友好协商解决；协商不成的，您同意将纠纷或争议提交本协议签订地有管辖权的人民法院管辖。</p>
@@ -157,68 +161,68 @@
 </template>
 
 <script>
-  import pdf from 'vue-pdf'
-  import {
-    Loading
-  } from 'element-ui';
-  const ipconfig = require('@/ipconfig.js')
-  console.log('import')
-  let loadingTask;
-  export default {
-    components: {
-      // pdf
-    },
-    name: 'UserAgreement',
-    model: {},
-    created() {
-      console.log('created')
-    },
-    data() {
-      return {
-        src: loadingTask,
-        dialogVisible: true,
-        numPages: undefined,
-        checked: false
+// import pdf from 'vue-pdf'
+// import {
+//   Loading
+// } from 'element-ui'
+// const ipconfig = require('@/ipconfig.js')
+console.log('import')
+let loadingTask
+export default {
+  name: 'UserAgreement',
+  components: {
+    // pdf
+  },
+  model: {},
+  data() {
+    return {
+      src: loadingTask,
+      dialogVisible: true,
+      numPages: undefined,
+      checked: false
+    }
+  },
+  created() {
+    console.log('created')
+  },
+  // mounted() {
+  //   let loadingInstance1 = Loading.service({
+  //     fullscreen: true
+  //   });
+  //   setTimeout(() => {
+  //     loadingInstance1.close()
+  //   }, 500);
+  //   loadingTask = pdf.createLoadingTask({
+  //     url: ipconfig.host + '/const/pdf/agreement.pdf',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     }
+  //   })
+  //   this.src = loadingTask
+  //   console.log('mounted')
+  //   this.src.promise.then(pdf => {
+  //     console.log('pdf:' + pdf.numPages)
+  //     this.numPages = pdf.numPages;
+  //     loadingInstance1.close()
+  //   });
+  // },
+  methods: {
+    accept() {
+      if (this.checked) {
+        this.$emit('accept')
+      } else {
+        this.$alert('请先勾选协议', '警告', {
+          confirmButtonText: '确定',
+          type: 'warning'
+        })
       }
     },
-    // mounted() {
-    //   let loadingInstance1 = Loading.service({
-    //     fullscreen: true
-    //   });
-    //   setTimeout(() => {
-    //     loadingInstance1.close()
-    //   }, 500);
-    //   loadingTask = pdf.createLoadingTask({
-    //     url: ipconfig.host + '/const/pdf/agreement.pdf',
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded'
-    //     }
-    //   })
-    //   this.src = loadingTask
-    //   console.log('mounted')
-    //   this.src.promise.then(pdf => {
-    //     console.log('pdf:' + pdf.numPages)
-    //     this.numPages = pdf.numPages;
-    //     loadingInstance1.close()
-    //   });
-    // },
-    methods: {
-      accept() {
-        if (this.checked) {
-          this.$emit('accept')
-        } else {
-          this.$alert('请先勾选协议', '警告', {
-            confirmButtonText: '确定',
-            type: 'warning'
-          });
-        }
-      },
-      refuse() {
-        this.$emit('refuse')
-      }
-    },
-
+    refuse() {
+      this.$emit('refuse')
+    }
   }
+
+}
 </script>
 
 <style scoped>

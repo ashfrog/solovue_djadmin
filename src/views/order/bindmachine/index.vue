@@ -1,7 +1,13 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="userBindMachineS" height="100vh" element-loading-text="Loading" fit
-      highlight-current-row>
+    <el-table
+      v-loading="listLoading"
+      :data="userBindMachineS"
+      height="100vh"
+      element-loading-text="Loading"
+      fit
+      highlight-current-row
+    >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.row.id }}
@@ -46,65 +52,65 @@
 </template>
 
 <script>
-  import {
-    listBindMachinebydealerid,
-    deleteBindMachine
-  } from '@/api/userbindorder'
+import {
+  listBindMachinebydealerid,
+  deleteBindMachine
+} from '@/api/userbindorder'
 
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      list: null,
+      listLoading: true,
+      userBindMachineS: [],
+      pageSize: 10000,
+      pageStart: 0,
+      search: ''
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      this.listLoading = true
+      listBindMachinebydealerid(this.pageStart, this.pageSize).then(response => {
+        this.userBindMachineS = response.data
+        console.log(response)
+        this.listLoading = false
+      })
     },
-    data() {
-      return {
-        list: null,
-        listLoading: true,
-        userBindMachineS: [],
-        pageSize: 10000,
-        pageStart: 0,
-        search: ''
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      fetchData() {
-        this.listLoading = true
-        listBindMachinebydealerid(this.pageStart, this.pageSize).then(response => {
-          this.userBindMachineS = response.data
-          console.log(response)
+    handleDelete(index, rowdata) {
+      this.$confirm('此操作将解绑设备, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var itemindex = this.userBindMachineS.findIndex((item) => item.id === rowdata.id)
+        deleteBindMachine(rowdata.id).then(response => {
+          if (response.data === 1) {
+            this.userBindMachineS.splice(itemindex, 1)
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
           this.listLoading = false
         })
-      },
-      handleDelete(index, rowdata) {
-        this.$confirm('此操作将解绑设备, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          var itemindex = this.userBindMachineS.findIndex((item) => item.id === rowdata.id)
-          deleteBindMachine(rowdata.id).then(response => {
-            if (response.data === 1) {
-              this.userBindMachineS.splice(itemindex, 1)
-            }
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-            this.listLoading = false
-          })
-        }).catch(() => {})
-      }
+      }).catch(() => {})
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -113,7 +113,7 @@ import PositionSelector from '@/components/PositionSelector'
 import UserAgreement from '@/components/UserAgreement'
 import ElUpload from '@/components/ELUpload'
 import { downloadfile } from '@/utils/file'
-const ipconfig = require('@/ipconfig.js')
+// const ipconfig = require('@/ipconfig.js')
 import {
   requestdealer
 } from '@/api/userdealer.js'

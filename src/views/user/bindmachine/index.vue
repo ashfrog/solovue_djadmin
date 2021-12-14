@@ -85,7 +85,7 @@ export default {
       pageSize: 10000,
       pageStart: 0,
       search: '',
-      dataChange:false
+      dataChange: false
     }
   },
   created() {
@@ -125,7 +125,7 @@ export default {
     },
     onDeviceNameInputBlur(e, item) {
       renamedevice(item.machineid, item.devicename)
-    },
+    }
   }
 }
 </script>

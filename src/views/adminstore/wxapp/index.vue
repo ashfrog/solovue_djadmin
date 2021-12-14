@@ -2,13 +2,13 @@
   <div class="components-container">
     <el-form ref="form" :model="codeparam" label-width="80px">
       <el-form-item label="path">
-        <el-input size="mini" v-model="codeparam.path"></el-input>
+        <el-input v-model="codeparam.path" size="mini" />
       </el-form-item>
       <el-form-item label="scene">
-        <el-input size="mini" v-model="codeparam.scene"></el-input>
+        <el-input v-model="codeparam.scene" size="mini" />
       </el-form-item>
       <el-form-item label="platform">
-        <el-select filterable v-model="codeparam.platform" placeholder="请选择小程序" size="mini">
+        <el-select v-model="codeparam.platform" filterable placeholder="请选择小程序" size="mini">
           <el-option v-for="appinfo in appinfos" :key="appinfo.id" :label="appinfo.info" :value="appinfo.platform">
             <span style="float: left">{{ appinfo.info }}</span>
           </el-option>
@@ -19,60 +19,58 @@
         <el-button type="primary" @click="onGenerate">生成小程序码</el-button>
       </el-form-item>
     </el-form>
-    <img v-show="showimg" :src="base64img" class="codeimg" />
+    <img v-show="showimg" :src="base64img" class="codeimg">
   </div>
 </template>
 <script>
-  import {
-    getwxacodeunlimit,
-    listappinfo
-  } from '@/api/wxapp'
-  import PositionSelector from '@/components/PositionSelector'
-  import {
-    requestdealer
-  } from '@/api/userdealer.js'
+import {
+  getwxacodeunlimit,
+  listappinfo
+} from '@/api/wxapp'
+// import PositionSelector from '@/components/PositionSelector'
+// import {
+//   requestdealer
+// } from '@/api/userdealer.js'
 
-  export default {
-    data: function() {
-      return {
-        base64img: '',
-        showimg: false,
-        appinfos: [],
-        codeparam: {
-          scene: '&mac=',
-          path: 'pages/store/store',
-          platform: "wx_crazysolo"
-        },
+export default {
+  data: function() {
+    return {
+      base64img: '',
+      showimg: false,
+      appinfos: [],
+      codeparam: {
+        scene: '&mac=',
+        path: 'pages/store/store',
+        platform: 'wx_crazysolo'
       }
+    }
+  },
+  async created() {
+    this.getappinfos()
+  },
+
+  mounted() {
+
+  },
+  methods: {
+    onGenerate() {
+      this.getwxcode()
     },
-    async created() {
-      this.getappinfos()
-
+    async getappinfos() {
+      const res = await listappinfo()
+      this.appinfos = res.data
+      console.log(this.appinfos)
     },
 
+    async getwxcode() {
+      this.showimg = false
 
-    mounted() {
-
-    },
-    methods: {
-      onGenerate() {
-        this.getwxcode()
-      },
-      async getappinfos() {
-        const res = await listappinfo()
-        this.appinfos = res.data
-        console.log(this.appinfos)
-      },
-
-      async getwxcode() {
-        this.showimg = false;
-
-        const res2 = await getwxacodeunlimit(this.codeparam.scene, this.codeparam.path, this.codeparam.platform)
-        this.base64img = "data:image/jpeg;base64," + res2
-        this.showimg = true;
-      },
+      const res2 = await getwxacodeunlimit(this.codeparam.scene, this.codeparam.path, this.codeparam.platform)
+      this.base64img = 'data:image/jpeg;base64,' + res2
+      this.showimg = true
     }
   }
+}
 </script>
 
 <style scoped>

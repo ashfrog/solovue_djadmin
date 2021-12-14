@@ -2,21 +2,30 @@
   <div class="app-container">
     <div v-show="!dialogVisible">
       <div class="title">报备信息</div>
-      <el-table v-loading="listLoading" size="mini" :data="itemorderlist" element-loading-text="Loading" fit stripe
-        highlight-current-row height="100vh" :default-sort="{prop: 'count', order: 'descending'}">
+      <el-table
+        v-loading="listLoading"
+        size="mini"
+        :data="itemorderlist"
+        element-loading-text="Loading"
+        fit
+        stripe
+        highlight-current-row
+        height="100vh"
+        :default-sort="{prop: 'count', order: 'descending'}"
+      >
         <el-table-column align="center" prop="orderno" label="订单号">
           <template slot-scope="scope">
             {{ scope.row.orderno }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="project" label="最终用户">
+        <el-table-column align="center" prop="project" label="项目名称">
           <template slot-scope="scope">
             {{ scope.row.project }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="project" label="经销商业务联系人">
+        <el-table-column align="center" prop="project" label="最终用户">
           <template slot-scope="scope">
-            {{ scope.row.project }}
+            {{ scope.row.custorg }}
           </template>
         </el-table-column>
         <el-table-column label="下单时间" align="center">
@@ -63,8 +72,14 @@
 
     <div v-show="dialogVisible">
       <div>
-        <el-form class="grid-content" ref="itemorderdetail" :disabled="!editmode" size="mini" :model="itemorderdetail"
-          label-width="140px">
+        <el-form
+          ref="itemorderdetail"
+          class="grid-content"
+          :disabled="!editmode"
+          size="mini"
+          :model="itemorderdetail"
+          label-width="140px"
+        >
           <div class="title">经销商信息</div>
           <el-row>
             <el-col :span="8">
@@ -133,8 +148,16 @@
             </el-col>
           </el-row>
           <div class="title">订购商品信息</div>
-          <el-table class="grid-content" v-loading="listLoading" :data="itemorderdetail.itemOrderItemVOS"
-            element-loading-text="Loading" fit stripe :default-sort="{prop: 'count', order: 'descending'}" style="width: 100%">
+          <el-table
+            v-loading="listLoading"
+            class="grid-content"
+            :data="itemorderdetail.itemOrderItemVOS"
+            element-loading-text="Loading"
+            fit
+            stripe
+            :default-sort="{prop: 'count', order: 'descending'}"
+            style="width: 100%"
+          >
             <el-table-column align="center" sortable prop="title" label="商品">
               <template slot-scope="scope">
                 {{ scope.row.title }}
@@ -157,7 +180,7 @@
             </el-table-column>
             <el-table-column label="采购数量" align="center">
               <template slot-scope="scope">
-                {{scope.row.itemcount}}
+                {{ scope.row.itemcount }}
               </template>
             </el-table-column>
           </el-table>
@@ -298,144 +321,144 @@
 </template>
 
 <script>
-  // import {
-  //   listitem
-  // } from '@/api/item'
-  import {
-    listitemorderbydealer,
-    getitemorderbyorderno,
-    deleteitemorder,
-    updateitemorder
-  } from '@/api/itemorder'
-  import PositionSelector from '@/components/PositionSelector'
-  export default {
-    components: {
-      PositionSelector
-    },
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+// import {
+//   listitem
+// } from '@/api/item'
+import {
+  listitemorderbydealer,
+  getitemorderbyorderno,
+  deleteitemorder,
+  updateitemorder
+} from '@/api/itemorder'
+import PositionSelector from '@/components/PositionSelector'
+export default {
+  components: {
+    PositionSelector
+  },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        activeName: 'allproject',
-        listLoading: true,
-        itemlist: [],
-        shopcar: [],
-        itemorderlist: [],
-        itemvos: [],
-        totalprice: 0,
-        dialogVisible: false,
-        editmode: false,
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      activeName: 'allproject',
+      listLoading: true,
+      itemlist: [],
+      shopcar: [],
+      itemorderlist: [],
+      itemvos: [],
+      totalprice: 0,
+      dialogVisible: false,
+      editmode: false,
 
-        itemlistvo: [],
-        userdealer: [],
-        itemorderdetail: {
-          custorg: '',
-          project: '',
-          custmanager: '',
-          custmanagertel: '',
-          manager: '',
-          managertel: '',
-          areacode: '',
-          areadetail: '',
-          areaFullName: ''
-        }
-      }
-    },
-    created() {
-      this.listItemOrder()
-    },
-    methods: {
-      addShopcar(id, row) {
-        if (this.shopcar.indexOf(row) === -1) {
-          this.shopcar.push(row)
-        } else if (row.purchasecount === 0) {
-          this.shopcar.pop(row)
-        }
-        this.calcTotalPrice(this.shopcar)
-      },
-      updateItemOrder(itemorderdetail) {
-        updateitemorder(itemorderdetail).then((res) => {
-          console.log(res)
-          if (res.status === 'success') {
-            this.dialogVisible = false
-            this.$notify({
-              title: '通知消息',
-              message: '修改成功!',
-              type: 'success'
-            })
-          }
-        })
-      },
-      showOrderDetail(orderno) {
-        getitemorderbyorderno(orderno).then((res) => {
-          console.log(res.data)
-          this.editmode = false
-          this.dialogVisible = true
-          this.itemorderdetail = res.data
-        })
-      },
-      editOrderDetail(orderno) {
-        getitemorderbyorderno(orderno).then((res) => {
-          console.log(res.data)
-          this.editmode = true
-          this.dialogVisible = true
-          this.itemorderdetail = res.data
-          this.itemorderdetail.areaFullName = this.itemorderdetail.areaFullName
-        })
-      },
-      confirmorder() {
-        this.dialogVisible = false
-      },
-      cancelorder() {
-        this.dialogVisible = false
-      },
-      calcTotalPrice(shopcar) {
-        this.totalprice = 0
-        for (let i = 0; i < this.shopcar.length; i++) {
-          var itemVO = this.shopcar[i]
-          this.totalprice += itemVO.price * itemVO.purchasecount
-        }
-      },
-      listItemOrder() {
-        listitemorderbydealer().then((response) => {
-          this.itemorderlist = response.data
-          this.listLoading = false
-          console.log(this.itemorderlist)
-        })
-      },
-
-      hideOrderDetailPanel() {
-        this.dialogVisible = false
-      },
-      deleteItemorder(orderno) {
-        this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          deleteitemorder(orderno).then(response => {
-            this.itemorderlist = this.itemorderlist.filter((itemorder) => {
-              return itemorder.orderno !== orderno
-            })
-            this.dialogVisible = false
-            this.$notify({
-              title: '通知消息',
-              message: '删除成功!',
-              type: 'success'
-            })
-          })
-        }).catch(() => {})
+      itemlistvo: [],
+      userdealer: [],
+      itemorderdetail: {
+        custorg: '',
+        project: '',
+        custmanager: '',
+        custmanagertel: '',
+        manager: '',
+        managertel: '',
+        areacode: '',
+        areadetail: '',
+        areaFullName: ''
       }
     }
+  },
+  created() {
+    this.listItemOrder()
+  },
+  methods: {
+    addShopcar(id, row) {
+      if (this.shopcar.indexOf(row) === -1) {
+        this.shopcar.push(row)
+      } else if (row.purchasecount === 0) {
+        this.shopcar.pop(row)
+      }
+      this.calcTotalPrice(this.shopcar)
+    },
+    updateItemOrder(itemorderdetail) {
+      updateitemorder(itemorderdetail).then((res) => {
+        console.log(res)
+        if (res.status === 'success') {
+          this.dialogVisible = false
+          this.$notify({
+            title: '通知消息',
+            message: '修改成功!',
+            type: 'success'
+          })
+        }
+      })
+    },
+    showOrderDetail(orderno) {
+      getitemorderbyorderno(orderno).then((res) => {
+        console.log(res.data)
+        this.editmode = false
+        this.dialogVisible = true
+        this.itemorderdetail = res.data
+      })
+    },
+    editOrderDetail(orderno) {
+      getitemorderbyorderno(orderno).then((res) => {
+        console.log(res.data)
+        this.editmode = true
+        this.dialogVisible = true
+        this.itemorderdetail = res.data
+        this.itemorderdetail.areaFullName = this.itemorderdetail.areaFullName
+      })
+    },
+    confirmorder() {
+      this.dialogVisible = false
+    },
+    cancelorder() {
+      this.dialogVisible = false
+    },
+    calcTotalPrice(shopcar) {
+      this.totalprice = 0
+      for (let i = 0; i < this.shopcar.length; i++) {
+        var itemVO = this.shopcar[i]
+        this.totalprice += itemVO.price * itemVO.purchasecount
+      }
+    },
+    listItemOrder() {
+      listitemorderbydealer().then((response) => {
+        this.itemorderlist = response.data
+        this.listLoading = false
+        console.log(this.itemorderlist)
+      })
+    },
+
+    hideOrderDetailPanel() {
+      this.dialogVisible = false
+    },
+    deleteItemorder(orderno) {
+      this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteitemorder(orderno).then(response => {
+          this.itemorderlist = this.itemorderlist.filter((itemorder) => {
+            return itemorder.orderno !== orderno
+          })
+          this.dialogVisible = false
+          this.$notify({
+            title: '通知消息',
+            message: '删除成功!',
+            type: 'success'
+          })
+        })
+      }).catch(() => {})
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

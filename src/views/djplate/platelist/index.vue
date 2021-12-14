@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div id="app" class="container">
-      <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
         <el-tab-pane label="模板资源" name="template">
           <div class="tab-responsive">
             <table class="table">
@@ -25,19 +25,24 @@
                 <tr v-for="(itemVO,index) in djmbplates" :key="itemVO.iId" align="center">
                   <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
                   <td>
-                    <el-tag size="mini">{{itemVO.abpath}}</el-tag>
+                    <el-tag size="mini">{{ itemVO.abpath }}</el-tag>
                   </td>
                   <td>
                     <el-tag size="medium" type="info">{{ new Date(itemVO.updatetime).toLocaleString() }}</el-tag>
                   </td>
                   <td>
-                    <el-button size="mini" type="danger" icon="el-icon-delete" circle
-                      @click="(e)=>{deleteitem(e,index,itemVO.id)}" />
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      icon="el-icon-delete"
+                      circle
+                      @click="(e)=>{deleteitem(e,index,itemVO.id)}"
+                    />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <MVideo :src="src" @close="showvideo=false" :show="showvideo"></MVideo>
+            <MVideo :src="src" :show="showvideo" @close="showvideo=false" />
           </div>
 
         </el-tab-pane>
@@ -64,19 +69,24 @@
                 <tr v-for="(itemVO,index) in djplates" :key="itemVO.iId" align="center">
                   <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
                   <td>
-                    <el-tag size="mini">{{itemVO.abpath}}</el-tag>
+                    <el-tag size="mini">{{ itemVO.abpath }}</el-tag>
                   </td>
                   <td>
                     <el-tag size="medium" type="info">{{ new Date(itemVO.updatetime).toLocaleString() }}</el-tag>
                   </td>
                   <td>
-                    <el-button size="mini" type="danger" icon="el-icon-delete" circle
-                      @click="(e)=>{deleteitem(e,index,itemVO.id)}" />
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      icon="el-icon-delete"
+                      circle
+                      @click="(e)=>{deleteitem(e,index,itemVO.id)}"
+                    />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <MVideo :src="src" @close="showvideo=false" :show="showvideo"></MVideo>
+            <MVideo :src="src" :show="showvideo" @close="showvideo=false" />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -85,129 +95,128 @@
 </template>
 
 <script>
-  import {
-    listpage,
-    listmbpage,
-    deleteplatebyid
-  } from '@/api/djplate'
+import {
+  listpage,
+  listmbpage,
+  deleteplatebyid
+} from '@/api/djplate'
 
-  import MVideo from '@/components/MVideo'
+import MVideo from '@/components/MVideo'
 
-
-  export default {
-    components: {
-      MVideo
-    },
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  components: {
+    MVideo
+  },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        activeName:'template',
-        list: null,
-        movtitle: '视频',
-        listLoading: true,
-        storeitems: [],
-        categorys: [],
-        totalItemCount: 0,
-        pageSize: 12,
-        currentPage: 0,
-        dataChange: false,
-        desc: true,
-        columnName: 'createTime',
-        play: false,
-        dialogVisible: false,
-        usermedias: [],
-        src: '',
-        showvideo: false,
-        djplates: [],
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      playmovie(e, itemvo) {
-        this.dialogVisible = true;
-        this.showvideo = true;
-        this.movtitle = itemvo.moviename;
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      activeName: 'template',
+      list: null,
+      movtitle: '视频',
+      listLoading: true,
+      storeitems: [],
+      categorys: [],
+      totalItemCount: 0,
+      pageSize: 12,
+      currentPage: 0,
+      dataChange: false,
+      desc: true,
+      columnName: 'createTime',
+      play: false,
+      dialogVisible: false,
+      usermedias: [],
+      src: '',
+      showvideo: false,
+      djplates: []
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    playmovie(e, itemvo) {
+      this.dialogVisible = true
+      this.showvideo = true
+      this.movtitle = itemvo.moviename
 
-        this.src = itemvo.moviepath;
-        //this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行
-        // this.$nextTick(() => {
-        //   this.$refs.video.src = itemvo.moviepath;
+      this.src = itemvo.moviepath
+      // this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行
+      // this.$nextTick(() => {
+      //   this.$refs.video.src = itemvo.moviepath;
+      // })
+    },
+    fetchData() {
+      listmbpage(0, 20).then(response => {
+        console.log(response)
+        this.djmbplates = response.data
+      })
+      listpage(0, 20).then(response => {
+        console.log(response)
+        this.djplates = response.data
+      })
+    },
+    changedata: function() {
+      this.dataChange = true
+    },
+    deleteitem: function(e, index, itemid) {
+      console.log('index')
+      console.log('index', index)
+
+      // var delitem = this.djplates.findIndex(item => item.id === itemid)
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        console.log('id', itemid)
+        deleteplatebyid(itemid).then(data => {
+          if (data.status === 'success') {
+            this.djplates.splice(index, 1)
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+          }
+        })
+      }).catch(() => {})
+    },
+    onNameInputBlur: function(e, item) {
+      if (this.dataChange) {
+        // updatename(item.id, item.moviename).then(data => {
+        //   if (data.status === 'success') {
+        //     console.log(data)
+        //     this.dataChange = false
+        //   }
         // })
-      },
-      fetchData() {
-        listmbpage(0, 20).then(response => {
-          console.log(response)
-          this.djmbplates = response.data
-        })
-        listpage(0, 20).then(response => {
-          console.log(response)
-          this.djplates = response.data
-        })
-      },
-      changedata: function() {
-        this.dataChange = true
-      },
-      deleteitem: function(e, index, itemid) {
-        console.log("index")
-        console.log("index", index)
-
-        // var delitem = this.djplates.findIndex(item => item.id === itemid)
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          console.log("id", itemid)
-          deleteplatebyid(itemid).then(data => {
-            if (data.status === 'success') {
-              this.djplates.splice(index, 1)
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-            }
-          })
-        }).catch(() => {})
-      },
-      onNameInputBlur: function(e, item) {
-        if (this.dataChange) {
-          updatename(item.id, item.moviename).then(data => {
-            if (data.status === 'success') {
-              console.log(data)
-              this.dataChange = false
-            }
-          })
-        }
-      },
-      orderBy: function(e, columnName) {
-        if (this.columnName !== columnName) {
-          this.columnName = columnName
-          this.desc = true
-        } else {
-          this.desc = !this.desc
-        }
-        getListByPage(this.pageSize, 0, this.columnName, this.desc).then(response => {
-          this.storeitems = response.data
-          this.currentPage = 1
-          console.log(this.currentPage)
-        })
-      },
-      closemovie() {
-        this.showvideo = false
       }
+    },
+    orderBy: function(e, columnName) {
+      if (this.columnName !== columnName) {
+        this.columnName = columnName
+        this.desc = true
+      } else {
+        this.desc = !this.desc
+      }
+      // getListByPage(this.pageSize, 0, this.columnName, this.desc).then(response => {
+      //   this.storeitems = response.data
+      //   this.currentPage = 1
+      //   console.log(this.currentPage)
+      // })
+    },
+    closemovie() {
+      this.showvideo = false
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

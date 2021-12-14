@@ -7,7 +7,7 @@
       fit
       stripe
       highlight-current-row
-	  height="100vh"
+      height="100vh"
       :default-sort="{prop: 'count', order: 'descending'}"
     >
       <el-table-column type="expand">
@@ -94,9 +94,9 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog customClass="customWidth"  center title="授权用户" :visible.sync="dialogVisible" :before-close="handleClose">
+    <el-dialog custom-class="customWidth" center title="授权用户" :visible.sync="dialogVisible" :before-close="handleClose">
       <span slot="footer" class="dialog-footer">
-        <el-form  label-width="100px" :model="bindorder">
+        <el-form label-width="100px" :model="bindorder">
           <el-input v-model="bindorder.telphone" placeholder="请输入用户微信绑定的手机号">
             <template slot="prepend">用户:</template>
           </el-input>
@@ -118,7 +118,6 @@
             <el-button type="primary" @click="addOrder">确 定</el-button>
           </el-col>
         </el-row>
-
 
       </span>
     </el-dialog>

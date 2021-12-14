@@ -54,134 +54,133 @@
           </div>
         </div> -->
 
-        <MVideo :src="src"  @close="showvideo=false" :show="showvideo"></MVideo>
+        <MVideo :src="src" :show="showvideo" @close="showvideo=false" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {
-    listbylogin,
-    getuseradset,
-    deletemediabyid,
-    updatename,
-  } from '@/api/userad'
+import {
+  listbylogin,
+  // getuseradset,
+  deletemediabyid,
+  updatename
+} from '@/api/userad'
 
-  import MVideo from '@/components/MVideo'
+import MVideo from '@/components/MVideo'
 
-
-  export default {
-    components: {
-      MVideo
-    },
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  components: {
+    MVideo
+  },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        list: null,
-        movtitle: '视频',
-        listLoading: true,
-        storeitems: [],
-        categorys: [],
-        totalItemCount: 0,
-        pageSize: 12,
-        currentPage: 0,
-        dataChange: false,
-        desc: true,
-        columnName: 'createTime',
-        play: false,
-        dialogVisible: false,
-        usermedias: [],
-        src: '',
-        showvideo: false
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      playmovie(e, itemvo) {
-        this.dialogVisible = true;
-        this.showvideo = true;
-        this.movtitle = itemvo.moviename;
+      return statusMap[status]
+    }
+  },
+  data() {
+    return {
+      list: null,
+      movtitle: '视频',
+      listLoading: true,
+      storeitems: [],
+      categorys: [],
+      totalItemCount: 0,
+      pageSize: 12,
+      currentPage: 0,
+      dataChange: false,
+      desc: true,
+      columnName: 'createTime',
+      play: false,
+      dialogVisible: false,
+      usermedias: [],
+      src: '',
+      showvideo: false
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    playmovie(e, itemvo) {
+      this.dialogVisible = true
+      this.showvideo = true
+      this.movtitle = itemvo.moviename
 
-        this.src = itemvo.moviepath;
-        //this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行
-        // this.$nextTick(() => {
-        //   this.$refs.video.src = itemvo.moviepath;
-        // })
-      },
-      fetchData() {
-        listbylogin().then(response => {
-          console.log("response", response)
-          this.usermedias = response.data;
+      this.src = itemvo.moviepath
+      // this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行
+      // this.$nextTick(() => {
+      //   this.$refs.video.src = itemvo.moviepath;
+      // })
+    },
+    fetchData() {
+      listbylogin().then(response => {
+        console.log('response', response)
+        this.usermedias = response.data
+      })
+      // getuseradset("a").then((res) => {
+      //   console.log("res", res)
+      // })
+    },
+    changedata: function() {
+      this.dataChange = true
+    },
+    deleteitem: function(e, index, itemid) {
+      console.log('index')
+      console.log('index', index)
+
+      // var delitem = this.usermedias.findIndex(item => item.id === itemid)
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        console.log('id', itemid)
+        deletemediabyid(itemid).then(data => {
+          if (data.status === 'success') {
+            this.usermedias.splice(index, 1)
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+          }
         })
-        // getuseradset("a").then((res) => {
-        //   console.log("res", res)
-        // })
-      },
-      changedata: function() {
-        this.dataChange = true
-      },
-      deleteitem: function(e, index, itemid) {
-        console.log("index")
-        console.log("index", index)
-
-        var delitem = this.usermedias.findIndex(item => item.id === itemid)
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          console.log("id", itemid)
-          deletemediabyid(itemid).then(data => {
-            if (data.status === 'success') {
-              this.usermedias.splice(index, 1)
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-            }
-          })
-        }).catch(() => {})
-      },
-      onNameInputBlur: function(e, item) {
-        if (this.dataChange) {
-          updatename(item.id, item.moviename).then(data => {
-            if (data.status === 'success') {
-              console.log(data)
-              this.dataChange = false
-            }
-          })
-        }
-      },
-      orderBy: function(e, columnName) {
-        if (this.columnName !== columnName) {
-          this.columnName = columnName
-          this.desc = true
-        } else {
-          this.desc = !this.desc
-        }
-        getListByPage(this.pageSize, 0, this.columnName, this.desc).then(response => {
-          this.storeitems = response.data
-          this.currentPage = 1
-          console.log(this.currentPage)
+      }).catch(() => {})
+    },
+    onNameInputBlur: function(e, item) {
+      if (this.dataChange) {
+        updatename(item.id, item.moviename).then(data => {
+          if (data.status === 'success') {
+            console.log(data)
+            this.dataChange = false
+          }
         })
-      },
-      closemovie(){
-        this.showvideo=false
       }
+    },
+    orderBy: function(e, columnName) {
+      if (this.columnName !== columnName) {
+        this.columnName = columnName
+        this.desc = true
+      } else {
+        this.desc = !this.desc
+      }
+      // getListByPage(this.pageSize, 0, this.columnName, this.desc).then(response => {
+      //   this.storeitems = response.data
+      //   this.currentPage = 1
+      //   console.log(this.currentPage)
+      // })
+    },
+    closemovie() {
+      this.showvideo = false
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

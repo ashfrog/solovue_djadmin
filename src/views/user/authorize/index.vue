@@ -82,12 +82,11 @@
 
 <script>
 import {
-  listBindOrder,
+  // listBindOrder,
   deleteBindOrder
 } from '@/api/userbindorder'
 
-
-import {listauthoriseorder} from '@/api/userbindorder'
+import { listauthoriseorder } from '@/api/userbindorder'
 
 export default {
   filters: {

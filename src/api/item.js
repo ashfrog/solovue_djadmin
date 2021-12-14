@@ -1,5 +1,5 @@
 import request from '@/utils/axio-request'
-import qs from 'qs'
+// import qs from 'qs'
 
 export function listitem(params) {
   return request({

@@ -7,8 +7,7 @@
       fit
       stripe
       highlight-current-row
-      height="100vh"
-      :default-sort="{prop: 'count', order: 'descending'}"
+      :default-sort="{ prop: 'count', order: 'descending' }"
     >
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -17,10 +16,13 @@
               <span>{{ props.row.project }}</span>
             </el-form-item>
             <el-form-item label="客户负责人">
-              <span>{{ props.row.custmanager }} 手机号:{{ props.row.custmanagertel }}</span>
+              <span>{{ props.row.custmanager }} 手机号:{{
+                props.row.custmanagertel
+              }}</span>
             </el-form-item>
             <el-form-item label="负责人">
-              <span>{{ props.row.manager }} 手机号: {{ props.row.managertel }}</span>
+              <span>{{ props.row.manager }} 手机号:
+                {{ props.row.managertel }}</span>
             </el-form-item>
             <el-form-item label="经销区域">
               <span>{{ props.row.areaFullName }}</span>
@@ -28,10 +30,22 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="orderno" label="订单号" width="95">
+      <el-table-column
+        align="center"
+        sortable
+        prop="orderno"
+        label="订单号"
+        width="95"
+      >
         <template slot-scope="scope">{{ scope.row.orderno }}</template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="project" label="项目" width="95">
+      <el-table-column
+        align="center"
+        sortable
+        prop="project"
+        label="项目"
+        width="95"
+      >
         <template slot-scope="scope">{{ scope.row.project }}</template>
       </el-table-column>
       <el-table-column label="图片" width="195">
@@ -39,13 +53,21 @@
           <img :src="scope.row.imgUrl" width="100" height="50">
         </template>
       </el-table-column>
-      <el-table-column label="单价" sortable prop="unitprice" width="110" align="center">
+      <el-table-column
+        label="单价"
+        sortable
+        prop="unitprice"
+        width="110"
+        align="center"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.unitprice }}</span>
         </template>
       </el-table-column>
       <el-table-column label="下单时间" align="center">
-        <template slot-scope="scope">{{ new Date(scope.row.createtime).toLocaleString() }}</template>
+        <template slot-scope="scope">{{
+          new Date(scope.row.createtime).toLocaleString()
+        }}</template>
       </el-table-column>
       <el-table-column label="采购/分发数量" align="center">
         <template slot-scope="scope">
@@ -56,7 +78,9 @@
             :open-delay="delayms"
             placement="top-end"
           >
-            <el-tag :type="scope.row.state=='审核通过' ? 'primary':'danger' ">{{ scope.row.itemcount }}</el-tag>
+            <el-tag
+              :type="scope.row.state == '审核通过' ? 'primary' : 'danger'"
+            >{{ scope.row.itemcount }}</el-tag>
           </el-tooltip>
           <el-tooltip
             class="item"
@@ -66,26 +90,32 @@
             placement="top-start"
           >
             <el-tag
-              :type="scope.row.state=='审核通过' ? 'warning':'danger' "
+              :type="scope.row.state == '审核通过' ? 'warning' : 'danger'"
             >{{ scope.row.authorisedcount }}</el-tag>
           </el-tooltip>
         </template>
       </el-table-column>
       <el-table-column label="订单状态" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.state=='审核通过' ? 'success':'danger' ">{{ scope.row.state }}</el-tag>
+          <el-tag
+            :type="scope.row.state == '审核通过' ? 'success' : 'danger'"
+          >{{ scope.row.state }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="分发设备" align="center">
         <template slot-scope="scope">
           <el-button
-            v-show="scope.row.state=='审核通过'"
+            v-show="scope.row.state == '审核通过'"
             :disabled="scope.row.itemcount == scope.row.authorisedcount"
             type="text"
-            @click="prepareBindOrder(scope.row.orderno,scope.row.itemid)"
-          >{{ scope.row.itemcount == scope.row.authorisedcount?'授权已满':'授权用户' }}</el-button>
+            @click="prepareBindOrder(scope.row.orderno, scope.row.itemid)"
+          >{{
+            scope.row.itemcount == scope.row.authorisedcount
+              ? '授权已满'
+              : '授权用户'
+          }}</el-button>
           <el-button
-            v-show="scope.row.state!='审核通过' "
+            v-show="scope.row.state != '审核通过'"
             disabled
             type="text"
             style="color:#F56C6C"
@@ -94,10 +124,19 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog custom-class="customWidth" center title="授权用户" :visible.sync="dialogVisible" :before-close="handleClose">
+    <el-dialog
+      custom-class="customWidth"
+      center
+      title="授权用户"
+      :visible.sync="dialogVisible"
+      :before-close="handleClose"
+    >
       <span slot="footer" class="dialog-footer">
         <el-form label-width="100px" :model="bindorder">
-          <el-input v-model="bindorder.telphone" placeholder="请输入用户微信绑定的手机号">
+          <el-input
+            v-model="bindorder.telphone"
+            placeholder="请输入用户微信绑定的手机号"
+          >
             <template slot="prepend">用户:</template>
           </el-input>
           <div style="margin: 20px;" />
@@ -105,7 +144,10 @@
             <template slot="prepend">数量:</template>
           </el-input>
           <div style="margin: 20px;" />
-          <el-input v-model="bindorder.bindcode" placeholder="备注信息 用户能看到">
+          <el-input
+            v-model="bindorder.bindcode"
+            placeholder="备注信息 用户能看到"
+          >
             <template slot="prepend">备注:</template>
           </el-input>
           <div style="margin: 20px;" />
@@ -118,7 +160,6 @@
             <el-button type="primary" @click="addOrder">确 定</el-button>
           </el-col>
         </el-row>
-
       </span>
     </el-dialog>
   </div>
@@ -179,10 +220,10 @@ export default {
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
-        .then((_) => {
+        .then(_ => {
           done()
         })
-        .catch((_) => {})
+        .catch(_ => {})
     },
     deleteItemorder(orderno) {
       this.$confirm('此操作将删除与该订单关联的项目, 是否继续?', '提示', {
@@ -191,8 +232,8 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          deleteitemorder(orderno).then((response) => {
-            this.itemorderlist = this.itemorderlist.filter((itemorder) => {
+          deleteitemorder(orderno).then(response => {
+            this.itemorderlist = this.itemorderlist.filter(itemorder => {
               return itemorder.orderno !== orderno
             })
           })
@@ -213,7 +254,7 @@ export default {
       }
     },
     listItem() {
-      listitem().then((response) => {
+      listitem().then(response => {
         this.itemlist = response.data
         this.listLoading = false
       })
@@ -226,10 +267,10 @@ export default {
         this.bindorder.orderno,
         this.bindorder.itemid,
         this.bindorder.bindcode
-      ).then((response) => {
+      ).then(response => {
         if (response.status === 'success') {
           var index = this.itemorderlist.findIndex(
-            (itemorder) =>
+            itemorder =>
               itemorder.itemid === response.data.itemid &&
               itemorder.orderno === response.data.orderno
           )
@@ -243,7 +284,7 @@ export default {
       })
     },
     listItemOrder() {
-      listauthoriseorderbydealer().then((response) => {
+      listauthoriseorderbydealer().then(response => {
         this.itemorderlist = response.data
         this.listLoading = false
         console.log(this.itemorderlist)

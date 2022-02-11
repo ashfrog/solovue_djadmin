@@ -6,9 +6,8 @@
       element-loading-text="Loading"
       fit
       stripe
-      height="100vh"
       highlight-current-row
-      :default-sort="{prop: 'count', order: 'descending'}"
+      :default-sort="{ prop: 'count', order: 'descending' }"
     >
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -17,10 +16,13 @@
               <span>{{ props.row.project }}</span>
             </el-form-item>
             <el-form-item label="客户负责人">
-              <span>{{ props.row.custmanager }} 手机号:{{ props.row.custmanagertel }}</span>
+              <span>{{ props.row.custmanager }} 手机号:{{
+                props.row.custmanagertel
+              }}</span>
             </el-form-item>
             <el-form-item label="负责人">
-              <span>{{ props.row.manager }} 手机号: {{ props.row.managertel }}</span>
+              <span>{{ props.row.manager }} 手机号:
+                {{ props.row.managertel }}</span>
             </el-form-item>
             <el-form-item label="经销区域">
               <span>{{ props.row.areaFullName }}</span>
@@ -37,20 +39,28 @@
                   <el-card shadow="hover">
                     <el-row :gutter="100">
                       <el-col :span="10">
-                        <div class="grid-content bg-purple">机器码: {{ userbind.machineid }}</div>
+                        <div class="grid-content bg-purple">
+                          机器码: {{ userbind.machineid }}
+                        </div>
                       </el-col>
                       <el-col :span="10">
-                        <div class="grid-content bg-purple">绑定编号: {{ userbind.bindOrderid }}</div>
+                        <div class="grid-content bg-purple">
+                          绑定编号: {{ userbind.bindOrderid }}
+                        </div>
                       </el-col>
                       <el-col :span="10">
-                        <div class="grid-content bg-purple">绑定ID: {{ userbind.id }}</div>
+                        <div class="grid-content bg-purple">
+                          绑定ID: {{ userbind.id }}
+                        </div>
                       </el-col>
                       <el-col :span="8">
                         <div class="grid-content bg-purple">
                           <el-button
                             type="text"
                             class="button"
-                            @click="handleDelete(userbind,props.row.userBindModels)"
+                            @click="
+                              handleDelete(userbind, props.row.userBindModels)
+                            "
                           >解绑</el-button>
                         </div>
                       </el-col>
@@ -62,10 +72,22 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="orderno" label="订单号" width="95">
+      <el-table-column
+        align="center"
+        sortable
+        prop="orderno"
+        label="订单号"
+        width="95"
+      >
         <template slot-scope="scope">{{ scope.row.orderno }}</template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="project" label="项目" width="95">
+      <el-table-column
+        align="center"
+        sortable
+        prop="project"
+        label="项目"
+        width="95"
+      >
         <template slot-scope="scope">{{ scope.row.project }}</template>
       </el-table-column>
       <el-table-column label="图片" width="120">
@@ -73,16 +95,26 @@
           <img :src="scope.row.imgUrl" width="80" height="50">
         </template>
       </el-table-column>
-      <el-table-column label="单价" sortable prop="unitprice" width="80" align="center">
+      <el-table-column
+        label="单价"
+        sortable
+        prop="unitprice"
+        width="80"
+        align="center"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.unitprice }}</span>
         </template>
       </el-table-column>
       <el-table-column label="下单时间" align="center">
-        <template slot-scope="scope">{{ new Date(scope.row.ordertime).toLocaleString() }}</template>
+        <template slot-scope="scope">{{
+          new Date(scope.row.ordertime).toLocaleString()
+        }}</template>
       </el-table-column>
       <el-table-column label="分发时间" align="center">
-        <template slot-scope="scope">{{ new Date(scope.row.createtime).toLocaleString() }}</template>
+        <template slot-scope="scope">{{
+          new Date(scope.row.createtime).toLocaleString()
+        }}</template>
       </el-table-column>
 
       <el-table-column label="用户手机号" align="center" width="110">
@@ -122,7 +154,9 @@
       </el-table-column>
       <el-table-column label="订单状态" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.state=='ProcessComplete' ? 'success':'danger' ">已生效</el-tag>
+          <el-tag
+            :type="scope.row.state == 'ProcessComplete' ? 'success' : 'danger'"
+          >已生效</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center">
@@ -132,7 +166,10 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button type="text" @click="deleteBindOrder(scope.row)">删除</el-button>
+          <el-button
+            type="text"
+            @click="deleteBindOrder(scope.row)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -120,7 +120,7 @@ export default {
       // })
     },
     fetchData() {
-      listbylogin().then(response => {
+      listbylogin().then((response) => {
         console.log('response', response)
         this.usermedias = response.data
       })
@@ -140,22 +140,24 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        console.log('id', itemid)
-        deletemediabyid(itemid).then(data => {
-          if (data.status === 'success') {
-            this.usermedias.splice(index, 1)
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            })
-          }
+      })
+        .then(() => {
+          console.log('id', itemid)
+          deletemediabyid(itemid).then((data) => {
+            if (data.status === 'success') {
+              this.usermedias.splice(index, 1)
+              this.$message({
+                message: '删除成功',
+                type: 'success'
+              })
+            }
+          })
         })
-      }).catch(() => {})
+        .catch(() => {})
     },
     onNameInputBlur: function(e, item) {
       if (this.dataChange) {
-        updatename(item.id, item.moviename).then(data => {
+        updatename(item.id, item.moviename).then((data) => {
           if (data.status === 'success') {
             console.log(data)
             this.dataChange = false
@@ -184,126 +186,126 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  div,
-  ul,
-  ol,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  pre,
-  code,
-  form,
-  fieldset,
-  legend,
-  input,
-  textarea,
-  p,
-  blockquote {
-    margin: 0;
-    padding: 0;
-  }
+div,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
 
-  table {
-    border-collapse: collapse;
-  }
+table {
+  border-collapse: collapse;
+}
 
-  .el-dialog__body {
-    padding: 0px !important;
-  }
+.el-dialog__body {
+  padding: 0px !important;
+}
 
-  th {
-    min-width: 100px;
-  }
+th {
+  min-width: 100px;
+}
 
-  tr {
-    border-bottom: 1px solid #F0F0F0;
-    color: #0074D9;
-    font-size: 12px;
-  }
+tr {
+  border-bottom: 1px solid #f0f0f0;
+  color: #0074d9;
+  font-size: 12px;
+}
 
-  .img-thumbnail {
-    width: 100px;
-    height: 60px;
-    border-radius: 4px;
-    display: block;
-    margin: auto;
-  }
+.img-thumbnail {
+  width: 100px;
+  height: 60px;
+  border-radius: 4px;
+  display: block;
+  margin: auto;
+}
 
-  .block {
-    bottom: 20px;
-    right: 20px;
-  }
+.block {
+  bottom: 20px;
+  right: 20px;
+}
 
-  .container {
-    overflow: auto;
-  }
+.container {
+  overflow: auto;
+}
 
+.modal-body {
+  position: absolute;
+  width: 57.29%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+}
+
+.video-modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  overflow: hidden;
+  color: #fff;
+}
+
+.modal-body .video {
+  width: 100%;
+}
+
+.show {
+  display: block;
+}
+
+.modal-body .close {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.video {
+  outline: none;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+@media (max-width: 1200px) {
   .modal-body {
-    position: absolute;
-    width: 57.29%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #000;
+    width: 88%;
   }
-
-  .video-modal {
-    display: none;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1050;
-    -webkit-overflow-scrolling: touch;
-    outline: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  .icon {
-    width: 1em;
-    height: 1em;
-    fill: currentColor;
-    overflow: hidden;
-    color: #FFF;
-  }
-
-  .modal-body .video {
-    width: 100%;
-  }
-
-  .show {
-    display: block;
-  }
-
-  .modal-body .close {
-    position: absolute;
-    right: 16px;
-    top: 10px;
-    color: #FFF;
-    font-size: 30px;
-    cursor: pointer;
-  }
-
-  .video {
-    outline: none;
-  }
-
-  audio,
-  canvas,
-  progress,
-  video {
-    display: inline-block;
-    vertical-align: baseline;
-  }
-
-  @media (max-width: 1200px) {
-    .modal-body {
-      width: 88%;
-    }
-  }
+}
 </style>

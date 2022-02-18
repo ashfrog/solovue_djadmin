@@ -5,6 +5,9 @@ import { post } from '../utils/http'
 
 export const updateeditor = p => post('/itemdatastorage/updateeditordata', p)
 export const deleteeditor = p => post('/itemdatastorage/delete', p)
+export const createeditor = p => post('/itemdatastorage/create', p)
+export const updateeditordata = p =>
+  post('/itemdatastorage/updateeditordata', p)
 export function save(id, wallitemdata) {
   return request({
     url: '/itemdatastorage/save',
@@ -45,15 +48,5 @@ export function getwallitemdata(id) {
     params: {
       id
     }
-  })
-}
-
-export function updateeditordata(editordata) {
-  return request({
-    url: '/itemdatastorage/updateeditordata',
-    method: 'post',
-    data: qs.stringify({
-      editordata: editordata
-    })
   })
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <el-button @click="createEditorData">新建模板</el-button>
     <el-table v-loading="listLoading" :data="editorlist" element-loading-text="Loading" fit stripe highlight-current-row :default-sort="{ prop: 'count', order: 'descending' }">
       <el-table-column align="center" sortable prop="id" label="ID" width="95">
         <template slot-scope="scope">{{ scope.row.id }}</template>
@@ -39,16 +40,15 @@
         </template>
       </el-table-column>
     </el-table>
+
   </div>
 </template>
 
 <script>
-import { listauthoriseorderlog, deleteBindMachine } from '@/api/userbindorder'
-
-import { deletebindorder } from '@/api/userbindorder'
 import {
   listself,
   getwallitemdata,
+  createeditor,
   updateeditor,
   deleteeditor
 } from '@/api/editor'
@@ -105,11 +105,22 @@ export default {
     })
   },
   methods: {
+    createEditorData() {
+      createeditor().then((res) => {
+        console.log(res)
+        listself(0, 10).then((res) => {
+          console.log('editordata', res)
+          this.editorlist = res.data
+        })
+      })
+    },
     editwallitem(e, wallitem) {
       console.log('wallitem', wallitem)
+
       getwallitemdata(wallitem.id).then((res) => {
         console.log('wallitemdata', res)
       })
+      this.$router.push({ name: 'editwall', query: { wallitem: JSON.stringify(wallitem) }})
     },
     publicdatachange(e, editordata) {
       console.log('wallitem', editordata, e)
@@ -133,31 +144,6 @@ export default {
               console.log('editordata', res)
               this.editorlist = res.data
             })
-          })
-        })
-        .catch(() => {})
-    },
-    handleDelete(rowdata, userBindModels) {
-      this.$confirm('此操作将解绑设备, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(() => {
-          var itemindex = userBindModels.findIndex(
-            (item) => item.id === rowdata.id
-          )
-
-          deleteBindMachine(rowdata.id).then((response) => {
-            console.log('确定', response)
-            if (response.data === 1) {
-              userBindModels.splice(itemindex, 1)
-            }
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-            this.listLoading = false
           })
         })
         .catch(() => {})

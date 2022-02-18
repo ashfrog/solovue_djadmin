@@ -157,8 +157,8 @@ export const constantRoutes = [
     },
     children: [
       {
-        path: 'list',
-        name: 'list',
+        path: 'listwall',
+        name: 'listwall',
         component: () => import('@/views/editor/list/index'),
         meta: {
           title: '我的模板',
@@ -166,8 +166,8 @@ export const constantRoutes = [
         }
       },
       {
-        path: 'edit',
-        name: 'edit',
+        path: 'editwall',
+        name: 'editwall',
         component: () => import('@/views/editor/edit/index'),
         meta: {
           title: 'H5编辑器',

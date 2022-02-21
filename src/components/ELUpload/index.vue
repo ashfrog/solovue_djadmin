@@ -4,6 +4,7 @@
       <el-upload
         :class="{ disUoloadSty: hideadd }"
         :action="uploadurl"
+        :data="objdata"
         list-type="picture"
         :on-preview="handlePictureCardPreview"
         :on-change="handleChange"
@@ -25,12 +26,17 @@
 export default {
   name: 'ELUpload',
   props: {
-    // uploadurl: {
-    //   type: String
-    // },
+    uploadurl: {
+      type: String,
+      default: ''
+    },
     text: {
       type: String,
       default: '点击上传'
+    },
+    objdata: {
+      type: Object,
+      default: null
     }
     // imgsrc: {
     //   type: String

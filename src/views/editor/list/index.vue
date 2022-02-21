@@ -5,9 +5,9 @@
       <el-table-column align="center" sortable prop="id" label="ID" width="95">
         <template slot-scope="scope">{{ scope.row.id }}</template>
       </el-table-column>
-      <el-table-column label="缩略图" width="120">
+      <el-table-column align="center" label="缩略图" width="200">
         <template slot-scope="scope">
-          <img :src="scope.row.thumbimg" width="80" height="50">
+          <img style="object-fit: contain;" :src="scope.row.thumbimg" height="80px" width="200px" draggable="false" @click="showPreviewImg(scope.row.thumbimg)">
         </template>
       </el-table-column>
       <el-table-column align="center" sortable prop="name" label="名称" width="195">
@@ -40,7 +40,11 @@
         </template>
       </el-table-column>
     </el-table>
-
+    <el-dialog
+      :visible.sync="showimg"
+    >
+      <img class="preview-img" width="100%" :src="previewimg" alt="">
+    </el-dialog>
   </div>
 </template>
 
@@ -52,8 +56,12 @@ import {
   updateeditor,
   deleteeditor
 } from '@/api/editor'
+import MVideo from '@/components/PicturePreview/index.vue'
 // import { formatTime } from '../../../utils'
 export default {
+  components: {
+
+  },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -66,6 +74,10 @@ export default {
   },
   data() {
     return {
+      dialogVisible: true,
+      showimg: false,
+      previewimg: '',
+      fit: 'cover', // 'fill', 'contain', 'cover', 'none', 'scale-down'
       delayms: 300,
       activeName: 'allproject',
       listLoading: true,
@@ -74,7 +86,6 @@ export default {
       itemorderlist: [],
       itemvos: [],
       totalprice: 0,
-      dialogVisible: false,
       bindorder: {
         telphone: '',
         count: '',
@@ -105,6 +116,10 @@ export default {
     })
   },
   methods: {
+    showPreviewImg(imgsrc) {
+      this.previewimg = imgsrc
+      this.showimg = true
+    },
     createEditorData() {
       createeditor().then((res) => {
         console.log(res)
@@ -188,5 +203,8 @@ export default {
 
 .el-col {
   border-radius: 4px;
+}
+.preview-img{
+
 }
 </style>

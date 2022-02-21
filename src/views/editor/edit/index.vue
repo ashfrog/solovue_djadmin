@@ -1,9 +1,14 @@
 <template>
   <div class="app-container">
-    <el-input v-model="editordata.name" @change="updateEditordata()" />
-    <el-input v-model="editordata.keywords" @change="updateEditordata()" />
 
-    <el-button @click="saveEditorData(editordata,wallitemdata)">保存模板</el-button>
+    <el-row :gutter="20">
+      <el-col :span="1"><div class="grid-content bg-purple" /><el-tag size="small" type="success">名称</el-tag></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple" /><el-input v-model="editordata.name" size="mini" @change="updateEditordata()" /></el-col>
+      <el-col :span="1"><div class="grid-content bg-purple" /><el-tag size="small" type="success">关键字</el-tag></el-col>
+      <el-col :span="6"><div class="grid-content bg-purple" /><el-input v-model="editordata.keywords" size="mini" @change="updateEditordata()" /></el-col>
+    </el-row>
+    <el-button type="text" @click="saveEditorData(editordata,wallitemdata)">保存模板</el-button>
+    <el-button type="text" @click="pageBack()">返回</el-button>
   </div>
 </template>
 
@@ -212,6 +217,9 @@ export default {
       updateeditordata(this.editordata).then((res) => {
         console.log(res)
       })
+    },
+    pageBack() {
+      this.$router.go(-1)
     }
   }
 }
@@ -253,5 +261,8 @@ export default {
 
 .el-col {
   border-radius: 4px;
+}
+.grid-content{
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 </style>

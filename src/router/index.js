@@ -150,7 +150,7 @@ export const constantRoutes = [
     path: '/smartwall',
     component: Layout,
     name: 'smartwall',
-    redirect: '/smartwall/list',
+    redirect: '/smartwall/listwall',
     meta: {
       title: '智慧墙',
       icon: 'example'
@@ -172,7 +172,8 @@ export const constantRoutes = [
         meta: {
           title: 'H5编辑器',
           icon: 'tree'
-        }
+        },
+        hidden: true
       }
     ]
   }

@@ -16,6 +16,7 @@
 <script>
 import { listself, getwallitemdata, updateeditor, save, createeditor, updateeditordata } from '@/api/editor'
 import ElUpload from '@/components/ELUpload'
+// import { weather_mini } from '@/api/weather'
 // import { formatTime } from '../../../utils'
 export default {
   filters: {
@@ -197,6 +198,9 @@ export default {
       save(editordata.id, wallitemdata).then((res) => {
         console.log(res)
       })
+      // weather_mini({ city: '深圳' }).then(response => {
+      //   console.log(response)
+      // })
     },
     updateEditordata() {
       updateeditordata(this.editordata).then((res) => {

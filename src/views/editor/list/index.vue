@@ -7,8 +7,7 @@
       </el-table-column>
       <el-table-column align="center" label="缩略图" width="200">
         <template slot-scope="scope">
-          <img style="object-fit: contain;" :src="scope.row.thumbimg" height="80px" width="200px" draggable="false" @click="showPreviewImg(scope.row.thumbimg)">
-        </template>
+          <el-image fit="contain" :src="scope.row.thumbimg" :preview-src-list="[scope.row.thumbimg]" height="80px" width="200px" draggable="false" /></template>
       </el-table-column>
       <el-table-column align="center" sortable prop="name" label="名称" width="195">
         <template slot-scope="scope">{{ scope.row.name }}</template>
@@ -45,6 +44,7 @@
     >
       <img class="preview-img" width="100%" :src="previewimg" alt="">
     </el-dialog>
+
   </div>
 </template>
 
@@ -94,17 +94,6 @@ export default {
         bindcode: ''
       },
       editorlist: [
-        {
-          id: 20,
-          jsonpath: '202202088dfa6ed227e7472ea091bcb975b44553.json',
-          keywords: null,
-          name: null,
-          publicdata: 1,
-          state: 1,
-          thumbimg: null,
-          updatetime: '2022-02-10T05:39:46.000+0000',
-          userid: 58
-        }
       ]
     }
   },

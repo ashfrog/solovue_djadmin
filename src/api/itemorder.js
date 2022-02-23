@@ -2,13 +2,30 @@ import request from '@/utils/axio-request'
 import jsonrequest from '@/utils/axio-jsonrequest'
 import qs from 'qs'
 
-export function additemorder(shopcar, itemorderdetail) {
+import { post } from '../utils/http'
+
+// export const createfiling = p => post('/itemorder/createfiling', p, true)
+
+export function createfiling(shopCar, itemOrderDetail, userDealer) {
+  return request({
+    url: '/itemorder/createfiling',
+    method: 'post',
+    data: qs.stringify({
+      shopcar: JSON.stringify(shopCar),
+      itemorderdetail: JSON.stringify(itemOrderDetail),
+      userdealer: JSON.stringify(userDealer)
+    })
+  })
+}
+
+export function additemorder(shopcar, itemorderdetail, userdealer) {
   return request({
     url: '/itemorder/createitemorder',
     method: 'post',
     data: JSON.stringify({
       shopcar: shopcar,
-      itemorderdetail: itemorderdetail
+      itemorderdetail: itemorderdetail,
+      userdealer: userdealer
     })
   })
 }

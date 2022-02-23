@@ -2,7 +2,7 @@
   <div>
     <div class="grid-content">
       <div v-show="!dialogVisible">
-        <div class="title">报备系统</div>
+        <div class="title">采购系统</div>
         <el-table
           v-loading="listLoading"
           :data="itemlist"
@@ -72,9 +72,9 @@
         </el-table>
         <div style="margin-top: 20px">
           <div style="width:300px;display:flex;flex-direction:row;position:absolute;right:10px;margin-top:30px;">
-            <!-- <div style="line-height: 50px;color:gray;width:80px;">总价￥:</div>
-            <div style="line-height: 50px;color:red;width:100px;">{{ totalprice }}</div> -->
-            <el-button type="warning" @click="showOrderDetail()">开始报备</el-button>
+            <div style="line-height: 50px;color:gray;width:80px;">总价￥:</div>
+            <div style="line-height: 50px;color:red;width:100px;">{{ totalprice }}</div>
+            <el-button type="warning" @click="showOrderDetail()">确认</el-button>
           </div>
         </div>
       </div>
@@ -145,7 +145,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!-- <div class="title">订购商品信息</div>
+          <div class="title">订购商品信息</div>
           <el-table v-loading="listLoading" class="content" :data="itemlistvo" element-loading-text="Loading" fit stripe :default-sort="{prop: 'count', order: 'descending'}">
             <el-table-column align="center" sortable prop="title" label="商品" width="195">
               <template slot-scope="scope">
@@ -172,7 +172,7 @@
                 {{ scope.row.purchasecount }}
               </template>
             </el-table-column>
-          </el-table> -->
+          </el-table>
           <div class="title">最终用户信息</div>
           <el-row>
             <el-col :span="8">
@@ -317,8 +317,7 @@ import {
   listitem
 } from '@/api/item'
 import {
-  additemorder,
-  createfiling
+  additemorder
 } from '@/api/itemorder'
 // import {
 //   listposition
@@ -399,7 +398,7 @@ export default {
       this.itemlistvo = this.itemlist.filter((item) => {
         return item.purchasecount > 0
       })
-      if (this.itemlistvo.length >= 0) {
+      if (this.itemlistvo.length > 0) {
         this.dialogVisible = true
       } else {
         this.$message({
@@ -411,27 +410,15 @@ export default {
     },
 
     confirmorder() {
-      // additemorder(this.shopcar, this.itemorderdetail, this.userdealer).then((response) => {
-      //   if (response.status === 'success') {
-      //     this.$notify({
-      //       title: '通知消息',
-      //       message: '报备已提交',
-      //       type: 'success'
-      //     })
-      //     this.$router.push({
-      //       path: '/dealer/filingorder'
-      //     })
-      //   }
-      // })
-      createfiling(this.shopcar, this.itemorderdetail, this.userdealer).then((response) => {
+      additemorder(this.shopcar, this.itemorderdetail).then((response) => {
         if (response.status === 'success') {
           this.$notify({
             title: '通知消息',
-            message: '报备已提交',
+            message: '订单已提交',
             type: 'success'
           })
           this.$router.push({
-            path: '/dealer/filingorder'
+            path: '/dealer/purchaseorder'
           })
         }
       })

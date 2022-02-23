@@ -1,26 +1,6 @@
 <template>
   <div class="grid-content">
     <div v-if="!showagreement" class="content">
-      <div class="title">申请材料</div>
-      <el-row style="margin-bottom: 20px;">
-        <el-col :span="8">
-          <ElUpload :uploadurl="fronturl" text="上传身份证正面" />
-        </el-col>
-        <el-col :span="8">
-          <ElUpload :uploadurl="backurl" text="上传身份证反面" />
-        </el-col>
-        <el-col :span="8">
-          <ElUpload :uploadurl="busilesslicenseurl" text="上传营业执照" />
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-button size="mini" type="text" @click="downloadFile(confidentialurl,'保密承诺函.docx')">下载协议</el-button>
-      </el-row>
-      <el-row style="margin-bottom: 20px;">
-        <el-col :span="8">
-          <ElUpload :uploadurl="securecyurl" text="上传协议" />
-        </el-col>
-      </el-row>
       <div class="title">经销商信息</div>
       <el-form ref="userdealer" :label-position="labelPosition" :rules="validrules" :model="userdealer" label-width="120px">
         <el-row>
@@ -66,6 +46,26 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <div class="title">申请材料</div>
+        <el-row style="margin-bottom: 20px;margin-left:20px;">
+          <!-- <el-col :span="8">
+            <ElUpload :uploadurl="fronturl" text="上传身份证正面" />
+          </el-col>
+          <el-col :span="8">
+            <ElUpload :uploadurl="backurl" text="上传身份证反面" />
+          </el-col> -->
+          <el-col :span="8">
+            <ElUpload :uploadurl="busilesslicenseurl" text="上传营业执照" />
+          </el-col>
+        </el-row>
+        <!-- <el-row>
+          <el-button size="mini" type="text" @click="downloadFile(confidentialurl,'保密承诺函.docx')">下载协议</el-button>
+        </el-row> -->
+        <!-- <el-row style="margin-bottom: 20px;">
+          <el-col :span="8">
+            <ElUpload :uploadurl="securecyurl" text="上传协议" />
+          </el-col>
+        </el-row> -->
         <div class="title">
           <label>发票信息</label>
         </div>

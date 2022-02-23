@@ -3,147 +3,272 @@
     <div class="document">
       <!-- <pdf v-for="i in numPages" :key="i" :src="src" :page="i" style="display: inline-block; width: 100%"></pdf> -->
       <div class="protocol_wrap">
-        <h1 class="pt_title">QQ空间服务协议</h1>
-        <h2 class="sub_t">【首部及导言】</h2>
-        <div class="pt_item">
-          <p class="b">欢迎您使用QQ空间！</p>
-          <p class="b">为使用QQ空间服务（以下简称“本服务”），您应当阅读并遵守《QQ空间服务协议》（以下简称“本协议”）、《腾讯服务协议》、《QQ号码规则》等相关协议、业务规则。请您务必审慎阅读、充分理解各条款内容，特别是限制或免除责任的相应条款，以及开通或使用某项服务的单独协议，并选择接受或不接受。限制或免除责任条款可能以加粗形式提示您注意。</p>
-          <p class="b">除非您已阅读并接受本协议所有条款，否则您无权使用本服务。您对本服务的登陆、查看、发布信息等行为即视为您已阅读并同意受本协议的约束。</p>
-          <p class="b">如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。</p>
-        </div>
-
-        <h2 class="sub_t">一、【协议的范围】</h2>
-        <div class="pt_item">
-          <p>本协议是您与腾讯之间关于使用本服务所订立的协议。</p>
-        </div>
-
-        <h2 class="sub_t">二、【用户个人信息保护】</h2>
-        <div class="pt_item">
-          <p>2.1
-            您在申请本服务过程中，需要填写一些必要的信息，请保持这些信息的及时更新，以便腾讯向您提供帮助，或更好地为您提供服务。若国家法律法规有特殊规定的，您需要填写真实的身份信息。若您填写的信息不完整或不准确，则可能无法使用服务或在使用过程中受到限制。</p>
-          <p>2.2
-            腾讯与用户一同致力于个人信息的保护，保护用户个人信息是腾讯的一项基本原则。未经您的同意，腾讯不会向腾讯以外的任何公司、组织和个人披露您的个人信息，但您违反本协议约定导致他人投诉或者主管机关追究责任，以及法律法规另有规定的除外。</p>
-          <p class="b">2.3 您理解并同意：鉴于本服务为网络社交服务，为改善用户体验，腾讯可以：</p>
-          <p class="b">（1）对您提交的信息进行使用，该使用结果可能不准确，请您在使用相关服务时谨慎独立判断；</p>
-          <p class="b">（2）对您的昵称、头像以及在本服务中的相关操作信息等信息进行使用，并可通过腾讯服务或腾讯服务中的第三方提供的服务向您本人、其他用户展示。</p>
-          <p class="b">2.4 为更好的保护您的个人信息，您应尽快、充分了解本服务的相关功能、规则和设置，同时，您应合理设定您的个人信息的公开范围。</p>
-          <p class="b">您理解并同意：鉴于本服务为网络社交服务，为改善用户体验，腾讯可能会将您的个人信息的公开范围默认设置为公开，该默认设置会导致他人接触或获取您的个人信息；如您希望变更默认设置，请您在相关服务页面予以变更。</p>
-          <p>2.5 您应对通过本服务了解、接收或可接触到的包括但不限于其他用户在内的任何人的个人信息予以充分尊重，您不应以搜集、复制、存储、传播或以其他任何方式使用其他用户的个人信息，否则，由此产生的后果由您自行承担。</p>
-        </div>
-
-        <h2 class="sub_t">三、【使用规范】</h2>
-        <div class="pt_item">
-          <p>本服务仅供您个人以非商业目的使用，除非经腾讯书面许可，您不得进行以下行为：</p>
-          <p>3.1
-            为实现恶意（包括但不限于超出正常的好友沟通、交流等非法、不正当目的）传播推广、骚扰等任何信息的目的，通过自己添加或诱导他人添加等任何方式使自己与其他用户形成好友关系（好友关系包括但不限于单向好友关系和双向好友关系，下同）；
+        <div>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">博展互娱代理商管理系统服务协议</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">【前言】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">欢迎您使用博展互娱代理商管理系统！</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">博展互娱</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">是指重庆博展互娱科技有限公司及其相关服务可能存在关联的运营单位，以下简称</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">本公司</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">；</span>
           </p>
-          <p>3.2 以发送邮件、连锁邮件、短信、即时消息、日志、个人说说、礼物等任何方式或利用本服务的评论、个人动态、访客、@他人、赞等任何功能，发布、传播包含广告、宣传、促销等内容的信息；</p>
-          <p>3.3 将本服务再次许可他人使用；</p>
-          <p>3.4 禁止诱导分享、诱导关注：</p>
-          <p>利诱用户分享：分享后对用户有奖励。包括但不限于：邀请好友拆礼盒，集赞，分享可增加一次抽奖机会等；</p>
-          <p>胁迫、煽动用户分享：用夸张、诅咒性质言语来胁迫、引诱用户分享。包括但不限于 ：“不转不是中国人”“请好心人转发一下”“转发后一生平安”“转疯了”“必转”等。</p>
-          <p>3.5 其他未经腾讯书面许可的行为。</p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">博展互娱代理商管理系统，以下简称</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">本系统</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">为使用本系统，您应当阅读并遵守《博展互娱代理商管理系统服务协议》（以下简称</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">本协议</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">）。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">【提示】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款，以及开通或使用某项服务的单独协议，并选择接受或不接受。限制、免责条款可能以加粗形式提示您注意。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">除非您已阅读并接受本协议所有条款，否则您无权使用本系统。您对本系统的登录、查看、发布信息等行为即视为您已阅读并同意本协议的约束。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">如果您未满</span><span style="font-family: Calibri">18</span><span style="font-family: '宋体'">周岁，请在法定监护人的陪同下阅读本协议及其他上述协议，并特别注意未成年人使用条款。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">一、【协议的范围】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">1.1 </span><span style="font-family: '宋体'">本协议是您与博展互娱之间关于您使用博展互娱代理商管理系统所订立的协议。</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">系统用户</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">是指注册、登录、使用博展互娱代理商管理系统帐号的个人或组织，在本协议中更多地称为</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">您</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">。</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">其他用户</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">是指除系统用户本人外与本系统相关的用户。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">1.2 </span><span style="font-family: '宋体'">本系统是由博展互娱向有实力和有意向代理本公司产品或项目的个人或企业，推出的项目报备和产品订单的服务系统。用户注册博展互娱代理商管理系统帐号后，可以通过博展互娱代理商管理系统进行项目报备、提交订单等操作。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">1.3 </span><span style="font-family: '宋体'">本系统注册审核成功后，本公司将通过书面方式与您签订</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">产品代理协议</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">，为本协议的补充协议；您同意本协议，视为同意</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">产品代理协议</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">二、【帐号注册及帐号权限】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">2.1 </span><span style="font-family: '宋体'">您在使用本系统前需要注册一个博展互娱代理商管理系统帐号，博展互娱代理商管理系统帐号为个人或企业联系人的手机号码。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">2.2 </span><span style="font-family: '宋体'">博展互娱代理商管理系统将对您的注册帐号信息进行审查。您应当对您提供的帐号资料的真实性、合法性、准确性和有效性独立承担责任。如因此给博展互娱或第三方造成损害的</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">，您应当依法予以赔偿。</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">2.3 </span><span style="font-family: '宋体'">如您同意使用本系统，博展互娱有权将您通过博展互娱代理商管理系统所发布的消息（包括但不限于文字、图片等）在博展互娱网等博展互娱业务平台上展示给公众。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">2.4 </span><span style="font-family: '宋体'">使用本系统，您可获得以下权限：</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">2.4.1 </span><span style="font-family: '宋体'">通过博展互娱代理商管理系统</span><span style="font-family: '宋体'">填写您的</span><span style="font-family: '宋体'">企业信息、联系人信息、</span><span style="font-family: '宋体'">税务信息等</span><span style="font-family: '宋体'">；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">2.4.2 </span><span style="font-family: '宋体'">通过博展互娱代理商管理系统</span><span style="font-family: '宋体'">管理您的</span><span style="font-family: '宋体'">项目报备</span><span style="font-family: '宋体'">，</span><span style="font-family: '宋体'">获取报备审核</span><span style="font-family: '宋体'">进度</span><span style="font-family: '宋体'">等</span><span style="font-family: '宋体'">信息；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">2.4.3 </span><span style="font-family: '宋体'">通过博展互娱代理商管理系统管理您</span><span style="font-family: '宋体'">的产品订单，发票开具等信息</span><span style="font-family: '宋体'">。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">2.5 </span><span style="font-family: '宋体'">博展互娱将保留向您提供收费的增值服务的权利。</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">三、【系统用户个人信息保护】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">3.1</span><span
+              style="font-family: '宋体'"
+            >您在申请本系统的过程中，可能需要提供一些必要的信息，请保持这些信息的真实、准确、合法、有效并注意及时更新，以便博展互娱向您提供及时有效的帮助，或更好地为您提供服务。根据相关法律法规和政策，请您填写真实的身份信息。若您填写的信息不完整或不准确，则可能无法使用本系统或在使用过程中受到限制。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">3.2</span><span style="font-family: '宋体'">博展互娱与系统用户一同致力于个人信息的保护，保护系统用户个人信息是博展互娱的一项基本原则。未经您的同意，博展互娱不会向博展互娱以外的任何公司、组织或个人披露您的个人信息，但法律法规另有规定的除外。 </span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">3.3</span><span style="font-family: '宋体'">您应对通过本系统了解、接收或可接触到的包括但不限于其他用户在内的任何人的个人信息予以充分尊重，您不应以搜集、复制、存储、传播或以其他任何方式使用本系统内其他用户的个人信息，否则，由此产生的后果由您自行承担。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">四、【系统使用规则】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">5.1 </span><span style="font-family: '宋体'">本条所述系统使用是指您使用本系统所进行的任何行为，包括但不限于注册、登录、信息管理以及其他使用博展互娱代理商管理系统所进行的行为。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">5.2 </span><span style="font-family: '宋体'">您不得利用博展互娱代理商管理系统帐号或博展互娱代理商管理系统服务进行如下行为：</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">(1) </span><span style="font-family: '宋体'">未经博展互娱书面许可，不得使用博展互娱官网和本系统的</span><span style="font-family: Calibri">LOGO</span><span style="font-family: '宋体'">、图文资料、公司名称、联系方式；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">(2) </span><span style="font-family: '宋体'">未经博展互娱书面许可，不得对外以博展互娱分公司、总代理、业务员等名义开展业务、宣传产品；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">(3) </span><span style="font-family: '宋体'">未经博展互娱书面许可，不得对外以虚构事实、隐瞒真相以误导、欺骗他人的；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">(4) </span><span style="font-family: '宋体'">利用博展互娱媒体开放帐号或博展互娱代理商管理系统服务从事任何违法犯罪活动的；</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">(5) </span><span style="font-family: '宋体'">其他违反法律法规规定、侵犯其他用户合法权益、干扰产品正常运营或博展互娱未明示授权的行为。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">五</span><span style="font-family: '宋体'">、【帐号管理】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">6.1 </span><span
+              style="font-family: '宋体'"
+            >博展互娱代理商管理系统帐号的所有权归博展互娱公司所有，系统用户完成申请注册手续后，获得博展互娱代理商管理系统帐号的使用权，该使用权仅属于初始申请注册人，禁止赠与、借用、租用、转让或售卖。博展互娱公司因经营需要，有权终止本系统。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">6.2 </span><span style="font-family: '宋体'">您有责任妥善保管注册帐户信息及帐户密码的安全，您需要对注册帐户以及密码下的行为承担法律责任。您同意在任何情况下不向他人透露帐户或密码信息。您同意在您怀疑他人使用您的帐户或密码时，应立即通知博展互娱公司。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">6.3 </span><span
+              style="font-family: '宋体'"
+            >您应遵守本协议的各项条款，正确、适当地使用本系统，如您违反本协议中的任何条款，博展互娱公司有权依据本协议终止对您的博展互娱代理商管理系统帐号提供服务。同时，博展互娱保留在任何时候收回博展互娱代理商管理系统帐号、系统用户名的权利。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">六</span><span style="font-family: '宋体'">、【数据的储存】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">7.1 </span><span style="font-family: '宋体'">博展互娱不对您在本系统中相关数据的删除或储存失败负责。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">7.2 </span><span style="font-family: '宋体'">博展互娱有权根据实际情况自行决定单个系统用户在本系统中数据的最长储存期限，您可根据自己的需要自行备份本系统中的相关数据。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">7.3 </span><span style="font-family: '宋体'">如果您停止使用本系统或服务被终止或取消，博展互娱可以从服务器上永久地删除您的数据。服务停止、终止或取消后，博展互娱没有义务向您返还任何数据。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">七</span><span style="font-family: '宋体'">、【风险及免责】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">8.1 </span><span
+              style="font-family: '宋体'"
+            >您理解并同意，本系统仅为系统用户提供信息报备、订单提交的系统，您必须为自己注册帐户下的一切行为负责，包括您所提交内容的真实性、合法性、准确性、有效性，以及承担因本系统使用行为产生的结果。系统用户应对博展互娱代理商管理系统中的内容自行加以判断，并承担因使用内容而引起的所有风险，包括因对内容真实性、合法性、准确性、有效性的依赖而产生的风险。博展互娱无法且不会对因系统用户行为而导致的损失或损害承担责任。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: '宋体'">如果您发现任何人违反本协议规定或以其他不当的方式使用博展互娱代理商管理系统服务，请立即向博展互娱代理商管理系统举报或投诉，我们将依法进行处理。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">8.2 </span><span style="font-family: '宋体'">您理解并同意，因业务发展需要，博展互娱保留单方面对本系统的全部或部分服务内容在任何时候不经任何通知的情况下变更、暂停、限制、终止或撤销的权利，系统用户需承担此风险。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">八</span><span style="font-family: '宋体'">、【知识产权声明】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">9.1 </span><span style="font-family: '宋体'">博展互娱在本系统中提供的内容（包括但不限于网页、文字、图片、音频、视频、图表等）的知识产权归博展互娱所有，系统用户在使用本系统中所提交的内容的知识产权归系统用户或相关权利人所有。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">9.2 </span><span style="font-family: '宋体'">除另有特别声明外，博展互娱提供本系统时所依托软件的著作权、专利权及其他知识产权均归博展互娱所有。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">9.3 </span><span style="font-family: '宋体'">博展互娱在本系统中所使用的</span><span style="font-family: '宋体'">“</span><span style="font-family: Calibri">CrazySolo</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">、</span><span style="font-family: '宋体'">“</span><span style="font-family: '宋体'">博展互娱</span><span style="font-family: '宋体'">”</span><span style="font-family: '宋体'">、等商业标识，其著作权或商标权归博展互娱所有。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">9.4 </span><span style="font-family: '宋体'">上述及其他任何本系统包含的内容的知识产权均受到法律保护，未经博展互娱、系统用户或相关权利人书面许可，任何人不得以任何形式进行使用或创造相关衍生作品。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">九</span><span style="font-family: '宋体'">、【法律责任】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">10.1 </span><span
+              style="font-family: '宋体'"
+            >如果博展互娱发现或收到他人举报或投诉系统用户违反本协议约定的，博展互娱有权不经通知随时对相关内容进行删除，并视行为情节对违规帐号处以包括但不限于警告、限制或禁止使用全部或部分功能、帐号封禁直至注销的处罚，并公告处理结果。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">10.2 </span><span style="font-family: '宋体'">您理解并同意，博展互娱有权依合理判断对违反有关法律法规或本协议规定的行为进行处罚，对违法违规的任何人士采取适当的法律行动，并依据法律法规保存有关信息向有关部门报告等，系统用户应独自承担由此而产生的一切法律责任。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">10.3 </span><span style="font-family: '宋体'">您理解并同意，因您违反本协议或相关的服务条款的规定，导致或产生的任何第三方主张的任何索赔、要求或损失，包括合理的律师费，您应当赔偿博展互娱与合作公司、关联公司，并使之免受损害。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">十、【协议的生效与变更】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">11.1 </span><span style="font-family: '宋体'">您使用本系统即视为您已阅读并同意受本协议的约束。</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">11.2 </span><span style="font-family: '宋体'">博展互娱有权在必要时修改本协议条款。您可以在相关服务页面查阅最新版本的协议条款。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">11.3 </span><span style="font-family: '宋体'">本协议条款变更后，如果您继续使用博展互娱代理商管理系统服务，即视为您已接受修改后的协议。如果您不接受修改后的协议，应当停止使用本系统。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">十</span><span style="font-family: '宋体'">一</span><span style="font-family: '宋体'">、【其他】</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">12.1 </span><span style="font-family: '宋体'">本协议内容同时包括《博展互娱官网服务协议》</span><span style="font-family: '宋体'">，</span><span style="font-family: '宋体'">上述内容与本协议存在冲突的，以本协议为准。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">12.2 </span><span style="font-family: '宋体'">本协议签订地为中华人民共和国重庆市渝中区。</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">12.3 </span><span style="font-family: '宋体'">本协议的成立、生效、履行、解释及纠纷解决，适用中华人民共和国大陆地区法律（不包括冲突法）。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">12.4 </span><span style="font-family: '宋体'">若您和博展互娱之间发生任何纠纷或争议，首先应友好协商解决；协商不成的，您同意将纠纷或争议提交本协议签订地有管辖权的人民法院管辖。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">12.5 </span><span style="font-family: '宋体'">本协议所有条款的标题仅为阅读方便，本身并无实际涵义，不能作为本协议涵义解释的依据。</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt">
+            <span style="font-family: Calibri">12.6 </span><span style="font-family: '宋体'">本协议条款无论因何种原因部分无效或不可执行，其余条款仍有效，对双方具有约束力。（正文完）</span>
+          </p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: Calibri">&#xa0;</span></p>
+          <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: right; widows: 0; orphans: 0; font-size: 10.5pt"><span style="font-family: '宋体'">重庆博展互娱科技有限公司  </span></p>
         </div>
-
-        <h2 class="sub_t">四、【第三方产品和服务】</h2>
-        <div class="pt_item">
-          <p>4.1 本服务可能包含第三方提供的产品或服务。当您使用第三方提供的产品或服务时，可能会另有相关的协议或规则，您同样应当认真阅读并遵守。</p>
-          <p class="b"> 4.2 您理解并同意：为了向您提供更好的用户体验，您在使用第三方服务时，第三方可能会接触、使用到您的昵称、头像以及在第三方服务中的相关操作信息等信息。</p>
-          <p class="b">4.3 如您在使用第三方产品或服务时发生任何纠纷的，请您与第三方直接联系，腾讯不承担任何责任，但根据需要会依法提供必要的协助。</p>
-        </div>
-
-        <h2 class="sub_t">五、【数据的储存】</h2>
-        <div class="pt_item">
-          <p class="b">5.1 腾讯不对您在本服务中相关数据的删除或储存失败负责，您应对重要数据在本服务之外自行进行备份。</p>
-          <p>5.2 腾讯有权根据实际情况自行决定在服务器上对您在本服务中的数据的最长储存期限、为单个用户分配的最大存储使用空间等。您可根据自己的需要自行备份本服务中的相关数据。</p>
-          <p class="b">5.3 如果您的服务被终止或取消，腾讯可以从服务器上永久地删除您的数据。服务终止或取消后，腾讯没有义务向您返还或恢复任何数据。</p>
-        </div>
-
-        <h2 class="sub_t">六、【用户发布的内容】</h2>
-        <div class="pt_item">
-          <p>6.1 您可以在本服务平台上发布和共享信息，但您应当保证拥有这些信息的合法权利或已经得到权利人的授权。</p>
-          <p class="b">6.2 在本服务中，您若将所发布的内容设置为允许转发、评论或回复等，即表明您同意向他人公开并许可他人对您所发布的内容有复制和传播的权利。</p>
-          <p class="b">您的设置将导致您发布的内容在更多地方展示并被更多人浏览，您可以通过改变相关设置来变更您的许可。</p>
-          <p class="b"> 您应当清楚如您发布的内容曾经设置为允许转发、评论或回复等，该内容被他人进行前述操作后您将无法控制其传播。</p>
-          <p class="b">6.3
-            腾讯特别提醒您注意，鉴于本服务的社交服务特性及用户的社交需求，您发布的部分内容的公开范围，本服务可能默认设置为公开。该默认设置，会允许使用本服务的其他用户浏览、转发、评论等，若您想改变该默认设置，请您在相关设置中进行改变。</p>
-        </div>
-
-        <h2 class="sub_t">七、【用户行为规范】</h2>
-        <div class="pt_item">
-          <p>7.1 您在使用本服务时不得利用本服务从事以下行为，包括但不限于：</p>
-          <p>（1）发布、传送、传播、储存违反国家法律、危害国家安全统一、社会稳定、公序良俗、社会公德以及侮辱、诽谤、淫秽、暴力的内容；</p>
-          <p>（2）发布、传送、传播、储存侵害他人名誉权、肖像权、知识产权、商业秘密等合法权利的内容；</p>
-          <p>（3）虚构事实、隐瞒真相，误导、欺骗他人；</p>
-          <p>（4）发表、传送、传播广告信息及垃圾信息；</p>
-          <p>（5）从事其他违反法律法规、政策及公序良俗、社会公德等的行为。</p>
-          <p class="b">7.2
-            如果腾讯发现或收到他人举报您发布的信息违反本协议约定的，腾讯有权进行独立判断并采取技术手段予以删除、屏蔽或断开链接。同时，腾讯有权视用户的行为性质，采取包括但不限于限制、暂停或终止您使用本服务的全部或部分功能，限制、暂停或终止使用QQ号码全部或部分功能，追究法律责任等措施。</p>
-          <p class="b">若您违反本协议及本服务相关协议、规则或相关法规政策，被投诉多次的，腾讯有权不经您同意而直接解除您的好友关系。</p>
-          <p class="b">7.3
-            您理解并同意，若您的单向或双向好友(简称“违规用户”)违反《腾讯服务协议》、《QQ软件许可及服务协议》及本协议等相关协议、规则或相关法规政策的，腾讯将依照相关协议、规则对违规用户进行处理，由此可能影响您与违规用户之间的信息交流、好友关系、好友动态等数据或您对本服务的使用。</p>
-          <p class="b">您理解并同意这是腾讯公司为了维护健康良好的网络环境而采取的必要措施，若由于腾讯按照前述约定对违规用户采取措施而对您产生影响或任何损失的，您同意不追究腾讯的任何责任或不向腾讯主张任何权利。</p>
-          <p class="b">7.4
-            您理解并同意，基于用户体验、QQ或相关服务平台运营安全、平台规则要求及健康发展等综合因素，腾讯有权选择提供服务的对象，有权决定功能设置，有权决定功能开放、数据接口和相关数据披露的对象和范围。针对以下情形，有权视具体情况中止或终止提供相关服务，包括但不限于：</p>
-          <p class="b">（1）违反法律法规或本协议规定的；</p>
-          <p class="b">（2）影响服务体验的；</p>
-          <p class="b">（3）存在安全隐患的；</p>
-          <p class="b">（4）与QQ或其服务平台已有主要功能或功能组件相似、相同，或可实现上述功能或功能组件的主要效用的；</p>
-          <p class="b">（5）界面、风格、功能、描述或使用者体验与QQ或其服务平台类似，可能造成QQ用户认为其所使用的功能或服务来源于腾讯或经腾讯授权的；</p>
-          <p class="b">（6）利诱用户分享：分享后对用户有奖励。包括但不限于：邀请好友拆礼盒，集赞，分享可增加一次抽奖机会等；</p>
-          <p class="b">（7）胁迫、煽动用户分享：用夸张、诅咒性质言语来胁迫、引诱用户分享。包括但不限于 ：“不转不是中国人”“请好心人转发一下”“转发后一生平安”“转疯了”“必转”等。</p>
-          <p class="b">（8）非法获取用户数据、信息。未经用户明确同意，并向用户如实披露数据用途、使用范围等相关系信息的情形下复制、存储、使用或传输用户数据的，包括但不限于要求用户共享个人信息（手机号、出生日期等）才可使用其功能，或收集用户密码或者用户个人信息（包括但不限于手机号、身份证号、生日、住址等），或未经腾讯书面许可，通过本服务收集、存储、抓取、获得或要求用户提供包括但不限于QQ、其服务平台的信息内容、用户数据等腾讯认为属于敏感信息范畴的数据（包括但不限于QQ账号、用户关系链、好友列表数据、银行账号和密码等），或者将所有合法获得的前述数据自行或提供给其用户、客户用于创建、补充或维护自身关系链。</p>
-          <p class="b">（9）违背QQ或其服务平台运营原则，或不符合腾讯其他管理要求的。</p>
-          <p>7.5 您违反本条约定，导致任何第三方损害的，您应当独立承担责任；腾讯因此遭受损失的，您也应当一并赔偿。</p>
-        </div>
-
-        <h2 class="sub_t">八、【风险与免责】</h2>
-        <div class="pt_item">
-          <p class="b">基于互联网的开放性和社交网络服务的传播特殊性，腾讯特别提醒您谨慎注意以下风险：</p>
-          <p class="b">8.1
-            本服务仅提供一个在线社交的平台，您应当对其他用户使用本服务所发布的内容进行独立判断并承担因依赖该内容而引起的所有风险，包括但不限于因对内容的正确性、完整性或实用性的依赖而产生的风险以及因您个人信息被其他用户获知而带来的风险。您了解并确认，腾讯不对本服务用户之间的纠纷承担任何责任。</p>
-          <p class="b">8.2 您在使用本服务过程中所发布的内容有可能会被第三方复制、转载、修改或做其他用途，脱离您的预期和控制，您必须充分意识此类风险的存在，腾讯对由此产生的纠纷不予负责。</p>
-          <p class="b">8.3 请您切勿在使用本服务时透露任何涉及财产、本服务帐户及密码等重要信息，否则，由此带来的损失由您自行承担。</p>
-          <p class="b">8.4 由于您或其他用户违反本服务相关规则导致被腾讯依约处理的，可能会对您在本服务中的日志、好友信息等数据造成影响。</p>
-        </div>
-
-        <h2 class="sub_t">九、【本服务的软件形式】</h2>
-        <div class="pt_item">
-          <p>若腾讯通过软件形式提供本服务的，腾讯和您还应遵守本条款的以下约定。</p>
-          <p>9.1 腾讯可能为不同的终端设备开发不同的软件版本，您应当根据实际情况选择下载合适的版本进行安装。</p>
-          <p>9.2 您可以直接从腾讯的网站上获取软件，也可以从得到腾讯授权的第三方获取。如果您从未经腾讯授权的第三方获取软件或与软件名称相同的安装程序，腾讯无法保证该软件能够正常使用，并对因此给您造成的损失不予负责。</p>
-          <p>9.3 为了增进用户体验、完善服务内容，腾讯将不时提供软件更新（这些更新可能会采取软件替换、修改、功能强化、版本升级等形式）。</p>
-          <p class="b">为了改善用户体验，并保证服务的安全性和功能的一致性，腾讯有权不经向您特别通知而对软件进行更新，或者对软件的部分功能效果进行改变或限制。</p>
-          <p class="b">9.4 软件新版本发布后，旧版软件可能无法使用。腾讯不保证旧版软件继续可用及相应的客户服务，请您随时核对并下载最新版本。</p>
-          <p>9.5 除非法律允许或腾讯书面许可，您不得从事下列行为：</p>
-          <p>（1）删除软件及其副本上关于著作权的信息；</p>
-          <p>（2）对软件进行反向工程、反向汇编、反向编译，或者以其他方式尝试发现软件的源代码；</p>
-          <p>（3）对腾讯拥有知识产权的内容进行使用、出租、出借、复制、修改、链接、转载、汇编、发表、出版、建立镜像站点等；</p>
-          <p>（4）对软件或者软件运行过程中释放到任何终端内存中的数据、软件运行过程中客户端与服务器端的交互数据，以及软件运行所必需的系统数据，进行复制、修改、增加、删除、挂接运行或创作任何衍生作品，形式包括但不限于使用插件、外挂或非经腾讯授权的第三方工具/服务接入软件和相关系统；</p>
-          <p>（5）通过修改或伪造软件运行中的指令、数据，增加、删减、变动软件的功能或运行效果，或者将用于上述用途的软件、方法进行运营或向公众传播，无论这些行为是否为商业目的；</p>
-          <p>（6）通过非腾讯开发、授权的第三方软件、插件、外挂、系统，登录或使用腾讯软件及服务，或制作、发布、传播上述工具；</p>
-          <p>（7）其他未经腾讯明示授权的行为。</p>
-          <p>如果您实施了前款约定的行为，腾讯将保留依法追究法律责任的权利。</p>
-        </div>
-
-        <h2 class="sub_t">十、【其他】</h2>
-        <div class="pt_item">
-          <p>10.1
-            您使用本服务即视为您已阅读并同意受本协议的约束。腾讯有权在必要时修改本协议条款。您可以在相关页面中查阅最新的协议条款。本协议条款变更后，如果您继续使用本服务，即视为您已接受修改后的协议。如果您不接受修改后的协议，应当停止使用本服务。</p>
-          <p>10.2 本协议内容同时包括《腾讯服务协议》（链接地址：<a href="http://www.qq.com/contract.shtml" target="_blank">http://www.qq.com/contract.shtml</a>）、《QQ号码规则》（链接地址：<a
-            href="http://zc.qq.com/chs/agreement1_chs.html"
-            target="_blank"
-          >http://zc.qq.com/chs/agreement1_chs.html</a>）、《QQ空间使用规则》（链接地址：<a
-            href="http://qzone.qq.com/web/rule.html"
-            target="_blank"
-          >http://qzone.qq.com/web/rule.html</a>）及腾讯可能不断发布的关于本服务的相关协议、业务规则等内容。上述内容一经正式发布，即为本协议不可分割的组成部分，您同样应当遵守。上述内容与本协议存在冲突的，以本协议为准。您对前述任何业务规则、协议的接受，即视为您对本协议全部的接受。</p>
-          <p class="b">10.3 本协议签订地为中华人民共和国广东省深圳市南山区。</p>
-          <p>10.4 本协议的成立、生效、履行、解释及纠纷解决，适用中华人民共和国大陆地区法律（不包括冲突法）。</p>
-          <p class="b">10.5 若您和腾讯之间发生任何纠纷或争议，首先应友好协商解决；协商不成的，您同意将纠纷或争议提交本协议签订地有管辖权的人民法院管辖。</p>
-          <p>10.6 本协议所有条款的标题仅为阅读方便，本身并无实际涵义，不能作为本协议涵义解释的依据。</p>
-          <p>10.7 本协议条款无论因何种原因部分无效或不可执行，其余条款仍有效，对双方具有约束力。（正文完）</p>
-        </div>
-        <div class="pt_item_r">腾讯公司</div>
+        <div class="pt_item_r" />
       </div>
     </div>
     <el-row>
@@ -227,7 +352,6 @@ export default {
 
 <style scoped>
   .document {
-    height: 800px;
     margin: 0 auto;
     border: 1px dashed #6EB6FF;
     overflow-y: scroll

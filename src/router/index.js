@@ -194,8 +194,8 @@ export const asyncRoutes2 = [
     },
     children: [
       {
-        path: 'purchase',
-        name: 'purchase',
+        path: 'filing',
+        name: 'filing',
         component: () => import('@/views/dealer/purchase/index'),
         meta: {
           title: '在线报备',
@@ -203,11 +203,40 @@ export const asyncRoutes2 = [
         }
       },
       {
-        path: 'purchaseorder',
-        name: 'purchaseorder',
+        path: 'filingorder',
+        name: 'filingorder',
         component: () => import('@/views/dealer/purchaseorder/index'),
         meta: {
           title: '报备记录',
+          icon: 'tree'
+        }
+      }
+    ]
+  },
+  {
+    path: '/orderauth',
+    component: Layout,
+    name: 'orderauth',
+    meta: {
+      title: '采购授权',
+      icon: 'example'
+    },
+    children: [
+      {
+        path: 'purchase',
+        name: 'purchase',
+        component: () => import('@/views/dealer/purchase/purchase'),
+        meta: {
+          title: '采购授权',
+          icon: 'tree'
+        }
+      },
+      {
+        path: 'orderlist',
+        name: 'orderlist',
+        component: () => import('@/views/dealer/purchaseorder/purchaseorder'),
+        meta: {
+          title: '采购记录',
           icon: 'tree'
         }
       }

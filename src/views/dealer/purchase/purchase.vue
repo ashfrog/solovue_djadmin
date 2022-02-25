@@ -418,7 +418,7 @@ export default {
             type: 'success'
           })
           this.$router.push({
-            path: '/dealer/purchaseorder'
+            path: '/orderauth/orderlist'
           })
         }
       })

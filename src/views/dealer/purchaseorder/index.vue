@@ -147,7 +147,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <div class="title">订购商品信息</div>
+          <!-- <div class="title">订购商品信息</div>
           <el-table
             v-loading="listLoading"
             class="grid-content"
@@ -183,7 +183,7 @@
                 {{ scope.row.itemcount }}
               </template>
             </el-table-column>
-          </el-table>
+          </el-table> -->
           <div class="title">最终用户信息</div>
           <el-row>
             <el-col :span="8">

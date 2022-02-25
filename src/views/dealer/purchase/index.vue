@@ -13,28 +13,8 @@
           :default-sort="{prop: 'count', order: 'descending'}"
           class="content"
         >
-          <el-table-column type="expand">
-            <template slot-scope="props">
-              <el-form size="mini" label-position="left" inline class="demo-table-expand">
-                <el-form-item label="商品">
-                  <span>{{ props.row.title }}</span>
-                </el-form-item>
-                <el-form-item label="单价">
-                  <span>{{ props.row.price }}</span>
-                </el-form-item>
-                <el-form-item label="商品介绍">
-                  <span>{{ props.row.descript }}</span>
-                </el-form-item>
-                <el-form-item label="销量">
-                  <span>{{ props.row.sales }}</span>
-                </el-form-item>
-                <el-form-item label="库存">
-                  <span>{{ props.row.stock }}</span>
-                </el-form-item>
-              </el-form>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" sortable prop="title" label="商品">
+
+          <el-table-column align="center" sortable prop="title" width="200" label="商品">
             <template slot-scope="scope">
               {{ scope.row.title }}
             </template>
@@ -44,7 +24,7 @@
               <img :src="scope.row.imgUrl" width="80px" height="45px">
             </template>
           </el-table-column>
-          <el-table-column label="单价" sortable prop="price" align="center">
+          <!-- <el-table-column label="单价" sortable prop="price" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.price }}</span>
             </template>
@@ -63,8 +43,8 @@
             <template slot-scope="scope">
               {{ scope.row.stock }}
             </template>
-          </el-table-column>
-          <el-table-column label="采购数量" align="center" width="160">
+          </el-table-column> -->
+          <el-table-column label="授权数量" align="center" width="300">
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.purchasecount" size="mini" :min="0" :max="999" label="描述文字" @change="addShopcar(scope.row.id,scope.row)" />
             </template>
@@ -253,11 +233,11 @@
                 <el-input v-model="userdealer.bankaddr" size="mini" />
               </el-form-item>
             </el-col> -->
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="电话">
                 <el-input v-model="userdealer.telphone" size="mini" />
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-row>
           <el-row>
             <el-col :span="8">
@@ -399,12 +379,12 @@ export default {
       this.itemlistvo = this.itemlist.filter((item) => {
         return item.purchasecount > 0
       })
-      if (this.itemlistvo.length >= 0) {
+      if (this.itemlistvo.length > 0) {
         this.dialogVisible = true
       } else {
         this.$message({
           type: 'warning',
-          message: '采购数量不能为0'
+          message: '授权数量不能为0'
         })
       }
       console.log(this.itemlistvo)

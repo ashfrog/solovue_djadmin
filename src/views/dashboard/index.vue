@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">crazySOLO后台管理系统</div>
+    <div class="dashboard-text">SOLO智慧墙后台</div>
   </div>
 </template>
 
@@ -10,9 +10,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(['name'])
   }
 }
 </script>

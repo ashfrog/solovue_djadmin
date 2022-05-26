@@ -40,16 +40,6 @@ export function updateitemorder(itemorder) {
   })
 }
 
-export function listitemorderbystate(state) {
-  return request({
-    url: '/itemorder/listitemorderbystate',
-    method: 'get',
-    params: {
-      state: state
-    }
-  })
-}
-
 export function listitemorderbydealer() {
   return request({
     url: '/itemorder/listitemorderbydealer',

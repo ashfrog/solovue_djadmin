@@ -10,8 +10,7 @@
         fit
         stripe
         highlight-current-row
-        height="100vh"
-        :default-sort="{prop: 'count', order: 'descending'}"
+        :default-sort="{ prop: 'count', order: 'descending' }"
       >
         <el-table-column align="center" prop="orderno" label="订单号">
           <template slot-scope="scope">
@@ -62,12 +61,20 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="showOrderDetail(scope.row.orderno)">查看</el-button>
-            <el-button v-if="scope.row.state!='审核通过'" size="mini" type="text" @click="editOrderDetail(scope.row.orderno)">编辑</el-button>
+            <el-button
+              size="mini"
+              type="text"
+              @click="showOrderDetail(scope.row.orderno)"
+            >查看</el-button>
+            <el-button
+              v-if="scope.row.state != '审核通过'"
+              size="mini"
+              type="text"
+              @click="editOrderDetail(scope.row.orderno)"
+            >编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
-
     </div>
 
     <div v-show="dialogVisible">
@@ -102,36 +109,62 @@
           </el-row>
           <el-row>
             <el-col :span="16">
-              <el-form-item v-if="editmode" label="收货地址" prop="receive_areacode">
+              <el-form-item
+                v-if="editmode"
+                label="收货地址"
+                prop="receive_areacode"
+              >
                 <el-col class="selectorgroup">
-                  <PositionSelector v-model="itemorderdetail.receive_areacode" size="mini" />
+                  <PositionSelector
+                    v-model="itemorderdetail.receive_areacode"
+                    size="mini"
+                  />
                 </el-col>
                 <el-col :span="6">
-                  <el-input v-model="itemorderdetail.receive_detail" size="mini" placeholder="详细地址" />
+                  <el-input
+                    v-model="itemorderdetail.receive_detail"
+                    size="mini"
+                    placeholder="详细地址"
+                  />
                 </el-col>
               </el-form-item>
               <el-form-item v-else label="收货地址" prop="receive_areatext">
-                <el-input v-model="itemorderdetail.receive_areatext" size="mini" placeholder="详细地址" />
+                <el-input
+                  v-model="itemorderdetail.receive_areatext"
+                  size="mini"
+                  placeholder="详细地址"
+                />
               </el-form-item>
             </el-col>
-
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="联系人" prop="dealername">
-                <el-input v-model="itemorderdetail.dealername" disabled size="mini" />
+                <el-input
+                  v-model="itemorderdetail.dealername"
+                  disabled
+                  size="mini"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="联系方式" prop="telphone">
-                <el-input v-model="itemorderdetail.telphone" disabled size="mini" />
+                <el-input
+                  v-model="itemorderdetail.telphone"
+                  disabled
+                  size="mini"
+                />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="16">
               <el-form-item label="经销商地址" prop="dealeraddress">
-                <el-input v-model="itemorderdetail.dealeraddress" disabled size="mini" />
+                <el-input
+                  v-model="itemorderdetail.dealeraddress"
+                  disabled
+                  size="mini"
+                />
               </el-form-item>
             </el-col>
           </el-row>
@@ -155,7 +188,7 @@
             element-loading-text="Loading"
             fit
             stripe
-            :default-sort="{prop: 'count', order: 'descending'}"
+            :default-sort="{ prop: 'count', order: 'descending' }"
             style="width: 100%"
           >
             <el-table-column align="center" sortable prop="title" label="商品">
@@ -205,7 +238,10 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="客户负责人手机号" prop="custmanagertel">
-                <el-input v-model="itemorderdetail.custmanagertel" size="mini" />
+                <el-input
+                  v-model="itemorderdetail.custmanagertel"
+                  size="mini"
+                />
               </el-form-item>
             </el-col>
           </el-row>
@@ -226,14 +262,25 @@
               <el-form-item label="最终用户地址" prop="areaFullName">
                 <el-row v-if="editmode">
                   <el-col class="selectorgroup">
-                    <PositionSelector v-model="itemorderdetail.areacode" size="mini" :areatext="itemorderdetail.areaFullName" />
+                    <PositionSelector
+                      v-model="itemorderdetail.areacode"
+                      size="mini"
+                      :areatext="itemorderdetail.areaFullName"
+                    />
                   </el-col>
                   <el-col :span="8">
-                    <el-input v-model="itemorderdetail.areadetail" size="mini" placeholder="详细地址" />
+                    <el-input
+                      v-model="itemorderdetail.areadetail"
+                      size="mini"
+                      placeholder="详细地址"
+                    />
                   </el-col>
                 </el-row>
                 <el-row v-else>
-                  <el-input v-model="itemorderdetail.areaFullName" size="mini" />
+                  <el-input
+                    v-model="itemorderdetail.areaFullName"
+                    size="mini"
+                  />
                 </el-row>
               </el-form-item>
             </el-col>
@@ -276,28 +323,49 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="发票收件人">
-                <el-input v-model="itemorderdetail.invoice_receiver" size="mini" />
+                <el-input
+                  v-model="itemorderdetail.invoice_receiver"
+                  size="mini"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="发票收件人电话">
-                <el-input v-model="itemorderdetail.invoice_receiver_tel" size="mini" />
+                <el-input
+                  v-model="itemorderdetail.invoice_receiver_tel"
+                  size="mini"
+                />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="16">
-              <el-form-item label="发票收件人地址" prop="invoice_receiver_areatext">
+              <el-form-item
+                label="发票收件人地址"
+                prop="invoice_receiver_areatext"
+              >
                 <el-row v-if="editmode">
                   <el-col class="selectorgroup">
-                    <PositionSelector v-model="itemorderdetail.invoice_receiver_areacode" size="mini" :areatext="itemorderdetail.invoice_receiver_areatext" />
+                    <PositionSelector
+                      v-model="itemorderdetail.invoice_receiver_areacode"
+                      size="mini"
+                      :areatext="itemorderdetail.invoice_receiver_areatext"
+                    />
                   </el-col>
                   <el-col :span="8">
-                    <el-input v-model="itemorderdetail.invoice_receiver_areadetail" size="mini" placeholder="详细地址" />
+                    <el-input
+                      v-model="itemorderdetail.invoice_receiver_areadetail"
+                      size="mini"
+                      placeholder="详细地址"
+                    />
                   </el-col>
                 </el-row>
                 <el-row v-else>
-                  <el-input v-model="itemorderdetail.invoice_receiver_areatext" size="mini" placeholder="" />
+                  <el-input
+                    v-model="itemorderdetail.invoice_receiver_areatext"
+                    size="mini"
+                    placeholder=""
+                  />
                 </el-row>
               </el-form-item>
             </el-col>
@@ -305,16 +373,32 @@
           <el-row>
             <el-col :span="16">
               <el-form-item label="备注">
-                <el-input v-model="itemorderdetail.note" size="mini" placeholder="备注" />
+                <el-input
+                  v-model="itemorderdetail.note"
+                  size="mini"
+                  placeholder="备注"
+                />
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
       </div>
-      <span slot="footer" class="dialog-footer" style="width:100%;justify-content:center;display:flex;flex-direction:row;margin:20px 20px;">
-        <el-button v-if="editmode" type="primary" @click="updateItemOrder(itemorderdetail)">确定</el-button>
+      <span
+        slot="footer"
+        class="dialog-footer"
+        style="width:100%;justify-content:center;display:flex;flex-direction:row;margin:20px 20px;"
+      >
+        <el-button
+          v-if="editmode"
+          type="primary"
+          @click="updateItemOrder(itemorderdetail)"
+        >确定</el-button>
         <el-button type="primary" @click="hideOrderDetailPanel">返回</el-button>
-        <el-button v-if="editmode" type="danger" @click="deleteItemorder(itemorderdetail.orderno)">删除</el-button>
+        <el-button
+          v-if="editmode"
+          type="danger"
+          @click="deleteItemorder(itemorderdetail.orderno)"
+        >删除</el-button>
       </span>
     </div>
   </div>
@@ -385,7 +469,7 @@ export default {
       this.calcTotalPrice(this.shopcar)
     },
     updateItemOrder(itemorderdetail) {
-      updateitemorder(itemorderdetail).then((res) => {
+      updateitemorder(itemorderdetail).then(res => {
         console.log(res)
         if (res.status === 'success') {
           this.dialogVisible = false
@@ -398,7 +482,7 @@ export default {
       })
     },
     showOrderDetail(orderno) {
-      getitemorderbyorderno(orderno).then((res) => {
+      getitemorderbyorderno(orderno).then(res => {
         console.log(res.data)
         this.editmode = false
         this.dialogVisible = true
@@ -406,7 +490,7 @@ export default {
       })
     },
     editOrderDetail(orderno) {
-      getitemorderbyorderno(orderno).then((res) => {
+      getitemorderbyorderno(orderno).then(res => {
         console.log(res.data)
         this.editmode = true
         this.dialogVisible = true
@@ -428,7 +512,7 @@ export default {
       }
     },
     listItemOrder() {
-      listitemorderbydealer().then((response) => {
+      listitemorderbydealer().then(response => {
         this.itemorderlist = response.data
         this.listLoading = false
         console.log(this.itemorderlist)
@@ -443,57 +527,59 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        deleteitemorder(orderno).then(response => {
-          this.itemorderlist = this.itemorderlist.filter((itemorder) => {
-            return itemorder.orderno !== orderno
-          })
-          this.dialogVisible = false
-          this.$notify({
-            title: '通知消息',
-            message: '删除成功!',
-            type: 'success'
+      })
+        .then(() => {
+          deleteitemorder(orderno).then(response => {
+            this.itemorderlist = this.itemorderlist.filter(itemorder => {
+              return itemorder.orderno !== orderno
+            })
+            this.dialogVisible = false
+            this.$notify({
+              title: '通知消息',
+              message: '删除成功!',
+              type: 'success'
+            })
           })
         })
-      }).catch(() => {})
+        .catch(() => {})
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import "@/styles/orderstyle.scss";
+@import '@/styles/orderstyle.scss';
 
-  .tbrow {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }
+.tbrow {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .tbtag {
-    width: 100px;
-  }
+.tbtag {
+  width: 100px;
+}
 
-  .demo-table-expand {
-    font-size: 0;
-  }
+.demo-table-expand {
+  font-size: 0;
+}
 
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
 
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 
-  .grid-content {
-    min-width: 60rem;
-  }
+.grid-content {
+  min-width: 60rem;
+}
 
-  .app-container {
-    overflow: auto;
-  }
+.app-container {
+  overflow: auto;
+}
 </style>

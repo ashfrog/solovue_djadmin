@@ -23,19 +23,54 @@
             </tr>
           </thead>
           <tbody id="container">
-            <tr v-for="(itemVO,index) in usermedias" :key="itemVO.iId" align="center">
+            <tr
+              v-for="(itemVO, index) in usermedias"
+              :key="itemVO.iId"
+              align="center"
+            >
               <td><img class="img-thumbnail" :src="itemVO.imgpath"></td>
               <td>
-                <el-input v-model="itemVO.moviename" size="mini" @change="changedata" @blur="(e)=>{onNameInputBlur(e,itemVO)}" />
+                <el-input
+                  v-model="itemVO.moviename"
+                  size="mini"
+                  @change="changedata"
+                  @blur="
+                    e => {
+                      onNameInputBlur(e, itemVO)
+                    }
+                  "
+                />
               </td>
               <td>
-                <el-tag size="medium" type="info">{{ new Date(itemVO.updatetime).toLocaleString() }}</el-tag>
+                <el-tag size="medium" type="info">{{
+                  new Date(itemVO.updatetime).toLocaleString()
+                }}</el-tag>
               </td>
               <td>
-                <el-button size="mini" type="text" circle :data-itemid="itemVO.id" @click="(e)=>{playmovie(e,itemVO)}">预览</el-button>
+                <el-button
+                  size="mini"
+                  type="text"
+                  circle
+                  :data-itemid="itemVO.id"
+                  @click="
+                    e => {
+                      playmovie(e, itemVO)
+                    }
+                  "
+                >预览</el-button>
               </td>
               <td>
-                <el-button size="mini" type="danger" icon="el-icon-delete" circle @click="(e)=>{deleteitem(e,index,itemVO.id)}" />
+                <el-button
+                  size="mini"
+                  type="danger"
+                  icon="el-icon-delete"
+                  circle
+                  @click="
+                    e => {
+                      deleteitem(e, index, itemVO.id)
+                    }
+                  "
+                />
               </td>
             </tr>
           </tbody>
@@ -54,7 +89,7 @@
           </div>
         </div> -->
 
-        <MVideo :src="src" :show="showvideo" @close="showvideo=false" />
+        <MVideo :src="src" :show="showvideo" @close="showvideo = false" />
       </div>
     </div>
   </div>
@@ -120,7 +155,7 @@ export default {
       // })
     },
     fetchData() {
-      listbylogin().then((response) => {
+      listbylogin().then(response => {
         console.log('response', response)
         this.usermedias = response.data
       })
@@ -143,7 +178,7 @@ export default {
       })
         .then(() => {
           console.log('id', itemid)
-          deletemediabyid(itemid).then((data) => {
+          deletemediabyid(itemid).then(data => {
             if (data.status === 'success') {
               this.usermedias.splice(index, 1)
               this.$message({
@@ -157,7 +192,7 @@ export default {
     },
     onNameInputBlur: function(e, item) {
       if (this.dataChange) {
-        updatename(item.id, item.moviename).then((data) => {
+        updatename(item.id, item.moviename).then(data => {
           if (data.status === 'success') {
             console.log(data)
             this.dataChange = false

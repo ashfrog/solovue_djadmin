@@ -3,7 +3,6 @@
     <el-table
       v-loading="listLoading"
       :data="userBindMachineS"
-      height="100vh"
       element-loading-text="Loading"
       fit
       highlight-current-row
@@ -33,7 +32,12 @@
           {{ scope.row.devicename }}
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="绑定时间" width="200">
+      <el-table-column
+        align="center"
+        prop="created_at"
+        label="绑定时间"
+        width="200"
+      >
         <template slot-scope="scope">
           <!-- <i class="el-icon-time" /> -->
           <span>{{ new Date(scope.row.bindtime).toLocaleString() }}</span>
@@ -44,7 +48,11 @@
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="handleDelete(scope.$index, scope.row)">解绑</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            @click="handleDelete(scope.$index, scope.row)"
+          >解绑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,43 +92,49 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      listBindMachinebydealerid(this.pageStart, this.pageSize).then(response => {
-        this.userBindMachineS = response.data
-        console.log(response)
-        this.listLoading = false
-      })
+      listBindMachinebydealerid(this.pageStart, this.pageSize).then(
+        response => {
+          this.userBindMachineS = response.data
+          console.log(response)
+          this.listLoading = false
+        }
+      )
     },
     handleDelete(index, rowdata) {
       this.$confirm('此操作将解绑设备, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        var itemindex = this.userBindMachineS.findIndex((item) => item.id === rowdata.id)
-        deleteBindMachine(rowdata.id).then(response => {
-          if (response.data === 1) {
-            this.userBindMachineS.splice(itemindex, 1)
-          }
-          this.$message({
-            type: 'success',
-            message: '删除成功'
+      })
+        .then(() => {
+          var itemindex = this.userBindMachineS.findIndex(
+            item => item.id === rowdata.id
+          )
+          deleteBindMachine(rowdata.id).then(response => {
+            if (response.data === 1) {
+              this.userBindMachineS.splice(itemindex, 1)
+            }
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+            this.listLoading = false
           })
-          this.listLoading = false
         })
-      }).catch(() => {})
+        .catch(() => {})
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .tbrow {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }
+.tbrow {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .tbtag {
-    width: 100px;
-  }
+.tbtag {
+  width: 100px;
+}
 </style>

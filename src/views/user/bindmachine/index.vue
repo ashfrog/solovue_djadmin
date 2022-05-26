@@ -6,7 +6,6 @@
       element-loading-text="Loading"
       fit
       highlight-current-row
-      height="100vh"
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
@@ -30,10 +29,24 @@
       </el-table-column>
       <el-table-column label="设备名" align="center" width="200">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.devicename" size="mini" @change="changedata" @blur="(e)=>{onDeviceNameInputBlur(e,scope.row)}" />
+          <el-input
+            v-model="scope.row.devicename"
+            size="mini"
+            @change="changedata"
+            @blur="
+              e => {
+                onDeviceNameInputBlur(e, scope.row)
+              }
+            "
+          />
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="绑定时间" width="200">
+      <el-table-column
+        align="center"
+        prop="created_at"
+        label="绑定时间"
+        width="200"
+      >
         <template slot-scope="scope">
           <!-- <i class="el-icon-time" /> -->
           <span>{{ new Date(scope.row.bindtime).toLocaleString() }}</span>
@@ -41,11 +54,7 @@
       </el-table-column>
       <el-table-column align="center" width="200">
         <template slot="header">
-          <el-input
-            v-model="search"
-            size="mini"
-            placeholder="输入关键字搜索"
-          />
+          <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
         </template>
         <template slot-scope="scope">
           <el-button
@@ -94,7 +103,11 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      listBindMachinebyuserid(this.pageStart, this.pageSize, store.getters.token).then(response => {
+      listBindMachinebyuserid(
+        this.pageStart,
+        this.pageSize,
+        store.getters.token
+      ).then(response => {
         this.userBindMachineS = response.data
         console.log(response)
         this.listLoading = false
@@ -105,20 +118,23 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        var itemindex = this.userBindMachineS.findIndex((item) => item.id === rowdata.id)
-        deleteBindMachine(rowdata.id).then(response => {
-          if (response.data === 1) {
-            this.userBindMachineS.splice(itemindex, 1)
-          }
-          this.$message({
-            type: 'success',
-            message: '删除成功'
-          })
-          this.listLoading = false
-        })
-      }).catch(() => {
       })
+        .then(() => {
+          var itemindex = this.userBindMachineS.findIndex(
+            item => item.id === rowdata.id
+          )
+          deleteBindMachine(rowdata.id).then(response => {
+            if (response.data === 1) {
+              this.userBindMachineS.splice(itemindex, 1)
+            }
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+            this.listLoading = false
+          })
+        })
+        .catch(() => {})
     },
     changedata: function() {
       this.dataChange = true
@@ -131,13 +147,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .tbrow {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }
+.tbrow {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .tbtag {
-    width: 100px;
-  }
+.tbtag {
+  width: 100px;
+}
 </style>

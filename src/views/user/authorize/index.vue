@@ -5,10 +5,9 @@
       :data="userBindOrderS"
       element-loading-text="Loading"
       fit
-      height="100vh"
       stripe
       highlight-current-row
-      :default-sort="{prop: 'count', order: 'descending'}"
+      :default-sort="{ prop: 'count', order: 'descending' }"
     >
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -34,7 +33,13 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="订单编号" width="195">
+      <el-table-column
+        align="center"
+        sortable
+        prop="id"
+        label="订单编号"
+        width="195"
+      >
         <template slot-scope="scope">
           {{ scope.row.orderno }}
         </template>
@@ -44,7 +49,13 @@
           {{ scope.row.userid }}
         </template>
       </el-table-column>
-      <el-table-column label="购买数量" sortable prop="count" width="110" align="center">
+      <el-table-column
+        label="购买数量"
+        sortable
+        prop="count"
+        width="110"
+        align="center"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.count }}</span>
         </template>
@@ -54,7 +65,13 @@
           {{ scope.row.bindcode }}
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="createtime" label="下单时间" width="200">
+      <el-table-column
+        align="center"
+        sortable
+        prop="createtime"
+        label="下单时间"
+        width="200"
+      >
         <template slot-scope="scope">
           <!-- <i class="el-icon-time" /> -->
           <span>{{ new Date(scope.row.createtime).toLocaleString() }}</span>
@@ -62,11 +79,7 @@
       </el-table-column>
       <el-table-column align="center" width="200">
         <template slot="header">
-          <el-input
-            v-model="search"
-            size="mini"
-            placeholder="输入关键字搜索"
-          />
+          <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
         </template>
         <!-- <template slot-scope="scope">
           <el-button
@@ -127,47 +140,49 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        var itemindex = this.userBindOrderS.findIndex((item) => item.id === rowdata.id)
-        deleteBindOrder(rowdata.id).then(response => {
-          if (response.data === 1) {
-            this.userBindOrderS.splice(itemindex, 1)
-          }
-          this.$message({
-            type: 'success',
-            message: '删除成功'
-          })
-          this.listLoading = false
-        })
-      }).catch(() => {
       })
+        .then(() => {
+          var itemindex = this.userBindOrderS.findIndex(
+            item => item.id === rowdata.id
+          )
+          deleteBindOrder(rowdata.id).then(response => {
+            if (response.data === 1) {
+              this.userBindOrderS.splice(itemindex, 1)
+            }
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+            this.listLoading = false
+          })
+        })
+        .catch(() => {})
     }
-
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .tbrow {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }
+.tbrow {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .tbtag {
-    width: 100px;
-  }
+.tbtag {
+  width: 100px;
+}
 
-  .demo-table-expand {
-      font-size: 0;
-    }
-    .demo-table-expand label {
-      width: 90px;
-      color: #99a9bf;
-    }
-    .demo-table-expand .el-form-item {
-      margin-right: 0;
-      margin-bottom: 0;
-      width: 50%;
-    }
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

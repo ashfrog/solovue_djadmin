@@ -1,12 +1,16 @@
 <template>
   <div class="app-container">
-    <svg class="icon" aria-hidden="true" :hidden="!showMediaSet" @click="ClickReturn()">
+    <svg
+      class="icon"
+      aria-hidden="true"
+      :hidden="!showMediaSet"
+      @click="ClickReturn()"
+    >
       <use xlink:href="#iconfanhui" />
     </svg>
     <div id="app" :hidden="showMediaSet" class="container">
       <el-table
         v-loading="listLoading"
-        height="100vh"
         :data="userBindMachineS"
         element-loading-text="Loading"
         fit
@@ -34,10 +38,24 @@
         </el-table-column>
         <el-table-column label="设备名" align="center" width="200">
           <template slot-scope="scope">
-            <el-input v-model="scope.row.devicename" size="mini" @change="changedata" @blur="(e)=>{onDeviceNameInputBlur(e,scope.row)}" />
+            <el-input
+              v-model="scope.row.devicename"
+              size="mini"
+              @change="changedata"
+              @blur="
+                e => {
+                  onDeviceNameInputBlur(e, scope.row)
+                }
+              "
+            />
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="created_at" label="绑定时间" width="200">
+        <el-table-column
+          align="center"
+          prop="created_at"
+          label="绑定时间"
+          width="200"
+        >
           <template slot-scope="scope">
             <!-- <i class="el-icon-time" /> -->
             <span>{{ new Date(scope.row.bindtime).toLocaleString() }}</span>
@@ -45,12 +63,20 @@
         </el-table-column>
         <el-table-column align="center" width="100">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="ShowMediaSet(scope.$index, scope.row)">配置广告列表</el-button>
+            <el-button
+              size="mini"
+              type="text"
+              @click="ShowMediaSet(scope.$index, scope.row)"
+            >配置广告列表</el-button>
           </template>
         </el-table-column>
         <el-table-column align="center" width="100">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="PushMediaSets(scope.$index, scope.row)">立即推送</el-button>
+            <el-button
+              size="mini"
+              type="text"
+              @click="PushMediaSets(scope.$index, scope.row)"
+            >立即推送</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -58,8 +84,8 @@
 
     <div :hidden="!showMediaSet">
       <div class="tab-responsive">
-        <div v-for="(setsitem,setsindex) in usermediasets" :key="setsindex">
-          <el-card size="mini" shadow="hover" :body-style="{ padding: '0px'}">
+        <div v-for="(setsitem, setsindex) in usermediasets" :key="setsindex">
+          <el-card size="mini" shadow="hover" :body-style="{ padding: '0px' }">
             <el-time-picker
               v-model="setsitem.playTime"
               value-format="timestamp"
@@ -69,15 +95,40 @@
               placeholder="播放时间"
               @change="playtimeChange"
             />
-            <el-dropdown trigger="click" style="margin:0px 10px;" @command="handleCommand">
-              <el-button type="text" :style="{'color':(setsitem.moviePath==''?'red':'#0DBADC')}">
-                {{ setsitem.movieName }}<i class="el-icon-arrow-down el-icon--right" />
+            <el-dropdown
+              trigger="click"
+              style="margin:0px 10px;"
+              @command="handleCommand"
+            >
+              <el-button
+                type="text"
+                :style="{ color: setsitem.moviePath == '' ? 'red' : '#0DBADC' }"
+              >
+                {{ setsitem.movieName
+                }}<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="(mediaitem,mediaindex) in usermedias" :key="mediaindex" :command="dropdownCommand(setsindex,mediaindex,setsitem,mediaitem)">{{ mediaitem.moviename }}</el-dropdown-item>
+                <el-dropdown-item
+                  v-for="(mediaitem, mediaindex) in usermedias"
+                  :key="mediaindex"
+                  :command="
+                    dropdownCommand(setsindex, mediaindex, setsitem, mediaitem)
+                  "
+                >{{ mediaitem.moviename }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <el-button style="float:right;margin:6px;" size="mini" type="danger" icon="el-icon-delete" circle @click="(e)=>{deletemediaset(e,setsindex)}" />
+            <el-button
+              style="float:right;margin:6px;"
+              size="mini"
+              type="danger"
+              icon="el-icon-delete"
+              circle
+              @click="
+                e => {
+                  deletemediaset(e, setsindex)
+                }
+              "
+            />
           </el-card>
         </div>
         <div style="margin:0px 0px;">
@@ -86,8 +137,16 @@
           <!--          <el-button @click="sortByTimeup" type="primary" size="medium">升序</el-button>
           <el-button @click="sortByTimedown" type="primary" size="medium">降序</el-button> -->
           <!-- <el-button type="text" @click="ReloadUseradSet" size="medium">重置</el-button> -->
-          <el-button type="text" size="medium" @click="ClearUseradSet">清空</el-button>
-          <el-button type="text" size="medium" @click="ClickReturn">返回</el-button>
+          <el-button
+            type="text"
+            size="medium"
+            @click="ClearUseradSet"
+          >清空</el-button>
+          <el-button
+            type="text"
+            size="medium"
+            @click="ClickReturn"
+          >返回</el-button>
         </div>
       </div>
     </div>
@@ -103,10 +162,7 @@ import {
   // getusermediasetsbyuserid,
   sendadsets
 } from '@/api/userad'
-import {
-  listBindMachinebyuserid,
-  renamedevice
-} from '@/api/userbindorder'
+import { listBindMachinebyuserid, renamedevice } from '@/api/userbindorder'
 import store from '@/store'
 export default {
   filters: {
@@ -140,19 +196,23 @@ export default {
       play: false,
       dialogVisible: false,
       usermedias: [], // 广告视频列表
-      usermediasets: [{
-        movieName: '广告视频',
-        moviePath: 'a.mp4',
-        playTime: '1608533346201'
-      }, {
-        movieName: '广告视频2',
-        moviePath: 'a2.mp4',
-        playTime: '1608533347201'
-      }, {
-        movieName: '广告视频3',
-        moviePath: 'a3.mp4',
-        playTime: '1608533348201'
-      }], // 单个设备广告配置策略
+      usermediasets: [
+        {
+          movieName: '广告视频',
+          moviePath: 'a.mp4',
+          playTime: '1608533346201'
+        },
+        {
+          movieName: '广告视频2',
+          moviePath: 'a2.mp4',
+          playTime: '1608533347201'
+        },
+        {
+          movieName: '广告视频3',
+          moviePath: 'a3.mp4',
+          playTime: '1608533348201'
+        }
+      ], // 单个设备广告配置策略
       usermediasetslog: []
     }
   },
@@ -164,15 +224,19 @@ export default {
       console.log(tab, event)
     },
     ClickReturn() {
-      const changed = JSON.stringify(this.usermediasets) !== JSON.stringify(this.usermediasetslog)
+      const changed =
+        JSON.stringify(this.usermediasets) !==
+        JSON.stringify(this.usermediasetslog)
       if (changed) {
         this.$confirm('当前配置未保存,确定丢弃当前修改?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
-          this.showMediaSet = false
-        }).catch(() => {})
+        })
+          .then(() => {
+            this.showMediaSet = false
+          })
+          .catch(() => {})
       } else {
         this.showMediaSet = false
       }
@@ -218,15 +282,21 @@ export default {
     SortByDaySeconds(a, b) {
       const timea = new Date(a.playTime)
       const timeb = new Date(b.playTime)
-      const seconda = timea.getHours() * 60 * 60 + timea.getMinutes() * 60 + timea.getSeconds()
-      const secondb = timeb.getHours() * 60 * 60 + timeb.getMinutes() * 60 + timeb.getSeconds()
+      const seconda =
+        timea.getHours() * 60 * 60 +
+        timea.getMinutes() * 60 +
+        timea.getSeconds()
+      const secondb =
+        timeb.getHours() * 60 * 60 +
+        timeb.getMinutes() * 60 +
+        timeb.getSeconds()
       return seconda - secondb
     },
     addMediaSets() {
       const mediaset = {
         movieName: '请选择视频',
         moviePath: '',
-        playTime: (new Date()).getTime()
+        playTime: new Date().getTime()
       }
       this.usermediasets.push(mediaset)
     },
@@ -242,21 +312,21 @@ export default {
           return
         }
       }
-      saveuseradset(this.machineid,
-        JSON.stringify(this.usermediasets)
-      ).then((res) => {
-        console.log('res', res)
-        this.$notify({
-          title: '通知消息',
-          message: res.data,
-          type: res.status
-        })
-        this.usermediasetslog = JSON.parse(JSON.stringify(this.usermediasets))
-      })
+      saveuseradset(this.machineid, JSON.stringify(this.usermediasets)).then(
+        res => {
+          console.log('res', res)
+          this.$notify({
+            title: '通知消息',
+            message: res.data,
+            type: res.status
+          })
+          this.usermediasetslog = JSON.parse(JSON.stringify(this.usermediasets))
+        }
+      )
     },
     ShowMediaSet(index, row) {
       console.log(index, row)
-      getuseradset(row.machineid).then((res) => {
+      getuseradset(row.machineid).then(res => {
         if (res.data == null) {
           res.data = []
         }
@@ -267,7 +337,7 @@ export default {
       })
     },
     PushMediaSets(index, row) {
-      sendadsets(row.machineid).then((res) => {
+      sendadsets(row.machineid).then(res => {
         this.$notify({
           title: '通知消息',
           message: res.data,
@@ -291,7 +361,7 @@ export default {
       //   console.log("获取设备", res)
       //   console.log("getusermediasetsbyloginuserid", res)
       // })
-      listbylogin().then((res) => {
+      listbylogin().then(res => {
         this.usermedias = res.data
         console.log('视频列表:', this.usermedias)
       })
@@ -311,72 +381,75 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        console.log('id', itemid)
-        deletemediabyid(itemid).then(data => {
-          if (data.status === 'success') {
-            // this.storeitems.splice(this.storeitems.findIndex((item) => item.iId === itemid), 1)
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            })
-          }
+      })
+        .then(() => {
+          console.log('id', itemid)
+          deletemediabyid(itemid).then(data => {
+            if (data.status === 'success') {
+              // this.storeitems.splice(this.storeitems.findIndex((item) => item.iId === itemid), 1)
+              this.$message({
+                message: '删除成功',
+                type: 'success'
+              })
+            }
+          })
         })
-      }).catch(() => {})
+        .catch(() => {})
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .icon {
-    width: 1.2em;
-    height: 1.2em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-    color: gray;
-  }
+.icon {
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  color: gray;
+}
 
-  .icon:active {
-    color: #0DBADC;
-  }
+.icon:active {
+  color: #0dbadc;
+}
 
-  .el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-  }
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409eff;
+}
 
-  .el-icon-arrow-down {
-    font-size: 12px;
-  }
+.el-icon-arrow-down {
+  font-size: 12px;
+}
 
-  table {
-    border-collapse: collapse;
-  }
+table {
+  border-collapse: collapse;
+}
 
-  tr {
-    border-bottom: 1px solid #F0F0F0;
-    color: #0074D9;
-    font-size: 12px;
-  }
+tr {
+  border-bottom: 1px solid #f0f0f0;
+  color: #0074d9;
+  font-size: 12px;
+}
 
-  .img-thumbnail {
-    width: 100px;
-    height: 60px;
-    border-radius: 4px;
-    display: block;
-    margin: auto;
-  }
+.img-thumbnail {
+  width: 100px;
+  height: 60px;
+  border-radius: 4px;
+  display: block;
+  margin: auto;
+}
 
-  .block {
-    bottom: 20px;
-    right: 20px;
-  }
+.block {
+  bottom: 20px;
+  right: 20px;
+}
 
-  .app-container {}
+.app-container {
+}
 
-  .tab-responsive {
-    overflow: auto;
-  }
+.tab-responsive {
+  overflow: auto;
+}
 </style>

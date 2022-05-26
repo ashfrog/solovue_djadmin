@@ -6,9 +6,8 @@
       element-loading-text="Loading"
       fit
       stripe
-      height="100vh"
       highlight-current-row
-      :default-sort="{prop: 'count', order: 'descending'}"
+      :default-sort="{ prop: 'count', order: 'descending' }"
     >
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -28,10 +27,14 @@
               <el-image :src="props.row.secrecy_agreement" :fit="fit" />
             </el-form-item>
             <el-form-item label="telphone">
-              <span>{{ props.row.custmanager }} 手机号:{{ props.row.telphone }}</span>
+              <span>{{ props.row.custmanager }} 手机号:{{
+                props.row.telphone
+              }}</span>
             </el-form-item>
             <el-form-item label="法人代表">
-              <span>{{ props.row.legalperson }} 手机号:{{ props.row.managertel }}</span>
+              <span>{{ props.row.legalperson }} 手机号:{{
+                props.row.managertel
+              }}</span>
             </el-form-item>
             <el-form-item label="公司名称">
               <span>{{ props.row.companyname }}</span>
@@ -45,7 +48,13 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" sortable prop="orderno" label="经销商名称" width="95">
+      <el-table-column
+        align="center"
+        sortable
+        prop="orderno"
+        label="经销商名称"
+        width="95"
+      >
         <template slot-scope="scope">
           {{ scope.row.dealername }}
         </template>
@@ -60,7 +69,13 @@
           {{ scope.row.agencyarea }}
         </template>
       </el-table-column>
-      <el-table-column label="法人代表" sortable prop="legalperson" width="110" align="center">
+      <el-table-column
+        label="法人代表"
+        sortable
+        prop="legalperson"
+        width="110"
+        align="center"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.legalperson }}</span>
         </template>
@@ -70,7 +85,13 @@
           <span>{{ scope.row.companyaddress }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="权限" sortable prop="rights" width="110" align="center">
+      <el-table-column
+        label="权限"
+        sortable
+        prop="rights"
+        width="110"
+        align="center"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.rights }}</span>
         </template>
@@ -88,7 +109,11 @@
       <el-table-column label="审批" align="center">
         <template slot-scope="scope">
           <div v-if="scope.row.verified == 0">
-            <el-button size="mini" type="text" @click="setRights(scope.row, 3)">通过</el-button>
+            <el-button
+              size="mini"
+              type="text"
+              @click="setRights(scope.row, 3)"
+            >通过</el-button>
           </div>
         </template>
       </el-table-column>
@@ -97,10 +122,7 @@
 </template>
 
 <script>
-import {
-  listdealer,
-  setrights
-} from '@/api/userdealer'
+import { listdealer, setrights } from '@/api/userdealer'
 export default {
   filters: {
     statusFilter(status) {
@@ -167,28 +189,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .tbrow {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }
+.tbrow {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .tbtag {
-    width: 100px;
-  }
+.tbtag {
+  width: 100px;
+}
 
-  .demo-table-expand {
-    font-size: 0;
-  }
+.demo-table-expand {
+  font-size: 0;
+}
 
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
 
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

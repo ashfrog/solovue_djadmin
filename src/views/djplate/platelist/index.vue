@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div id="app" class="container">
-      <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+      <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="模板资源" name="template">
           <div class="tab-responsive">
             <table class="table">
@@ -9,6 +9,9 @@
                 <tr>
                   <th style="width:10%">
                     <el-button size="mini" type="info">缩略图</el-button>
+                  </th>
+                  <th style="width:10%">
+                    <el-button size="mini" type="info">资源名称</el-button>
                   </th>
                   <th style="width:10%">
                     <el-button size="mini" type="info">资源路径</el-button>
@@ -24,6 +27,9 @@
               <tbody id="container">
                 <tr v-for="(itemVO,index) in djmbplates" :key="itemVO.iId" align="center">
                   <td><img class="img-thumbnail" :src="itemVO.imagepath"></td>
+                  <td>
+                    <el-tag size="mini">{{ itemVO.templatename }}</el-tag>
+                  </td>
                   <td>
                     <el-tag size="mini">{{ itemVO.abpath }}</el-tag>
                   </td>
@@ -136,7 +142,8 @@ export default {
       usermedias: [],
       src: '',
       showvideo: false,
-      djplates: []
+      djplates: [],
+      djmbplates: []
     }
   },
   created() {
@@ -155,11 +162,11 @@ export default {
       // })
     },
     fetchData() {
-      listmbpage(0, 20).then(response => {
+      listmbpage(0, 100).then(response => {
         console.log(response)
         this.djmbplates = response.data
       })
-      listpage(0, 20).then(response => {
+      listpage(0, 100).then(response => {
         console.log(response)
         this.djplates = response.data
       })

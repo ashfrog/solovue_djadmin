@@ -106,77 +106,77 @@ export const constantRoutes = [
         }
       }
     ]
-  },
-  {
-    path: '/media',
-    component: Layout,
-    name: 'media',
-    redirect: '/media/uploadmovie',
-    meta: {
-      title: '媒体库',
-      icon: 'example'
-    },
-    children: [
-      {
-        path: 'uploadmovie',
-        name: 'uploadmovie',
-        component: () => import('@/views/media/uploadmovie/index'),
-        meta: {
-          title: '上传视频',
-          icon: 'tree'
-        }
-      },
-      {
-        path: 'usermedia',
-        name: 'usermedia',
-        component: () => import('@/views/media/usermedia/index'),
-        meta: {
-          title: '我的视频',
-          icon: 'tree'
-        }
-      },
-      {
-        path: 'usermediaset',
-        name: 'usermediaset',
-        component: () => import('@/views/media/usermediaset/index'),
-        meta: {
-          title: '配置策略',
-          icon: 'tree'
-        }
-      }
-    ]
-  },
-  {
-    path: '/smartwall',
-    component: Layout,
-    name: 'smartwall',
-    redirect: '/smartwall/listwall',
-    meta: {
-      title: '智慧墙',
-      icon: 'example'
-    },
-    children: [
-      {
-        path: 'listwall',
-        name: 'listwall',
-        component: () => import('@/views/editor/list/index'),
-        meta: {
-          title: '我的模板',
-          icon: 'tree'
-        }
-      },
-      {
-        path: 'editwall',
-        name: 'editwall',
-        component: () => import('@/views/editor/edit/index'),
-        meta: {
-          title: 'H5编辑器',
-          icon: 'tree'
-        },
-        hidden: true
-      }
-    ]
   }
+  // {
+  //   path: '/media',
+  //   component: Layout,
+  //   name: 'media',
+  //   redirect: '/media/uploadmovie',
+  //   meta: {
+  //     title: '媒体库',
+  //     icon: 'example'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'uploadmovie',
+  //       name: 'uploadmovie',
+  //       component: () => import('@/views/media/uploadmovie/index'),
+  //       meta: {
+  //         title: '上传视频',
+  //         icon: 'tree'
+  //       }
+  //     },
+  //     {
+  //       path: 'usermedia',
+  //       name: 'usermedia',
+  //       component: () => import('@/views/media/usermedia/index'),
+  //       meta: {
+  //         title: '我的视频',
+  //         icon: 'tree'
+  //       }
+  //     },
+  //     {
+  //       path: 'usermediaset',
+  //       name: 'usermediaset',
+  //       component: () => import('@/views/media/usermediaset/index'),
+  //       meta: {
+  //         title: '配置策略',
+  //         icon: 'tree'
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/smartwall',
+  //   component: Layout,
+  //   name: 'smartwall',
+  //   redirect: '/smartwall/listwall',
+  //   meta: {
+  //     title: '智慧墙',
+  //     icon: 'example'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'listwall',
+  //       name: 'listwall',
+  //       component: () => import('@/views/editor/list/index'),
+  //       meta: {
+  //         title: '我的模板',
+  //         icon: 'tree'
+  //       }
+  //     },
+  //     {
+  //       path: 'editwall',
+  //       name: 'editwall',
+  //       component: () => import('@/views/editor/edit/index'),
+  //       meta: {
+  //         title: 'H5编辑器',
+  //         icon: 'tree'
+  //       },
+  //       hidden: true
+  //     }
+  //   ]
+  // }
 ]
 
 // 用户 权限 1

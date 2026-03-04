@@ -40,7 +40,6 @@ module.exports = {
         secure: false
       },
       [process.env.VUE_APP_WEATHER_API]: {
-        // target: 'https://www.crazysolo.com',
         target: 'http://wthrcdn.etouch.cn',
         changeOrigin: true,
         pathRewrite: {

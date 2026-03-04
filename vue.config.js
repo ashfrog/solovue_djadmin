@@ -8,7 +8,7 @@ function resolve(dir) {
 
 const name = defaultSettings.title || 'crazySOLOAdmin' // page title
 
-const port = process.env.port || process.env.npm_config_port || 8070 // dev port
+const port = process.env.port || process.env.npm_config_port || 8085 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/djadmin',
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/djadmin',
   outputDir: 'djadmin',
   assetsDir: 'static',
   lintOnSave: false,

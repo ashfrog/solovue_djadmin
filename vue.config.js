@@ -33,11 +33,11 @@ module.exports = {
     },
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        // target: 'https://www.crazysolo.com',
-        target: 'http://localhost:8085',
+        target: process.env.VUE_APP_PROXY_TARGET || 'https://www.crazysolo.com',
+        // To use a local server instead, set VUE_APP_PROXY_TARGET=http://localhost:8085 in .env.development
         changeOrigin: true,
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
+          ['^' + process.env.VUE_APP_BASE_API]: '/djprod-api'
         },
         secure: false
       },

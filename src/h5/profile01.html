@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简介</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --gold: #c9a84c;
+        --text: #f3f3f3;
+        --muted: rgba(255, 255, 255, 0.4);
+        --muted2: rgba(255, 255, 255, 0.28);
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #1a1a1a;
+      }
+
+      body {
+        font-family:
+          'Noto Sans SC',
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* 缩放容器：始终铺满视口 */
+      #scaler {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .card {
+        /* 固定设计尺寸 1080×1920，由 JS 等比缩放 */
+        width: 1080px;
+        height: 1920px;
+        flex-shrink: 0;
+        transform-origin: center center;
+        position: relative;
+        overflow: hidden;
+        color: var(--text);
+
+        display: flex;
+        flex-direction: column;
+        background: url('https://www.crazysolo.com/profile/bg/001.jpg') center / cover no-repeat;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        inset: -120px;
+        background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0) 0px, rgba(255, 255, 255, 0) 12px, rgba(201, 168, 76, 0.06) 13px, rgba(201, 168, 76, 0.06) 14px);
+        opacity: 0.32;
+        transform: rotate(-2deg);
+        pointer-events: none;
+      }
+      .headtitle {
+        position: absolute;
+        top: 80px;
+        left: 0px;
+        right: 0px;
+        margin: 0 auto;
+        width: 795px;
+        height: 358px;
+        background: url('https://www.crazysolo.com/profile/bg/机会.png') center / cover no-repeat;
+        z-index: 10;
+      }
+      .content {
+        position: relative;
+        z-index: 3;
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .profile-section {
+        position: relative;
+        height: 700px;
+        margin-top: 452px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+
+      .portrait-circle {
+        width: 688px;
+        height: 688px;
+        border-radius: 50%;
+        border: none;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .avatar-circle {
+        width: 688px;
+        height: 688px;
+        border-radius: 50%;
+        background: url('https://www.crazysolo.com/profile/bg/椭圆.png') center / cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+      }
+
+      .avatar-placeholder {
+        font-size: 120px;
+        opacity: 0.55;
+        user-select: none;
+      }
+
+      .role-tag {
+        position: absolute;
+        z-index: 1;
+        left: 230px;
+        top: 40%;
+        transform: translateY(-50%);
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        color: #f6edd6;
+        font-weight: 700;
+        letter-spacing: 6px;
+        font-size: 28px;
+        padding: 16px 14px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(153, 130, 99, 1) 28%, rgba(153, 130, 99, 1) 72%, rgba(0, 0, 0, 0) 100%);
+      }
+
+      .company-section {
+        margin-top: -30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0px;
+        flex: 0 0 auto;
+        z-index: 2;
+      }
+
+      .company-name-bar {
+        width: 594px;
+        height: 80px;
+        background: url('https://www.crazysolo.com/profile/bg/矩形1.png') center / cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        margin: 0px 80px 0px 0px;
+      }
+      .company-name-bar h2 {
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: #f0dfa0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-align: center;
+      }
+
+      .slogan-bar {
+        width: 594px;
+        height: 80px;
+        background: url('https://www.crazysolo.com/profile/bg/矩形2.png') center / cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        white-space: nowrap;
+        margin: -10px 0px 0px 80px;
+        z-index: -1;
+      }
+      .slogan-bar p {
+        color: #1b1205;
+        font-weight: 900;
+        font-size: 34px;
+        letter-spacing: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-align: center;
+      }
+
+      .info-grid {
+        margin-top: 44px;
+        padding: 0 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: start;
+        flex: 0 0 auto;
+      }
+      .info-item {
+        text-align: center;
+      }
+      .info-label {
+        color: var(--muted2);
+        font-size: 26px;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+      }
+      .info-value {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 44px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+
+      .desc-section {
+        margin-top: 34px;
+        padding: 0 120px;
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .desc-block {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 26px;
+        margin-bottom: 20px;
+        align-items: flex-start;
+      }
+
+      .desc-label {
+        color: rgba(255, 255, 255, 0.72);
+        font-weight: 900;
+        font-size: 30px;
+        letter-spacing: 2px;
+        padding-top: 2px;
+        white-space: nowrap;
+      }
+
+      .desc-text {
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.78;
+        letter-spacing: 0.3px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        white-space: pre-line;
+      }
+
+      .footer {
+        position: relative;
+        z-index: 4;
+        flex: 0 0 360px;
+        padding: 0 120px 60px 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 24px;
+      }
+
+      .wechat-label {
+        color: #d9c187;
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+        white-space: nowrap;
+      }
+
+      .phone-number {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 30px;
+        letter-spacing: 1px;
+        white-space: nowrap;
+      }
+      .phone-number strong {
+        color: rgba(255, 255, 255, 0.78);
+        font-weight: 900;
+      }
+
+      .qr-box {
+        width: 160px;
+        height: 160px;
+        background: #fff;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .qr-img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        display: block;
+      }
+
+      .status-tip {
+        position: absolute;
+        right: 24px;
+        bottom: 24px;
+        z-index: 10;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.75);
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 12px;
+        border-radius: 8px;
+        backdrop-filter: blur(6px);
+        max-width: 520px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="scaler">
+      <div class="card">
+        <div class="content">
+          <div class="headtitle"></div>
+
+          <div class="profile-section">
+            <div class="role-tag" id="roleTag">加载中...</div>
+
+            <div class="portrait-circle">
+              <div class="avatar-circle">
+                <span class="avatar-placeholder" id="avatarPlaceholder">👤</span>
+                <img id="avatarImg" class="avatar-img" alt="头像" style="display: none" />
+              </div>
+            </div>
+          </div>
+
+          <div class="company-section">
+            <div class="company-name-bar">
+              <h2 id="companyName">-</h2>
+            </div>
+            <div class="slogan-bar">
+              <p id="businessScope">-</p>
+            </div>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">名字</div>
+              <div class="info-value" id="name">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">职务</div>
+              <div class="info-value" id="position">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">城市</div>
+              <div class="info-value" id="city">-</div>
+            </div>
+          </div>
+
+          <div class="desc-section">
+            <div class="desc-block">
+              <div class="desc-label">个人介绍</div>
+              <p class="desc-text intro" id="intro">-</p>
+            </div>
+
+            <div class="desc-block">
+              <div class="desc-label">公司介绍</div>
+              <p class="desc-text company" id="companyIntro">-</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="contact-info">
+            <div class="wechat-label">微信扫码添加 &gt;&gt;&gt;</div>
+            <div class="phone-number">联系方式：<strong id="phone">-</strong>（微信同号）</div>
+          </div>
+
+          <div class="qr-box" aria-label="二维码">
+            <img id="wechatQrImg" class="qr-img" alt="微信二维码" style="display: none" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ── 全屏等比缩放 ── */
+      const CARD_W = 1080
+      const CARD_H = 1920
+
+      function scaleCard() {
+        const vw = window.innerWidth
+        const vh = window.innerHeight
+        const scale = Math.min(vw / CARD_W, vh / CARD_H)
+        const card = document.querySelector('.card')
+        card.style.transform = `scale(${scale})`
+      }
+
+      scaleCard()
+      window.addEventListener('resize', scaleCard)
+
+      /* ── 数据加载 ── */
+      const DEFAULT_FACE_TOKEN = '5bfd5a9dd5b2b75f9dbbbb889d2ac76d'
+      const API_BASE = 'https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/'
+      const $ = (id) => document.getElementById(id)
+
+      function getFaceToken() {
+        const params = new URLSearchParams(location.search)
+        return params.get('facetoken') || DEFAULT_FACE_TOKEN
+      }
+
+      function safeText(v, fallback = '') {
+        if (v === null || v === undefined) return fallback
+        const s = String(v).trim()
+        return s ? s : fallback
+      }
+
+      function maskPhone(phone) {
+        const s = safeText(phone, '')
+        if (!s) return '-'
+        if (s.length < 7) return s
+        return s.slice(0, 3) + '****' + s.slice(-4)
+      }
+
+      function setAvatar(url) {
+        const img = $('avatarImg')
+        const placeholder = $('avatarPlaceholder')
+        if (!url) { img.style.display = 'none'; placeholder.style.display = 'block'; return }
+        img.onload = () => { img.style.display = 'block'; placeholder.style.display = 'none' }
+        img.onerror = () => { img.style.display = 'none'; placeholder.style.display = 'block' }
+        img.src = url
+      }
+
+      function setWechatQr(url) {
+        const img = $('wechatQrImg')
+        if (!url) { img.style.display = 'none'; return }
+        img.onload = () => { img.style.display = 'block' }
+        img.onerror = () => { img.style.display = 'none' }
+        img.src = url
+      }
+
+      function parseHonors(honors) {
+        if (Array.isArray(honors)) return honors
+        if (typeof honors === 'string') {
+          const s = honors.trim()
+          if (!s) return []
+          try { const p = JSON.parse(s); return Array.isArray(p) ? p : [] } catch { return [] }
+        }
+        return []
+      }
+
+      function renderProfile(data) {
+        const name = safeText(data?.name)
+        const position = safeText(data?.position)
+        const companyName = safeText(data?.companyName)
+        const businessScope = safeText(data?.businessScope)
+        const companyIntro = safeText(data?.companyIntro)
+        const profilePhoto = data?.profilePhoto || ''
+        const originalPhoto = data?.originalPhoto || ''
+        const wechatcode = data?.wechatcode || ''
+        const phone = data?.phone || ''
+        const phoneVisible = Number(data?.phoneVisible ?? 1)
+
+        $('name').textContent = name
+        $('position').textContent = position
+        $('city').textContent = '重庆'
+        $('companyName').textContent = companyName
+        $('businessScope').textContent = businessScope
+
+        const honorsArr = parseHonors(data?.honors)
+        const honorsDesc = honorsArr.map((h) => (h?.desc ? String(h.desc).trim() : '')).filter(Boolean).join('\n')
+        $('intro').textContent = honorsDesc
+        $('companyIntro').textContent = companyIntro
+        $('roleTag').innerHTML = `${name}&nbsp;&nbsp;${position}`
+
+        setAvatar(profilePhoto || originalPhoto)
+        setWechatQr(wechatcode)
+
+        $('phone').textContent = phoneVisible === 1 ? safeText(phone, '-') : maskPhone(phone)
+      }
+
+      async function loadProfile() {
+        const faceToken = getFaceToken()
+        const url = API_BASE + encodeURIComponent(faceToken)
+        try {
+          const resp = await fetch(url, { method: 'GET', redirect: 'follow' })
+          const text = await resp.text()
+          let json
+          try { json = JSON.parse(text) } catch (e) { throw new Error('接口返回不是合法 JSON：' + text.slice(0, 200)) }
+          if (!resp.ok) throw new Error('HTTP错误：' + resp.status + ' ' + resp.statusText)
+          if (json?.code !== 200) throw new Error('业务错误：' + safeText(json?.message, '未知错误'))
+          renderProfile(json.data)
+        } catch (err) {
+          console.error(err)
+        }
+      }
+
+      loadProfile()
+    </script>
+  </body>
+</html>

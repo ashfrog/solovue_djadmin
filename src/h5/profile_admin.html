@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>会员档案（PC端）</title>
+    <style>
+      :root {
+        --primary: #1976d2;
+        --primary2: #2196f3;
+        --danger: #f44336;
+        --bg1: #e3f2fd;
+        --bg2: #bbdefb;
+        --bg3: #90caf9;
+        --card: #fff;
+        --muted: #666;
+        --input: #f5f5f5;
+        --border: #e0e0e0;
+        --shadow: 0 8px 24px rgba(33, 150, 243, 0.22);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        color: #222;
+        background: linear-gradient(
+          180deg,
+          var(--bg1) 0%,
+          var(--bg2) 55%,
+          var(--bg3) 100%
+        );
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 24px auto 60px;
+        padding: 0 16px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: 0.5px;
+      }
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 18px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        padding: 20px 18px;
+        margin-bottom: 14px;
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 0 14px;
+        margin: 0 0 14px;
+        border-bottom: 1px solid rgba(25, 118, 210, 0.12);
+        color: var(--primary);
+        font-weight: 700;
+        position: relative;
+        padding-left: 12px;
+      }
+      .section-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 6px;
+        height: 18px;
+        border-radius: 4px;
+        background: linear-gradient(
+          180deg,
+          var(--primary2) 0%,
+          var(--primary) 100%
+        );
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .label-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      label {
+        font-size: 14px;
+        color: #333;
+        font-weight: 600;
+      }
+      .required::before {
+        content: "*";
+        color: var(--danger);
+        margin-right: 4px;
+      }
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      input[type="date"],
+      textarea,
+      select {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        background: var(--input);
+        padding: 11px 12px;
+        font-size: 14px;
+        outline: none;
+        color: #222;
+      }
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      .help {
+        font-size: 12px;
+        color: #777;
+      }
+
+      .toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border-radius: 999px;
+        border: 1px solid rgba(25, 118, 210, 0.1);
+        cursor: pointer;
+        user-select: none;
+        font-size: 12px;
+        color: var(--primary);
+        white-space: nowrap;
+      }
+      .toggle[data-on="1"] {
+        background: linear-gradient(
+          135deg,
+          var(--primary2) 0%,
+          var(--primary) 100%
+        );
+        color: #fff;
+      }
+      .toggle .icon {
+        font-size: 14px;
+        line-height: 1;
+      }
+      .upload-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width: 860px) {
+        .upload-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .upload-box {
+        border: 2px dashed rgba(74, 185, 239, 0.9);
+        border-radius: 14px;
+        padding: 12px;
+        background: linear-gradient(135deg, #fff 0%, #fff 100%);
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(74, 185, 239, 0.15);
+      }
+      .upload-box img {
+        width: 100%;
+        height: 180px;
+        object-fit: contain;
+        display: none;
+        background: #fff;
+        border-radius: 10px;
+      }
+      .upload-box.has-img img {
+        display: block;
+      }
+      .upload-box .placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        color: var(--primary);
+      }
+      .upload-box.has-img .placeholder {
+        display: none;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: #fff;
+        cursor: pointer;
+        font-size: 13px;
+        user-select: none;
+      }
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(
+          135deg,
+          var(--primary2) 0%,
+          var(--primary) 100%
+        );
+        box-shadow: var(--shadow);
+      }
+      .btn.secondary {
+        color: var(--primary);
+        background: #fff;
+        border: 1px solid rgba(25, 118, 210, 0.25);
+        box-shadow: none;
+      }
+      .btn.danger {
+        background: linear-gradient(135deg, #ff6b6b 0%, #f44336 100%);
+      }
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .honor {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+      }
+      .honor-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .honor-head strong {
+        color: var(--primary);
+      }
+      .inline {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .char-count {
+        text-align: right;
+        font-size: 12px;
+        color: #888;
+        margin-top: 6px;
+      }
+      .notice {
+        font-size: 12px;
+        color: #555;
+        margin-top: 10px;
+        text-align: center;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        top: 16px;
+        transform: translateX(-50%);
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.78);
+        color: #fff;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s ease;
+        z-index: 9999;
+        max-width: min(720px, calc(100vw - 24px));
+      }
+      .toast.show {
+        opacity: 1;
+      }
+      .small {
+        font-size: 12px;
+        color: #666;
+      }
+      details {
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 14px;
+        padding: 10px 12px;
+        background: #fff;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      code {
+        background: #f3f3f3;
+        padding: 1px 6px;
+        border-radius: 8px;
+      }
+      .row2 {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 12px;
+      }
+      @media (max-width: 860px) {
+        .row2 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toast" id="toast"></div>
+
+    <div class="wrap">
+      <header>
+        <h1>会员档案（PC端网页版）</h1>
+        <div class="toolbar">
+          <button class="btn secondary" id="btnLoad">根据手机号加载</button>
+          <button class="btn secondary" id="btnSaveLocal">本地暂存</button>
+          <button class="btn secondary" id="btnRestoreLocal">恢复暂存</button>
+        </div>
+      </header>
+
+      <details class="card" open>
+        <summary>获取档案</summary>
+        <div style="margin-top: 12px; display: none" class="row2">
+          <div class="field">
+            <label>后端 Host（对应小程序 config.hostip）</label>
+            <input
+              id="hostip"
+              type="text"
+              value="https://www.crazysolo.com/djprod-api"
+            />
+            <div class="help">
+              示例：<code>https://www.crazysolo.com/djprod-api</code>
+            </div>
+          </div>
+          <!-- Token（Bearer）敏感字段：隐藏并置为 null（不再提供输入框） -->
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label class="field">手机号（用于加载档案）</label>
+            <input
+              id="phoneQuery"
+              type="tel"
+              placeholder="请输入手机号，用于加载档案"
+            />
+            <div class="help">
+              将“根据 ThirdPartyId 加载”改为“根据手机号加载”。
+            </div>
+          </div>
+
+          <!-- 登录（code 换 openid）敏感字段：隐藏并置为 null（不再提供输入框/按钮） -->
+        </div>
+      </details>
+
+      <div class="card">
+        <div class="section-title">照片上传</div>
+
+        <div class="upload-row">
+          <div class="upload-box" id="boxOriginal">
+            <img id="imgOriginal" alt="originalPhoto preview" />
+            <div class="placeholder">
+              <div style="font-size: 36px; font-weight: 900">+</div>
+              <div style="color: #000; font-weight: 700">上传形象照</div>
+              <div class="small">点击选择图片并上传</div>
+            </div>
+            <div class="inline">
+              <input id="fileOriginal" type="file" accept="image/*" hidden />
+              <span class="pill" data-pick="original">选择图片</span>
+              <span class="pill" data-clear="original">清除</span>
+            </div>
+            <div class="help" id="urlOriginal"></div>
+          </div>
+
+          <div class="upload-box" id="boxWechat">
+            <img id="imgWechat" alt="wechatcode preview" />
+            <div class="placeholder">
+              <div style="font-size: 36px; font-weight: 900">+</div>
+              <div style="font-weight: 700">上传微信二维码</div>
+              <div class="small">点击选择图片并上传</div>
+            </div>
+            <div class="inline">
+              <input id="fileWechat" type="file" accept="image/*" hidden />
+              <span class="pill" data-pick="wechat">选择图片</span>
+              <span class="pill" data-clear="wechat">清除</span>
+            </div>
+            <div class="help" id="urlWechat"></div>
+          </div>
+
+          <div class="upload-box" id="boxProfile">
+            <img id="imgProfile" alt="profilePhoto preview" />
+            <div class="placeholder">
+              <div style="font-size: 36px; font-weight: 900">+</div>
+              <div style="font-weight: 700">上传职业装照片</div>
+              <div class="small">点击选择图片并上传</div>
+            </div>
+            <div class="inline">
+              <input id="fileProfile" type="file" accept="image/*" hidden />
+              <span class="pill" data-pick="profile">选择图片</span>
+              <span class="pill" data-clear="profile">清除</span>
+            </div>
+            <div class="help" id="urlProfile"></div>
+          </div>
+        </div>
+      </div>
+
+      <form id="profileForm">
+        <div class="card">
+          <div class="section-title">个人信息</div>
+
+          <div class="grid">
+            <div class="field">
+              <label class="required">姓名</label>
+              <input name="name" type="text" placeholder="请输入姓名" />
+            </div>
+
+            <div class="field">
+              <div class="label-row">
+                <label>职务</label>
+                <span
+                  class="toggle"
+                  id="positionVisible"
+                  data-on="1"
+                  data-field="positionVisible"
+                  ><span class="icon">👁</span><span>公开</span></span
+                >
+              </div>
+              <input name="position" type="text" placeholder="请输入职务" />
+            </div>
+
+            <div class="field">
+              <div class="label-row">
+                <label class="required">手机号(用于保存档案)</label>
+                <span
+                  class="toggle"
+                  id="phoneVisible"
+                  data-on="1"
+                  data-field="phoneVisible"
+                  ><span class="icon">👁</span><span>公开</span></span
+                >
+              </div>
+              <input name="phone" type="tel" placeholder="请输入手机号" />
+              <div class="help">
+                手机号校验：以 1 开头的 11 位（与小程序一致）。
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="label-row">
+                <label>性别</label>
+                <div class="inline">
+                  <label class="small"
+                    ><input type="radio" name="gender" value="0" checked />
+                    未知</label
+                  >
+                  <label class="small"
+                    ><input type="radio" name="gender" value="1" /> 男</label
+                  >
+                  <label class="small"
+                    ><input type="radio" name="gender" value="2" /> 女</label
+                  >
+                </div>
+              </div>
+              <div class="help">
+                保持与小程序字段：<code>gender</code>（数字）。
+              </div>
+            </div>
+
+            <div class="field">
+              <label>邮箱</label>
+              <input
+                name="email"
+                type="email"
+                placeholder="请输入邮箱（选填）"
+              />
+            </div>
+
+            <div class="field">
+              <div class="label-row">
+                <label>微信二维码</label>
+                <span
+                  class="toggle"
+                  id="wechatcodeVisible"
+                  data-on="1"
+                  data-field="wechatcodeVisible"
+                  ><span class="icon">👁</span><span>公开</span></span
+                >
+              </div>
+              <!-- 隐藏文字微信号：删除 wechatText 输入框，仅保留二维码图片上传写入 wechatcode -->
+              <div class="help">
+                图片二维码上传后的 URL 会写入 <code>wechatcode</code> 字段。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">企业信息</div>
+          <div class="grid">
+            <div class="field">
+              <label>企业名称</label>
+              <input
+                name="companyName"
+                type="text"
+                placeholder="请输入公司名称"
+              />
+            </div>
+            <div class="field">
+              <label>行业（选填）</label>
+              <input
+                name="industry"
+                type="text"
+                placeholder="请输入行业（选填）"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>企业价值观(选填)</label>
+            <textarea
+              name="businessScope"
+              placeholder="如高效、精准、诚信、心服务"
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label>企业简介(选填)</label>
+            <textarea
+              name="companyIntro"
+              id="companyIntro"
+              placeholder="请简要介绍您的公司业务、规模等信息"
+              maxlength="200"
+            ></textarea>
+            <div class="char-count">
+              <span id="companyIntroCount">0</span>/200
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <span>个人成就</span>
+            <button class="btn secondary" type="button" id="btnAddHonor">
+              添加
+            </button>
+          </div>
+
+          <div id="honors"></div>
+
+          <div class="help" id="emptyHonors">
+            暂无个人成就，点击“添加”按钮添加
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">提交</div>
+          <div class="inline">
+            <button class="btn" id="btnSubmit" type="submit">确认提交</button>
+            <button class="btn danger" id="btnDelete" type="button">
+              删除档案
+            </button>
+          </div>
+          <div class="notice">提交后表示同意《隐私政策》和《用户协议》</div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // ====== 工具：toast ======
+      const toastEl = document.getElementById("toast");
+      let toastTimer = null;
+      function toast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
+      }
+
+      // ====== 配置/状态（对应小程序 data.formData） ======
+      // 敏感字段：Token、登录 code/openid 相关、ThirdPartyId 查询相关 -> 统一不在页面提供，并在 state 中设为 null
+      const state = {
+        // formData:
+        name: null,
+        phone: null,
+        phoneVisible: 1,
+        gender: 0,
+        position: null,
+        positionVisible: 1,
+        email: null,
+        wechatcode: null,
+        wechatcodeVisible: 1,
+        companyName: null,
+        industry: null,
+        businessScope: null,
+        companyIntro: null,
+        honors: [],
+        originalPhoto: null,
+        profilePhoto: null,
+        suit_template_id: null,
+
+        // sensitive / deprecated:
+        thirdPartyId: null, // 不再用于加载；保留字段但固定为 null
+        token: null,
+        wxCode: null,
+        openid: null,
+      };
+
+      function hostip() {
+        return (document.getElementById("hostip").value || "").replace(
+          /\/+$/,
+          ""
+        );
+      }
+
+      // 不再从 UI 读取 token，敏感字段固定为 null
+      function token() {
+        return null;
+      }
+      function authHeaders(extra = {}) {
+        // 由于 token() 恒为 null，这里不会附加 Authorization
+        const t = token();
+        return t ? { ...extra, Authorization: "Bearer " + t } : { ...extra };
+      }
+
+      // ====== API（迁移自 profile_api.js） ======
+      async function apiUploadFile(file) {
+        const url = hostip() + "/profileapi/upload";
+        const fd = new FormData();
+        fd.append("file", file);
+
+        const res = await fetch(url, {
+          method: "POST",
+          headers: authHeaders(), // 注意：不要手动设置 Content-Type，浏览器会自动带 boundary
+          body: fd,
+        });
+
+        // 小程序 uploadFile 返回字符串；这里可能是 JSON，也可能是文本
+        const text = await res.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          throw { message: "上传返回非JSON", raw: text, status: res.status };
+        }
+        return data;
+      }
+
+      // ✅ 改为：根据手机号获取档案
+      // 说明：这里使用新的接口路径：/profileapi/member-profile/phone/{phone}
+      // 若你后端实际路径不同，请把这里改成你后端真实接口。
+      async function apiGetMemberProfileByPhone(phone) {
+        const url = `${hostip()}/profileapi/member-profile/phone/${encodeURIComponent(
+          phone
+        )}`;
+        const res = await fetch(url, { method: "GET", headers: authHeaders() });
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 200) return data;
+        throw {
+          message: data.message || "获取失败",
+          code: data.code,
+          status: res.status,
+        };
+      }
+
+      async function apiSaveOrUpdateMemberProfile(profileData) {
+        const url = `${hostip()}/profileapi/member-profile`;
+        const res = await fetch(url, {
+          method: "POST",
+          headers: authHeaders({ "Content-Type": "application/json" }),
+          body: JSON.stringify(profileData),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 200) return data;
+        throw {
+          message: data.message || "提交失败",
+          code: data.code,
+          status: res.status,
+        };
+      }
+
+      async function apiDeleteMemberProfile(id) {
+        const url = `${hostip()}/profileapi/member-profile/${encodeURIComponent(
+          id
+        )}`;
+        const res = await fetch(url, {
+          method: "DELETE",
+          headers: authHeaders(),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 200) return data;
+        throw {
+          message: data.message || "删除失败",
+          code: data.code,
+          status: res.status,
+        };
+      }
+
+      // 登录换 openid：敏感功能禁用（保留空函数以避免误调用）
+      async function apiLogin(code) {
+        throw { message: "已禁用：登录（code 换 openid）属于敏感功能" };
+      }
+
+      // ====== 绑定表单 ======
+      const form = document.getElementById("profileForm");
+      const phoneQueryEl = document.getElementById("phoneQuery");
+
+      function syncStateToForm() {
+        // basic text fields
+        form.elements["name"].value = state.name ?? "";
+        form.elements["position"].value = state.position ?? "";
+        form.elements["phone"].value = state.phone ?? "";
+        form.elements["email"].value = state.email ?? "";
+        form.elements["companyName"].value = state.companyName ?? "";
+        form.elements["industry"].value = state.industry ?? "";
+        form.elements["businessScope"].value = state.businessScope ?? "";
+        form.elements["companyIntro"].value = state.companyIntro ?? "";
+
+        // gender radios
+        const g = String(state.gender ?? 0);
+        [...form.querySelectorAll('input[name="gender"]')].forEach(
+          (r) => (r.checked = r.value === g)
+        );
+
+        // toggles
+        setToggle("positionVisible", state.positionVisible ?? 1);
+        setToggle("phoneVisible", state.phoneVisible ?? 1);
+        setToggle("wechatcodeVisible", state.wechatcodeVisible ?? 1);
+
+        // uploads previews/urls
+        setUploadPreview("original", state.originalPhoto);
+        setUploadPreview("wechat", state.wechatcode);
+        setUploadPreview("profile", state.profilePhoto);
+
+        // honors
+        renderHonors();
+
+        // counts
+        updateCompanyIntroCount();
+      }
+
+      function syncFormToState() {
+        state.name = form.elements["name"].value?.trim() || null;
+        state.position = form.elements["position"].value?.trim() || null;
+        state.phone = form.elements["phone"].value?.trim() || null;
+        state.email = form.elements["email"].value?.trim() || null;
+        state.companyName = form.elements["companyName"].value?.trim() || null;
+        state.industry = form.elements["industry"].value?.trim() || null;
+        state.businessScope =
+          form.elements["businessScope"].value?.trim() || null;
+        state.companyIntro =
+          form.elements["companyIntro"].value?.trim() || null;
+
+        const genderRadio = form.querySelector('input[name="gender"]:checked');
+        state.gender = genderRadio ? parseInt(genderRadio.value, 10) : 0;
+
+        // 明确将敏感字段设置为 null
+        state.thirdPartyId = null;
+        state.token = null;
+        state.wxCode = null;
+        state.openid = null;
+      }
+
+      // ====== Toggle（公开/隐藏） ======
+      function setToggle(id, on) {
+        const el = document.getElementById(id);
+        const v = on ? 1 : 0;
+        el.dataset.on = String(v);
+        el.innerHTML = `<span class="icon">${
+          v === 1 ? "👁" : "🔒"
+        }</span><span>${v === 1 ? "公开" : "隐藏"}</span>`;
+        // update state
+        const field = el.dataset.field;
+        state[field] = v;
+      }
+      document.querySelectorAll(".toggle").forEach((el) => {
+        el.addEventListener("click", () => {
+          const on = el.dataset.on === "1" ? 0 : 1;
+          setToggle(el.id, on);
+        });
+      });
+
+      // ====== Honors（个人成就） ======
+      const honorsEl = document.getElementById("honors");
+      const emptyHonorsEl = document.getElementById("emptyHonors");
+
+      function todayStr() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${y}-${m}-${day}`;
+      }
+
+      function renderHonors() {
+        honorsEl.innerHTML = "";
+        const honors = state.honors || [];
+        emptyHonorsEl.style.display = honors.length ? "none" : "block";
+
+        honors.forEach((h, index) => {
+          const div = document.createElement("div");
+          div.className = "honor";
+          div.innerHTML = `
+          <div class="honor-head">
+            <strong>成就 ${index + 1}</strong>
+            <button class="btn danger" type="button" data-del-honor="${index}" style="padding:8px 12px; box-shadow:none;">删除</button>
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label>标题</label>
+              <input type="text" value="${escapeHtml(
+                h.title || ""
+              )}" data-honor="${index}" data-field="title" placeholder="如:获得XX奖项、完成XX项目" />
+            </div>
+            <div class="field">
+              <label>类型</label>
+              <input type="text" value="${escapeHtml(
+                h.type || ""
+              )}" data-honor="${index}" data-field="type" placeholder="如:奖项、证书、项目经验等" />
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label>获得日期</label>
+              <input type="date" value="${escapeHtml(
+                h.date || ""
+              )}" max="${todayStr()}" min="1990-01-01" data-honor="${index}" data-field="date" />
+            </div>
+            <div class="field">
+              <label>详细描述</label>
+              <textarea maxlength="200" data-honor="${index}" data-field="desc" placeholder="分享您在工作中取得的成就、获得的荣誉或重要项目经验的详细信息">${escapeHtml(
+            h.desc || ""
+          )}</textarea>
+              <div class="char-count">${(h.desc || "").length}/200</div>
+            </div>
+          </div>
+        `;
+          honorsEl.appendChild(div);
+        });
+
+        // bind inputs
+        honorsEl
+          .querySelectorAll("input[data-honor], textarea[data-honor]")
+          .forEach((el) => {
+            el.addEventListener("input", (e) => {
+              const idx = parseInt(e.target.dataset.honor, 10);
+              const field = e.target.dataset.field;
+              state.honors[idx][field] = e.target.value;
+              if (field === "desc") {
+                const cc = e.target.parentElement.querySelector(".char-count");
+                if (cc) cc.textContent = `${(e.target.value || "").length}/200`;
+              }
+            });
+          });
+
+        // bind delete
+        honorsEl.querySelectorAll("button[data-del-honor]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = parseInt(btn.dataset.delHonor, 10);
+            if (!confirm("确定要删除这条荣誉记录吗?")) return;
+            state.honors.splice(idx, 1);
+            renderHonors();
+            toast("删除成功");
+          });
+        });
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      document.getElementById("btnAddHonor").addEventListener("click", () => {
+        state.honors = state.honors || [];
+        state.honors.push({ title: "", desc: "", date: "", type: "" });
+        renderHonors();
+      });
+
+      // ====== 文本计数 ======
+      const companyIntroEl = document.getElementById("companyIntro");
+      const companyIntroCountEl = document.getElementById("companyIntroCount");
+      function updateCompanyIntroCount() {
+        const v = companyIntroEl.value || "";
+        companyIntroCountEl.textContent = String(v.length);
+      }
+      companyIntroEl.addEventListener("input", updateCompanyIntroCount);
+
+      // ====== 上传：选择/清除/预览 ======
+      const fileOriginal = document.getElementById("fileOriginal");
+      const fileWechat = document.getElementById("fileWechat");
+      const fileProfile = document.getElementById("fileProfile");
+
+      document.querySelectorAll("[data-pick]").forEach((p) => {
+        p.addEventListener("click", async () => {
+          const which = p.dataset.pick;
+          if (which === "original") fileOriginal.click();
+          if (which === "wechat") fileWechat.click();
+          if (which === "profile") fileProfile.click();
+        });
+      });
+
+      document.querySelectorAll("[data-clear]").forEach((p) => {
+        p.addEventListener("click", () => {
+          const which = p.dataset.clear;
+          if (which === "original") {
+            state.originalPhoto = null;
+            setUploadPreview("original", null);
+          }
+          if (which === "wechat") {
+            state.wechatcode = null;
+            setUploadPreview("wechat", null);
+          }
+          if (which === "profile") {
+            state.profilePhoto = null;
+            setUploadPreview("profile", null);
+          }
+        });
+      });
+
+      function setUploadPreview(which, url) {
+        const map = {
+          original: {
+            box: "boxOriginal",
+            img: "imgOriginal",
+            url: "urlOriginal",
+          },
+          wechat: { box: "boxWechat", img: "imgWechat", url: "urlWechat" },
+          profile: { box: "boxProfile", img: "imgProfile", url: "urlProfile" },
+        };
+        const m = map[which];
+        const box = document.getElementById(m.box);
+        const img = document.getElementById(m.img);
+        const urlEl = document.getElementById(m.url);
+
+        if (url) {
+          box.classList.add("has-img");
+          img.src = url;
+          urlEl.textContent = "已上传URL: " + url;
+        } else {
+          box.classList.remove("has-img");
+          img.removeAttribute("src");
+          urlEl.textContent = "";
+        }
+      }
+
+      async function handleFileChosen(file, field) {
+        if (!file) return;
+        try {
+          toast("上传中...");
+          const data = await apiUploadFile(file);
+          // 小程��：data.status === 'success' && data.data.fileUrl
+          if (
+            data &&
+            data.status === "success" &&
+            data.data &&
+            data.data.fileUrl
+          ) {
+            const url = data.data.fileUrl;
+            if (field === "originalPhoto") state.originalPhoto = url;
+            if (field === "wechatcode") state.wechatcode = url;
+            if (field === "profilePhoto") state.profilePhoto = url;
+            syncStateToForm();
+            toast("上传成功");
+          } else {
+            toast(data?.message || "上传失败");
+            console.error("upload response:", data);
+          }
+        } catch (err) {
+          toast(err?.message || "网络异常");
+          console.error(err);
+        }
+      }
+
+      fileOriginal.addEventListener("change", () =>
+        handleFileChosen(fileOriginal.files[0], "originalPhoto")
+      );
+      fileWechat.addEventListener("change", () =>
+        handleFileChosen(fileWechat.files[0], "wechatcode")
+      );
+      fileProfile.addEventListener("change", () =>
+        handleFileChosen(fileProfile.files[0], "profilePhoto")
+      );
+
+      // ====== 校验（迁移自 validateForm） ======
+      function validate() {
+        syncFormToState();
+
+        if (!state.name || state.name.trim() === "") {
+          toast("请输入姓名");
+          return false;
+        }
+        if (!state.phone || state.phone.trim() === "") {
+          toast("请输入手机号");
+          return false;
+        }
+
+        const phoneReg = /^1\d{10}$/;
+        if (!phoneReg.test(state.phone)) {
+          toast("手机号格式不正确");
+          return false;
+        }
+
+        return true;
+      }
+
+      // ====== 提交（迁移自 handleSubmit） ======
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!validate()) return;
+
+        const btn = document.getElementById("btnSubmit");
+        btn.disabled = true;
+        btn.textContent = "提交中...";
+
+        try {
+          // honors 仍按小程序：JSON.stringify
+          const submitData = {
+            ...state,
+            honors: JSON.stringify(state.honors || []),
+          };
+
+          // 强制敏感字段为 null（防止被意外写入后端）
+          submitData.thirdPartyId = null;
+          submitData.token = null;
+          submitData.wxCode = null;
+          submitData.openid = null;
+          // 隐藏文字微信号：确保不提交 wechatText
+          delete submitData.wechatText;
+
+          const res = await apiSaveOrUpdateMemberProfile(submitData);
+
+          if (res && res.code === 200) {
+            toast("提交成功");
+            // 可选：将返回数据写回
+            if (res.data) {
+              const d = res.data;
+              if (d.honors && typeof d.honors === "string") {
+                try {
+                  d.honors = JSON.parse(d.honors);
+                } catch (_) {
+                  d.honors = [];
+                }
+              }
+              Object.assign(state, d);
+
+              // 再次清空敏感字段
+              state.thirdPartyId = null;
+              state.token = null;
+              state.wxCode = null;
+              state.openid = null;
+
+              syncStateToForm();
+            }
+          } else {
+            toast(res?.message || "提交失败");
+            console.warn(res);
+          }
+        } catch (err) {
+          toast(err?.message || "网络错误");
+          console.error(err);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "确认提交";
+        }
+      });
+
+      // ====== 加载档案：根据手机号查询 ======
+      document.getElementById("btnLoad").addEventListener("click", async () => {
+        const phone = (phoneQueryEl.value || "").trim();
+        const phoneReg = /^1\d{10}$/;
+        if (!phone) {
+          toast("请填写手机号");
+          return;
+        }
+        if (!phoneReg.test(phone)) {
+          toast("手机号格式不正确");
+          return;
+        }
+
+        try {
+          toast("加载中...");
+          const res = await apiGetMemberProfileByPhone(phone);
+
+          // 统一约定：if (res.code===200) profileData=res.data
+          if (res && res.code === 200) {
+            const profileData = res.data || {};
+            // honors parse
+            if (profileData.honors && typeof profileData.honors === "string") {
+              try {
+                profileData.honors = JSON.parse(profileData.honors);
+              } catch (e) {
+                profileData.honors = [];
+              }
+            }
+            if (!Array.isArray(profileData.honors)) profileData.honors = [];
+
+            Object.assign(state, profileData);
+
+            // 强制敏感字段清空
+            state.thirdPartyId = null;
+            state.token = null;
+            state.wxCode = null;
+            state.openid = null;
+
+            syncStateToForm();
+            toast("加载成功");
+          } else {
+            toast(res?.message || "获取失败");
+            console.warn(res);
+          }
+        } catch (err) {
+          toast(err?.message || "网络错误");
+          console.error(err);
+        }
+      });
+
+      // ====== 删除档案 ======
+      document
+        .getElementById("btnDelete")
+        .addEventListener("click", async () => {
+          syncFormToState();
+          const id = state.id || state.profileId || null; // 尝试兼容不同后端字段
+          if (!id) {
+            toast("未发现档案ID（请先加载档案或确认后端返回的 id 字段）");
+            return;
+          }
+          if (!confirm("确定要删除该会员档案吗？此操作不可恢复。")) return;
+
+          try {
+            toast("删除中...");
+            const res = await apiDeleteMemberProfile(id);
+            if (res && res.code === 200) {
+              toast("删除成功");
+              // 清空
+              Object.keys(state).forEach(
+                (k) => (state[k] = k === "honors" ? [] : null)
+              );
+              state.gender = 0;
+              state.phoneVisible = 1;
+              state.positionVisible = 1;
+              state.wechatcodeVisible = 1;
+              state.honors = [];
+
+              // 敏感字段置 null
+              state.thirdPartyId = null;
+              state.token = null;
+              state.wxCode = null;
+              state.openid = null;
+
+              syncStateToForm();
+            } else {
+              toast(res?.message || "删除失败");
+            }
+          } catch (err) {
+            toast(err?.message || "网络错误");
+            console.error(err);
+          }
+        });
+
+      // ====== 本地暂存/恢复（方便调试） ======
+      const LS_KEY = "profile_pc_draft_v1";
+      document.getElementById("btnSaveLocal").addEventListener("click", () => {
+        syncFormToState();
+        localStorage.setItem(
+          LS_KEY,
+          JSON.stringify({
+            state,
+            hostip: document.getElementById("hostip").value,
+            // token 不再保存（敏感字段）
+            phoneQuery: phoneQueryEl.value,
+          })
+        );
+        toast("已暂存到本地");
+      });
+      document
+        .getElementById("btnRestoreLocal")
+        .addEventListener("click", () => {
+          const raw = localStorage.getItem(LS_KEY);
+          if (!raw) {
+            toast("本地没有暂存");
+            return;
+          }
+          try {
+            const obj = JSON.parse(raw);
+            if (obj.hostip)
+              document.getElementById("hostip").value = obj.hostip;
+            if (typeof obj.phoneQuery === "string")
+              phoneQueryEl.value = obj.phoneQuery;
+            if (obj.state) {
+              Object.assign(state, obj.state);
+
+              // 强制敏感字段清空
+              state.thirdPartyId = null;
+              state.token = null;
+              state.wxCode = null;
+              state.openid = null;
+
+              syncStateToForm();
+            }
+            toast("已恢复暂存");
+          } catch (e) {
+            toast("恢复失败：暂存损坏");
+            console.error(e);
+          }
+        });
+
+      // ====== 初始化 ======
+      (function init() {
+        // 默认 honors 为空
+        state.honors = [];
+
+        // 初始化时强制敏感字段为 null
+        state.thirdPartyId = null;
+        state.token = null;
+        state.wxCode = null;
+        state.openid = null;
+
+        syncStateToForm();
+
+        // keep form inputs -> state (轻量)
+        form.addEventListener("input", () => syncFormToState());
+      })();
+    </script>
+  </body>
+</html>

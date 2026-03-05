@@ -343,6 +343,15 @@ export const asyncRoutes8 = [
           title: '资源编辑',
           icon: 'table'
         }
+      },
+      {
+        path: 'profileedit',
+        name: 'ProfileEdit',
+        component: () => import('@/views/adminstore/profileedit/index'),
+        meta: {
+          title: '会员档案',
+          icon: 'user'
+        }
       }
     ]
   },

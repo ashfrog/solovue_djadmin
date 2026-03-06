@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -27,14 +27,8 @@
       }
 
       body {
-        font-family:
-          'Noto Sans SC',
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto,
-          Arial,
-          sans-serif;
+        font-family: "Noto Sans SC", system-ui, -apple-system, Segoe UI, Roboto,
+          Arial, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -65,14 +59,21 @@
 
         display: flex;
         flex-direction: column;
-        background: url('https://www.crazysolo.com/profile/bg/001.jpg') center / cover no-repeat;
+        background: url("https://www.crazysolo.com/profile/bg/001.jpg") center /
+          cover no-repeat;
       }
 
       .card::before {
-        content: '';
+        content: "";
         position: absolute;
         inset: -120px;
-        background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0) 0px, rgba(255, 255, 255, 0) 12px, rgba(201, 168, 76, 0.06) 13px, rgba(201, 168, 76, 0.06) 14px);
+        background: repeating-linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0) 0px,
+          rgba(255, 255, 255, 0) 12px,
+          rgba(201, 168, 76, 0.06) 13px,
+          rgba(201, 168, 76, 0.06) 14px
+        );
         opacity: 0.32;
         transform: rotate(-2deg);
         pointer-events: none;
@@ -85,7 +86,8 @@
         margin: 0 auto;
         width: 795px;
         height: 358px;
-        background: url('https://www.crazysolo.com/profile/bg/机会.png') center / cover no-repeat;
+        background: url("https://www.crazysolo.com/profile/bg/机会.png") center /
+          cover no-repeat;
         z-index: 10;
       }
       .content {
@@ -116,26 +118,38 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        /* 不裁剪，让头像溢出 */
+        overflow: visible;
       }
 
       .avatar-circle {
         width: 688px;
         height: 688px;
         border-radius: 50%;
-        background: url('https://www.crazysolo.com/profile/bg/椭圆.png') center / cover no-repeat;
+        background: url("https://www.crazysolo.com/profile/bg/椭圆.png") center /
+          cover no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        /* 不裁剪，允许头像溢出 */
+        overflow: visible;
+        position: relative;
       }
 
       .avatar-img {
-        width: 100%;
-        height: 100%;
+        /* 头像比圆盘稍大，上移让上半部分溢出圆盘 */
+        width: 750px;
+        height: 750px;
         object-fit: cover;
-        border-radius: 50%;
+        object-position: center top;
         display: block;
+        position: absolute;
+        /* 向上偏移，让头部伸出圆盘上方 */
+        top: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+        /* 椭圆裁剪：只保留上半部分（头部区域） */
+        /* clip-path: ellipse(50% 45% at 50% 38%); */
       }
 
       .avatar-placeholder {
@@ -161,7 +175,13 @@
         letter-spacing: 6px;
         font-size: 28px;
         padding: 16px 14px;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(153, 130, 99, 1) 28%, rgba(153, 130, 99, 1) 72%, rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(153, 130, 99, 1) 28%,
+          rgba(153, 130, 99, 1) 72%,
+          rgba(0, 0, 0, 0) 100%
+        );
       }
 
       .company-section {
@@ -177,7 +197,8 @@
       .company-name-bar {
         width: 594px;
         height: 80px;
-        background: url('https://www.crazysolo.com/profile/bg/矩形1.png') center / cover no-repeat;
+        background: url("https://www.crazysolo.com/profile/bg/矩形1.png") center /
+          cover no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -199,7 +220,8 @@
       .slogan-bar {
         width: 594px;
         height: 80px;
-        background: url('https://www.crazysolo.com/profile/bg/矩形2.png') center / cover no-repeat;
+        background: url("https://www.crazysolo.com/profile/bg/矩形2.png") center /
+          cover no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -358,8 +380,12 @@
 
             <div class="portrait-circle">
               <div class="avatar-circle">
-                <span class="avatar-placeholder" id="avatarPlaceholder">👤</span>
-                <img id="avatarImg" class="avatar-img" alt="头像" style="display: none" />
+                <img
+                  id="avatarImg"
+                  class="avatar-img"
+                  alt="头像"
+                  style="display: none"
+                />
               </div>
             </div>
           </div>
@@ -404,11 +430,18 @@
         <div class="footer">
           <div class="contact-info">
             <div class="wechat-label">微信扫码添加 &gt;&gt;&gt;</div>
-            <div class="phone-number">联系方式：<strong id="phone">-</strong>（微信同号）</div>
+            <div class="phone-number">
+              联系方式：<strong id="phone">-</strong>（微信同号）
+            </div>
           </div>
 
           <div class="qr-box" aria-label="二维码">
-            <img id="wechatQrImg" class="qr-img" alt="微信二维码" style="display: none" />
+            <img
+              id="wechatQrImg"
+              class="qr-img"
+              alt="微信二维码"
+              style="display: none"
+            />
           </div>
         </div>
       </div>
@@ -416,117 +449,150 @@
 
     <script>
       /* ── 全屏等比缩放 ── */
-      const CARD_W = 1080
-      const CARD_H = 1920
+      const CARD_W = 1080;
+      const CARD_H = 1920;
 
       function scaleCard() {
-        const vw = window.innerWidth
-        const vh = window.innerHeight
-        const scale = Math.min(vw / CARD_W, vh / CARD_H)
-        const card = document.querySelector('.card')
-        card.style.transform = `scale(${scale})`
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const scale = Math.min(vw / CARD_W, vh / CARD_H);
+        const card = document.querySelector(".card");
+        card.style.transform = `scale(${scale})`;
       }
 
-      scaleCard()
-      window.addEventListener('resize', scaleCard)
+      scaleCard();
+      window.addEventListener("resize", scaleCard);
 
       /* ── 数据加载 ── */
-      const DEFAULT_FACE_TOKEN = '5bfd5a9dd5b2b75f9dbbbb889d2ac76d'
-      const API_BASE = 'https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/'
-      const $ = (id) => document.getElementById(id)
+      const DEFAULT_FACE_TOKEN = "5bfd5a9dd5b2b75f9dbbbb889d2ac76d";
+      const API_BASE =
+        "https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/";
+      const $ = (id) => document.getElementById(id);
 
       function getFaceToken() {
-        const params = new URLSearchParams(location.search)
-        return params.get('facetoken') || DEFAULT_FACE_TOKEN
+        const params = new URLSearchParams(location.search);
+        return params.get("facetoken") || DEFAULT_FACE_TOKEN;
       }
 
-      function safeText(v, fallback = '') {
-        if (v === null || v === undefined) return fallback
-        const s = String(v).trim()
-        return s ? s : fallback
+      function safeText(v, fallback = "") {
+        if (v === null || v === undefined) return fallback;
+        const s = String(v).trim();
+        return s ? s : fallback;
       }
 
       function maskPhone(phone) {
-        const s = safeText(phone, '')
-        if (!s) return '-'
-        if (s.length < 7) return s
-        return s.slice(0, 3) + '****' + s.slice(-4)
+        const s = safeText(phone, "");
+        if (!s) return "-";
+        if (s.length < 7) return s;
+        return s.slice(0, 3) + "****" + s.slice(-4);
       }
 
       function setAvatar(url) {
-        const img = $('avatarImg')
-        const placeholder = $('avatarPlaceholder')
-        if (!url) { img.style.display = 'none'; placeholder.style.display = 'block'; return }
-        img.onload = () => { img.style.display = 'block'; placeholder.style.display = 'none' }
-        img.onerror = () => { img.style.display = 'none'; placeholder.style.display = 'block' }
-        img.src = url
+        const img = $("avatarImg");
+        const placeholder = $("avatarPlaceholder");
+        if (!url) {
+          img.style.display = "none";
+          placeholder.style.display = "block";
+          return;
+        }
+        img.onload = () => {
+          img.style.display = "block";
+          placeholder.style.display = "none";
+        };
+        img.onerror = () => {
+          img.style.display = "none";
+          placeholder.style.display = "block";
+        };
+        img.src = url;
       }
 
       function setWechatQr(url) {
-        const img = $('wechatQrImg')
-        if (!url) { img.style.display = 'none'; return }
-        img.onload = () => { img.style.display = 'block' }
-        img.onerror = () => { img.style.display = 'none' }
-        img.src = url
+        const img = $("wechatQrImg");
+        if (!url) {
+          img.style.display = "none";
+          return;
+        }
+        img.onload = () => {
+          img.style.display = "block";
+        };
+        img.onerror = () => {
+          img.style.display = "none";
+        };
+        img.src = url;
       }
 
       function parseHonors(honors) {
-        if (Array.isArray(honors)) return honors
-        if (typeof honors === 'string') {
-          const s = honors.trim()
-          if (!s) return []
-          try { const p = JSON.parse(s); return Array.isArray(p) ? p : [] } catch { return [] }
+        if (Array.isArray(honors)) return honors;
+        if (typeof honors === "string") {
+          const s = honors.trim();
+          if (!s) return [];
+          try {
+            const p = JSON.parse(s);
+            return Array.isArray(p) ? p : [];
+          } catch {
+            return [];
+          }
         }
-        return []
+        return [];
       }
 
       function renderProfile(data) {
-        const name = safeText(data?.name)
-        const position = safeText(data?.position)
-        const companyName = safeText(data?.companyName)
-        const businessScope = safeText(data?.businessScope)
-        const companyIntro = safeText(data?.companyIntro)
-        const profilePhoto = data?.profilePhoto || ''
-        const originalPhoto = data?.originalPhoto || ''
-        const wechatcode = data?.wechatcode || ''
-        const phone = data?.phone || ''
-        const phoneVisible = Number(data?.phoneVisible ?? 1)
+        const name = safeText(data?.name);
+        const position = safeText(data?.position);
+        const companyName = safeText(data?.companyName);
+        const businessScope = safeText(data?.businessScope);
+        const companyIntro = safeText(data?.companyIntro);
+        const profilePhoto = data?.profilePhoto || "";
+        const originalPhoto = data?.originalPhoto || "";
+        const wechatcode = data?.wechatcode || "";
+        const phone = data?.phone || "";
+        const phoneVisible = Number(data?.phoneVisible ?? 1);
 
-        $('name').textContent = name
-        $('position').textContent = position
-        $('city').textContent = '重庆'
-        $('companyName').textContent = companyName
-        $('businessScope').textContent = businessScope
+        $("name").textContent = name;
+        $("position").textContent = position;
+        $("city").textContent = "重庆";
+        $("companyName").textContent = companyName;
+        $("businessScope").textContent = businessScope;
 
-        const honorsArr = parseHonors(data?.honors)
-        const honorsDesc = honorsArr.map((h) => (h?.desc ? String(h.desc).trim() : '')).filter(Boolean).join('\n')
-        $('intro').textContent = honorsDesc
-        $('companyIntro').textContent = companyIntro
-        $('roleTag').innerHTML = `${name}&nbsp;&nbsp;${position}`
+        const honorsArr = parseHonors(data?.honors);
+        const honorsDesc = honorsArr
+          .map((h) => (h?.desc ? String(h.desc).trim() : ""))
+          .filter(Boolean)
+          .join("\n");
+        $("intro").textContent = honorsDesc;
+        $("companyIntro").textContent = companyIntro;
+        $("roleTag").innerHTML = `${name}&nbsp;&nbsp;${position}`;
 
-        setAvatar(profilePhoto || originalPhoto)
-        setWechatQr(wechatcode)
+        setAvatar(profilePhoto || originalPhoto);
+        setWechatQr(wechatcode);
 
-        $('phone').textContent = phoneVisible === 1 ? safeText(phone, '-') : maskPhone(phone)
+        $("phone").textContent =
+          phoneVisible === 1 ? safeText(phone, "-") : maskPhone(phone);
       }
 
       async function loadProfile() {
-        const faceToken = getFaceToken()
-        const url = API_BASE + encodeURIComponent(faceToken)
+        const faceToken = getFaceToken();
+        const url = API_BASE + encodeURIComponent(faceToken);
         try {
-          const resp = await fetch(url, { method: 'GET', redirect: 'follow' })
-          const text = await resp.text()
-          let json
-          try { json = JSON.parse(text) } catch (e) { throw new Error('接口返回不是合法 JSON：' + text.slice(0, 200)) }
-          if (!resp.ok) throw new Error('HTTP错误：' + resp.status + ' ' + resp.statusText)
-          if (json?.code !== 200) throw new Error('业务错误：' + safeText(json?.message, '未知错误'))
-          renderProfile(json.data)
+          const resp = await fetch(url, { method: "GET", redirect: "follow" });
+          const text = await resp.text();
+          let json;
+          try {
+            json = JSON.parse(text);
+          } catch (e) {
+            throw new Error("接口返回不是合法 JSON：" + text.slice(0, 200));
+          }
+          if (!resp.ok)
+            throw new Error("HTTP错误：" + resp.status + " " + resp.statusText);
+          if (json?.code !== 200)
+            throw new Error("业务错误：" + safeText(json?.message, "未知错误"));
+          renderProfile(json.data);
         } catch (err) {
-          console.error(err)
+          console.error(err);
         }
       }
 
-      loadProfile()
+      loadProfile();
     </script>
   </body>
 </html>

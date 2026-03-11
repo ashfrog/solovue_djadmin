@@ -17,3 +17,4 @@ tests/**/coverage/
 *.sln
 djadmin/
 CrazySOLOAdmin.7z
+src/h5/**.jpg

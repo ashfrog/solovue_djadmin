@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简介</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html, body {
+        width: 100%; height: 100%;
+        overflow: hidden;
+        background: #b0d8e8;
+      }
+
+      body {
+        font-family: "Noto Sans SC", system-ui, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #scaler {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      /* ── Card: 1080×1920 ── */
+      .card {
+        width: 1080px;
+        height: 1920px;
+        flex-shrink: 0;
+        transform-origin: center center;
+        position: relative;
+        overflow: hidden;
+        /* Light blue gradient matching template */
+        background: linear-gradient(170deg, #e8f6fc 0%, #c8e8f4 35%, #a8d8ee 65%, #d4eef8 100%);
+      }
+
+      /* ── Decorative blobs ── */
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.35);
+        pointer-events: none;
+      }
+      .blob-tl  { width: 340px; height: 340px; top: -80px;  left: -80px; }
+      .blob-tr  { width: 220px; height: 220px; top: 60px;   right: -60px; }
+      .blob-tr2 { width: 120px; height: 120px; top: 260px;  right: 60px; }
+      .blob-ml  { width: 180px; height: 180px; top: 820px;  left: -60px; }
+      .blob-bl  { width: 320px; height: 320px; bottom: -60px; left: -80px; }
+      .blob-br  { width: 200px; height: 200px; bottom: 200px; right: -60px; }
+      .blob-br2 { width: 100px; height: 100px; bottom: 380px; right: 80px; }
+
+      /* ── Big watermark text ── */
+      .watermark-top {
+        position: absolute;
+        top: 28px; left: 50%;
+        transform: translateX(-50%);
+        font-size: 140px;
+        font-weight: 900;
+        font-family: "Noto Serif SC", serif;
+        color: rgba(180,220,240,0.45);
+        letter-spacing: 18px;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .watermark-bottom {
+        position: absolute;
+        bottom: 120px; left: 50%;
+        transform: translateX(-50%);
+        font-size: 120px;
+        font-weight: 900;
+        font-family: "Noto Serif SC", serif;
+        color: rgba(180,220,240,0.40);
+        letter-spacing: 10px;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* ── Top section: name + photo side by side ── */
+      .top-section {
+        position: relative;
+        z-index: 5;
+        height: 880px;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      /* Left name block */
+      .name-block {
+        flex: 0 0 auto;
+        padding: 200px 0 0 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 520px;
+      }
+
+      .quote-icon {
+        font-size: 96px;
+        line-height: 1;
+        color: #5a9cb8;
+        font-family: Georgia, serif;
+        margin-bottom: 10px;
+        opacity: 0.8;
+      }
+
+      .person-name {
+        font-size: 106px;
+        font-weight: 900;
+        font-family: "Noto Serif SC", serif;
+        color: #1a4a62;
+        line-height: 1.05;
+        letter-spacing: 4px;
+        margin-bottom: 36px;
+      }
+
+      .title-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .title-item {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 38px;
+        font-weight: 700;
+        color: #1a4a62;
+        letter-spacing: 1px;
+      }
+      .title-dot {
+        width: 14px; height: 14px;
+        border-radius: 50%;
+        background: #2a7a9a;
+        flex-shrink: 0;
+      }
+
+      /* Divider slash */
+      .slash-divider {
+        margin-top: 48px;
+        width: 3px;
+        height: 100px;
+        background: linear-gradient(180deg, transparent, #5a9cb8 40%, #5a9cb8 60%, transparent);
+        transform: rotate(15deg);
+        transform-origin: center;
+      }
+
+      /* Right photo */
+      .photo-block {
+        flex: 1;
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .avatar-img {
+        width: 620px;
+        height: 820px;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 4;
+      }
+
+      /* ── Quote section ── */
+      .quote-section {
+        position: relative;
+        z-index: 5;
+        padding: 50px 80px 50px 80px;
+        border-top: 1px solid rgba(90,156,184,0.25);
+        border-bottom: 1px solid rgba(90,156,184,0.25);
+        margin: 0 0;
+      }
+
+      .quote-text {
+        font-size: 52px;
+        font-weight: 700;
+        font-family: "Noto Serif SC", serif;
+        color: #1a6080;
+        line-height: 1.65;
+        letter-spacing: 2px;
+      }
+
+      /* ── Info sections ── */
+      .info-sections {
+        position: relative;
+        z-index: 5;
+        padding: 60px 80px 0 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+      }
+
+      .info-block {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0 26px;
+        align-items: flex-start;
+      }
+
+      .info-label-col {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-top: 4px;
+      }
+
+      .info-marker {
+        width: 8px;
+        height: 38px;
+        background: #2a7a9a;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+
+      .info-label {
+        font-size: 34px;
+        font-weight: 900;
+        color: #1a4a62;
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
+
+      .info-text {
+        font-size: 30px;
+        color: #2a5a74;
+        line-height: 1.75;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        z-index: 5;
+        padding: 40px 80px 50px 80px;
+        border-top: 1px solid rgba(90,156,184,0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .footer-left {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .contact-line {
+        font-size: 34px;
+        font-weight: 700;
+        color: #1a4a62;
+        letter-spacing: 1px;
+      }
+
+      .tagline {
+        font-size: 20px;
+        color: rgba(42,90,116,0.6);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .footer-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .qr-box {
+        width: 180px; height: 180px;
+        background: #fff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 32px rgba(30,80,110,0.18);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .qr-img { width: 100%; height: 100%; object-fit: fill; display: block; }
+
+      .qr-label {
+        font-size: 24px;
+        color: #2a5a74;
+        letter-spacing: 2px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scaler">
+      <div class="card">
+        <!-- Decorative blobs -->
+        <div class="blob blob-tl"></div>
+        <div class="blob blob-tr"></div>
+        <div class="blob blob-tr2"></div>
+        <div class="blob blob-ml"></div>
+        <div class="blob blob-bl"></div>
+        <div class="blob blob-br"></div>
+        <div class="blob blob-br2"></div>
+
+        <!-- Watermarks -->
+        <div class="watermark-top" id="watermarkTop">WANG</div>
+        <div class="watermark-bottom">GAODING</div>
+
+        <!-- Top: Name left, Photo right -->
+        <div class="top-section">
+          <div class="name-block">
+            <div class="quote-icon">"</div>
+            <div class="person-name" id="name">-</div>
+            <div class="title-list" id="titleList">
+              <!-- populated by JS -->
+            </div>
+            <div class="slash-divider"></div>
+          </div>
+          <div class="photo-block">
+            <img id="avatarImg" class="avatar-img" alt="头像" style="display:none" />
+          </div>
+        </div>
+
+        <!-- Quote -->
+        <div class="quote-section">
+          <div class="quote-text" id="quoteText">我深信，科技不仅仅是外表的修饰<br>更是内在光芒的散发</div>
+        </div>
+
+        <!-- Info sections -->
+        <div class="info-sections">
+          <div class="info-block">
+            <div class="info-label-col">
+              <div class="info-marker"></div>
+              <div class="info-label">个人介绍</div>
+            </div>
+            <p class="info-text" id="intro">-</p>
+          </div>
+          <div class="info-block">
+            <div class="info-label-col">
+              <div class="info-marker"></div>
+              <div class="info-label">公司介绍</div>
+            </div>
+            <p class="info-text" id="companyIntro">-</p>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <div class="footer-left">
+            <div class="contact-line" id="contactLine">联系方式：<strong id="phone">-</strong>（微信同号）</div>
+            <div class="tagline">RANG WO MEN YI QI JIE KAI MEI LI DE XU MU TAN SUO WU XIAN KE NENG</div>
+          </div>
+          <div class="footer-right">
+            <div class="qr-box">
+              <img id="wechatQrImg" class="qr-img" alt="微信二维码" style="display:none" />
+            </div>
+            <div class="qr-label">微信扫码添加</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ── Scale card ── */
+      const CARD_W = 1080, CARD_H = 1920;
+      function scaleCard() {
+        const scale = Math.min(window.innerWidth / CARD_W, window.innerHeight / CARD_H);
+        document.querySelector(".card").style.transform = `scale(${scale})`;
+      }
+      scaleCard();
+      window.addEventListener("resize", scaleCard);
+
+      /* ── Data ── */
+      const DEFAULT_FACE_TOKEN = "5bfd5a9dd5b2b75f9dbbbb889d2ac76d";
+      const API_BASE = "https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/";
+      const $ = id => document.getElementById(id);
+
+      function getFaceToken() {
+        return new URLSearchParams(location.search).get("facetoken") || DEFAULT_FACE_TOKEN;
+      }
+
+      function safeText(v, fallback = "") {
+        if (v == null) return fallback;
+        const s = String(v).trim();
+        return s || fallback;
+      }
+
+      function maskPhone(phone) {
+        const s = safeText(phone);
+        if (!s) return "-";
+        if (s.length < 7) return s;
+        return s.slice(0, 3) + "****" + s.slice(-4);
+      }
+
+      function setAvatar(url) {
+        const img = $("avatarImg");
+        if (!url) { img.style.display = "none"; return; }
+        img.onload = () => img.style.display = "block";
+        img.onerror = () => img.style.display = "none";
+        img.src = url;
+      }
+
+      function setWechatQr(url) {
+        const img = $("wechatQrImg");
+        if (!url) { img.style.display = "none"; return; }
+        img.onload = () => img.style.display = "block";
+        img.onerror = () => img.style.display = "none";
+        img.src = url;
+      }
+
+      function parseHonors(honors) {
+        if (Array.isArray(honors)) return honors;
+        if (typeof honors === "string") {
+          try { const p = JSON.parse(honors); return Array.isArray(p) ? p : []; } catch { return []; }
+        }
+        return [];
+      }
+
+      function renderTitles(position, companyName, honors) {
+        const titleList = $("titleList");
+        const titles = [];
+        if (companyName && position) titles.push(companyName + position);
+        else if (position) titles.push(position);
+        // Add honors as extra bullet titles
+        const honorsArr = parseHonors(honors);
+        honorsArr.forEach(h => {
+          if (h?.title) titles.push(String(h.title).trim());
+        });
+        titleList.innerHTML = titles.slice(0, 4).map(t =>
+          `<div class="title-item"><div class="title-dot"></div><span>${t}</span></div>`
+        ).join("");
+      }
+
+      function renderProfile(data) {
+        const name = safeText(data?.name, "-");
+        const position = safeText(data?.position);
+        const companyName = safeText(data?.companyName);
+        const companyIntro = safeText(data?.companyIntro, "-");
+        const phone = data?.phone || "";
+        const phoneVisible = Number(data?.phoneVisible ?? 1);
+        const profilePhoto = data?.profilePhoto || data?.originalPhoto || "";
+        const wechatcode = data?.wechatcode || "";
+
+        $("name").textContent = name;
+        // Set watermark to last name character (surname)
+        $("watermarkTop").textContent = name ? name[0].toUpperCase() || name[0] : "WANG";
+
+        renderTitles(position, companyName, data?.honors);
+
+        const honorsArr = parseHonors(data?.honors);
+        const honorsDesc = honorsArr.map(h => h?.desc ? String(h.desc).trim() : "").filter(Boolean).join("\n");
+        $("intro").textContent = honorsDesc || "-";
+        $("companyIntro").textContent = companyIntro;
+
+        $("phone").textContent = phoneVisible === 1 ? safeText(phone, "-") : maskPhone(phone);
+
+        setAvatar(profilePhoto);
+        setWechatQr(wechatcode);
+      }
+
+      async function loadProfile() {
+        const url = API_BASE + encodeURIComponent(getFaceToken());
+        try {
+          const resp = await fetch(url, { method: "GET", redirect: "follow" });
+          const json = await resp.json();
+          if (json?.code === 200) renderProfile(json.data);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      loadProfile();
+    </script>
+  </body>
+</html>

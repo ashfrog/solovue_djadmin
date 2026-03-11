@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简介</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet" />
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --gold: #d4a843;
+        --gold2: #e8c96a;
+        --dark-blue: #0d1b3e;
+        --mid-blue: #0f2a5e;
+        --text: #ffffff;
+        --muted: rgba(255,255,255,0.55);
+        --muted2: rgba(255,255,255,0.35);
+      }
+
+      html, body {
+        width: 100%; height: 100%;
+        overflow: hidden;
+        background: #0a1628;
+      }
+
+      body {
+        font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        display: flex; justify-content: center; align-items: center;
+      }
+
+      #scaler {
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        display: flex; justify-content: center; align-items: center;
+        overflow: hidden;
+      }
+
+      /* ── 卡片主体 1080×1920 ── */
+      .card {
+        width: 1080px; height: 1920px;
+        flex-shrink: 0;
+        transform-origin: center center;
+        position: relative;
+        overflow: hidden;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(180deg,
+          #0d1b3e 0%,
+          #0f2253 40%,
+          #071536 100%
+        );
+      }
+
+      /* ══════════════════════════════
+         上半区：人物照片全出血背景
+         ══════════════════════════════ */
+      .photo-section {
+        position: relative;
+        height: 1050px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      /* 人物照片 */
+      .person-photo {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+      }
+
+      /* 科技感网格背景（左上角） */
+      .photo-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 55%; height: 100%;
+        background:
+          radial-gradient(circle at 20% 30%, rgba(0,120,255,0.18) 0%, transparent 55%),
+          radial-gradient(circle at 10% 70%, rgba(0,60,180,0.12) 0%, transparent 45%);
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* 点阵 / 星点网络效果 */
+      .tech-dots {
+        position: absolute;
+        top: 0; left: 0;
+        width: 50%; height: 100%;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0.6;
+        background-image:
+          radial-gradient(circle, rgba(100,160,255,0.7) 1px, transparent 1px),
+          radial-gradient(circle, rgba(100,160,255,0.5) 1px, transparent 1px);
+        background-size: 60px 60px, 90px 90px;
+        background-position: 0 0, 30px 30px;
+      }
+
+      /* 渐变遮罩：底部过渡到深蓝 */
+      .photo-gradient {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 320px;
+        background: linear-gradient(to bottom,
+          transparent 0%,
+          rgba(10,22,50,0.5) 40%,
+          rgba(10,22,50,1) 100%
+        );
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      /* 右侧光晕 */
+      .photo-glow {
+        position: absolute;
+        top: 80px; right: -60px;
+        width: 400px; height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(100,160,255,0.25) 0%, transparent 70%);
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* 公司标题（竖排，左侧） */
+      .company-title {
+        position: absolute;
+        top: 80px;
+        left: 60px;
+        z-index: 5;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        color: rgba(255,255,255,0.92);
+        font-size: 52px;
+        font-weight: 900;
+        letter-spacing: 10px;
+        line-height: 1;
+        text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+      }
+
+      /* 头衔标签 */
+      .role-badge {
+        position: absolute;
+        top: 80px;
+        left: 130px;
+        z-index: 5;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        color: rgba(255,255,255,0.72);
+        font-size: 34px;
+        font-weight: 400;
+        letter-spacing: 6px;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      }
+
+      /* ══════════════════════════════
+         引言区
+         ══════════════════════════════ */
+      .quote-section {
+        position: relative;
+        z-index: 10;
+        padding: 0 80px;
+        margin-top: -30px;
+        flex-shrink: 0;
+      }
+
+      .quote-intro {
+        color: rgba(255,255,255,0.75);
+        font-size: 36px;
+        font-weight: 400;
+        letter-spacing: 2px;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .quote-intro::before {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 4px;
+        background: var(--gold);
+        flex-shrink: 0;
+      }
+
+      .quote-main {
+        color: #ffffff;
+        font-size: 66px;
+        font-weight: 900;
+        line-height: 1.3;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+      }
+
+      .quote-mark {
+        color: rgba(255,255,255,0.8);
+        font-size: 80px;
+        font-weight: 900;
+        line-height: 0.8;
+        vertical-align: middle;
+        font-family: Georgia, serif;
+      }
+
+      /* ══════════════════════════════
+         信息格 (名字/职务/城市)
+         ══════════════════════════════ */
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 24px 0 0 0;
+        padding: 0 60px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 10;
+      }
+
+      .info-grid::after {
+        content: '';
+        position: absolute;
+        bottom: -30px; left: 60px; right: 60px;
+        height: 1px;
+        background: rgba(255,255,255,0.12);
+      }
+
+      .info-item { text-align: center; }
+
+      .info-label {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--gold);
+        letter-spacing: 4px;
+        margin-bottom: 16px;
+      }
+
+      .info-value {
+        font-size: 52px;
+        font-weight: 900;
+        color: #ffffff;
+        letter-spacing: 3px;
+      }
+
+      /* ══════════════════════════════
+         描述区
+         ══════════════════════════════ */
+      .desc-section {
+        margin-top: 24px;
+        padding: 0 72px;
+        flex: 1 1 auto;
+        min-height: 0;
+        position: relative;
+        z-index: 10;
+      }
+
+      .desc-block {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 18px;
+        margin-bottom: 18px;
+        align-items: flex-start;
+      }
+
+      .desc-label {
+        color: rgba(255,255,255,0.78);
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        white-space: nowrap;
+        padding-top: 2px;
+      }
+
+      .desc-text {
+        color: rgba(255,255,255,0.72);
+        font-size: 22px;
+        line-height: 1.75;
+        letter-spacing: 0.5px;
+      }
+
+      /* ══════════════════════════════
+         底部联系方式
+         ══════════════════════════════ */
+      .footer {
+        padding: 28px 72px 56px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 10;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin-top: 6px;
+      }
+
+      /* QR宽度 = label列宽(120px) + gap(18px) = 138px，与正文左边对齐 */
+      .qr-box {
+        width: 138px; height: 138px;
+        background: #fff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center; justify-content: center;
+        box-shadow: 0 10px 36px rgba(0,0,0,0.5);
+        overflow: hidden;
+        flex-shrink: 0;
+        margin-right: 28px;
+      }
+
+      .footer-right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .qr-hint {
+        color: rgba(255,255,255,0.5);
+        font-size: 26px;
+        letter-spacing: 1px;
+      }
+
+      .contact-label {
+        color: rgba(255,255,255,0.65);
+        font-size: 30px;
+        letter-spacing: 1px;
+        margin-top: 4px;
+      }
+
+      .contact-phone {
+        color: rgba(255,255,255,0.92);
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      .qr-img {
+        width: 100%; height: 100%;
+        object-fit: fill;
+        display: block;
+      }
+
+      .qr-placeholder {
+        width: 100%; height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; justify-content: center;
+        background: #f5f5f5;
+        color: #999;
+        font-size: 22px;
+        gap: 8px;
+      }
+
+      /* 未加载头像时的占位 */
+      .avatar-placeholder-overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        display: flex;
+        align-items: center; justify-content: center;
+        background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 100%);
+        font-size: 120px;
+        opacity: 0.6;
+        z-index: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="scaler">
+      <div class="card">
+
+        <!-- ── 上：人物照片区 ── -->
+        <div class="photo-section">
+          <!-- 科技点阵 -->
+          <div class="tech-dots"></div>
+
+          <!-- 人物照片 -->
+          <img id="avatarImg" class="person-photo" alt="头像" style="display:none;" />
+          <div id="avatarPlaceholder" class="avatar-placeholder-overlay">👤</div>
+
+          <!-- 光晕 -->
+          <div class="photo-glow"></div>
+
+          <!-- 公司名+头衔竖排 -->
+          <div class="company-title" id="companyTitle">海天科技创始人</div>
+
+          <!-- 底部渐变过渡 -->
+          <div class="photo-gradient"></div>
+        </div>
+
+        <!-- ── 中：引言 ── -->
+        <div class="quote-section">
+          <div class="quote-intro">我始终相信一句话：</div>
+          <div class="quote-main" id="quoteText">
+            <span class="quote-mark">"</span>只有自己足够强大<br>才不会被别人践踏<span class="quote-mark">"</span>
+          </div>
+        </div>
+
+        <!-- ── 信息三列 ── -->
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">名字</div>
+            <div class="info-value" id="name">王二三</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">职务</div>
+            <div class="info-value" id="position">董事长</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">城市</div>
+            <div class="info-value" id="city">重庆</div>
+          </div>
+        </div>
+
+        <!-- ── 描述 ── -->
+        <div class="desc-section">
+          <div class="desc-block">
+            <div class="desc-label">个人介绍</div>
+            <p class="desc-text" id="intro">王二三，重庆海天科技创始人兼董事长，长期致力于科技成果的落地与转化，以专业的行业视野和务实的经营理念，带领重庆海天科技在发展中不断夯实技术根基、拓展业务版图，力求以科技力量赋能行业发展，助力本土科技生态建设。</p>
+          </div>
+          <div class="desc-block">
+            <div class="desc-label">公司介绍</div>
+            <p class="desc-text" id="companyIntro">重庆海天科技有限公司是一家专注于科技研发与成果转化的创新型企业，由王二先生创立，总部坐落于重庆。公司依托重庆电子信息产业的核心优势，聚焦智能科技、数字应用等领域，主打技术自主研发与定制化解决方案，为客户提供集技术开发、产品落地、后续服务于一体的全链条科技服务。</p>
+          </div>
+        </div>
+
+        <!-- ── 底部 ── -->
+        <div class="footer">
+          <div class="qr-box" aria-label="二维码">
+            <img id="wechatQrImg" class="qr-img" alt="微信二维码" style="display:none;" />
+            <div id="qrPlaceholder" class="qr-placeholder">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <rect x="2" y="2" width="24" height="24" rx="2" stroke="#ccc" stroke-width="3"/>
+                <rect x="8" y="8" width="12" height="12" rx="1" fill="#ccc"/>
+                <rect x="34" y="2" width="24" height="24" rx="2" stroke="#ccc" stroke-width="3"/>
+                <rect x="40" y="8" width="12" height="12" rx="1" fill="#ccc"/>
+                <rect x="2" y="34" width="24" height="24" rx="2" stroke="#ccc" stroke-width="3"/>
+                <rect x="8" y="40" width="12" height="12" rx="1" fill="#ccc"/>
+                <rect x="34" y="34" width="6" height="6" fill="#ccc"/>
+                <rect x="44" y="34" width="6" height="6" fill="#ccc"/>
+                <rect x="54" y="34" width="6" height="6" fill="#ccc"/>
+                <rect x="34" y="44" width="6" height="6" fill="#ccc"/>
+                <rect x="44" y="54" width="6" height="6" fill="#ccc"/>
+                <rect x="54" y="44" width="6" height="6" fill="#ccc"/>
+              </svg>
+              <span>二维码</span>
+            </div>
+          </div>
+          <div class="footer-right">
+            <div class="qr-hint">微信扫码添加</div>
+            <div class="contact-label">联系方式</div>
+            <div class="contact-phone" id="phone">13340256917（微信同号）</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      /* ── 全屏等比缩放 ── */
+      const CARD_W = 1080, CARD_H = 1920;
+      function scaleCard() {
+        const scale = Math.min(window.innerWidth / CARD_W, window.innerHeight / CARD_H);
+        document.querySelector('.card').style.transform = `scale(${scale})`;
+      }
+      scaleCard();
+      window.addEventListener('resize', scaleCard);
+
+      /* ── 工具 ── */
+      const $ = id => document.getElementById(id);
+
+      function safeText(v, fallback = '') {
+        if (v === null || v === undefined) return fallback;
+        const s = String(v).trim();
+        return s ? s : fallback;
+      }
+
+      function maskPhone(phone) {
+        const s = safeText(phone, '');
+        if (!s) return '-';
+        if (s.length < 7) return s;
+        return s.slice(0, 3) + '****' + s.slice(-4);
+      }
+
+      function setAvatar(url) {
+        const img = $('avatarImg');
+        const ph  = $('avatarPlaceholder');
+        if (!url) { img.style.display = 'none'; ph.style.display = 'flex'; return; }
+        img.onload  = () => { img.style.display = 'block'; ph.style.display = 'none'; };
+        img.onerror = () => { img.style.display = 'none';  ph.style.display = 'flex'; };
+        img.src = url;
+      }
+
+      function setWechatQr(url) {
+        const img = $('wechatQrImg');
+        const ph  = $('qrPlaceholder');
+        if (!url) { img.style.display = 'none'; ph.style.display = 'flex'; return; }
+        img.onload  = () => { img.style.display = 'block'; ph.style.display = 'none'; };
+        img.onerror = () => { img.style.display = 'none';  ph.style.display = 'flex'; };
+        img.src = url;
+      }
+
+      function parseHonors(honors) {
+        if (Array.isArray(honors)) return honors;
+        if (typeof honors === 'string') {
+          const s = honors.trim();
+          if (!s) return [];
+          try { const p = JSON.parse(s); return Array.isArray(p) ? p : []; } catch { return []; }
+        }
+        return [];
+      }
+
+      function renderProfile(data) {
+        const name         = safeText(data?.name,         '王二三');
+        const position     = safeText(data?.position,     '董事长');
+        const companyName  = safeText(data?.companyName,  '海天科技');
+        const companyIntro = safeText(data?.companyIntro, '');
+        const phone        = data?.phone || '';
+        const phoneVisible = Number(data?.phoneVisible ?? 1);
+        const profilePhoto = data?.profilePhoto || '';
+        const originalPhoto= data?.originalPhoto || '';
+        const wechatcode   = data?.wechatcode || '';
+
+        $('name').textContent     = name;
+        $('position').textContent = position;
+        $('city').textContent     = safeText(data?.city, '重庆');
+        $('companyTitle').textContent = `${companyName}${position}`;
+
+        // 引言
+        const quote = safeText(data?.motto, '');
+        if (quote) {
+          $('quoteText').innerHTML = `<span class="quote-mark">"</span>${quote}<span class="quote-mark">"</span>`;
+        }
+
+        // 个人介绍（honors 拼接 或 intro）
+        const honorsArr = parseHonors(data?.honors);
+        const honorsDesc = honorsArr
+          .map(h => h?.desc ? String(h.desc).trim() : '')
+          .filter(Boolean).join('\n');
+        $('intro').textContent = honorsDesc || safeText(data?.intro, $('intro').textContent);
+
+        $('companyIntro').textContent = companyIntro || $('companyIntro').textContent;
+
+        $('phone').textContent = (phoneVisible === 1 ? safeText(phone) : maskPhone(phone)) || $('phone').textContent;
+        if ($('phone').textContent && !$('phone').textContent.includes('微信')) {
+          $('phone').textContent += '（微信同号）';
+        }
+
+        setAvatar(profilePhoto || originalPhoto);
+        setWechatQr(wechatcode);
+      }
+
+      /* ── 数据加载 ── */
+      const DEFAULT_FACE_TOKEN = '5bfd5a9dd5b2b75f9dbbbb889d2ac76d';
+      const API_BASE = 'https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/';
+
+      function getFaceToken() {
+        const params = new URLSearchParams(location.search);
+        return params.get('facetoken') || DEFAULT_FACE_TOKEN;
+      }
+
+      async function loadProfile() {
+        const url = API_BASE + encodeURIComponent(getFaceToken());
+        try {
+          const resp = await fetch(url, { method: 'GET', redirect: 'follow' });
+          const text = await resp.text();
+          let json;
+          try { json = JSON.parse(text); } catch { return; }
+          if (!resp.ok || json?.code !== 200) return;
+          renderProfile(json.data);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      loadProfile();
+    </script>
+  </body>
+</html>

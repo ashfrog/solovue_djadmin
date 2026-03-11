@@ -385,11 +385,11 @@
 
       /* ── Data ── */
       const DEFAULT_FACE_TOKEN = "5bfd5a9dd5b2b75f9dbbbb889d2ac76d";
-      const API_BASE = "https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/";
+      const API_BASE = "https://www.crazysolo.com/djprod-api/profileapi/member-profile/phone/";
       const $ = id => document.getElementById(id);
 
-      function getFaceToken() {
-        return new URLSearchParams(location.search).get("facetoken") || DEFAULT_FACE_TOKEN;
+      function getPhone() {
+        return new URLSearchParams(location.search).get("phone") || DEFAULT_FACE_TOKEN;
       }
 
       function safeText(v, fallback = "") {
@@ -472,7 +472,7 @@
       }
 
       async function loadProfile() {
-        const url = API_BASE + encodeURIComponent(getFaceToken());
+        const url = API_BASE + encodeURIComponent(getPhone());
         try {
           const resp = await fetch(url, { method: "GET", redirect: "follow" });
           const json = await resp.json();

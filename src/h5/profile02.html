@@ -538,12 +538,12 @@
 
       /* ── 数据加载 ── */
       const DEFAULT_FACE_TOKEN = "5bfd5a9dd5b2b75f9dbbbb889d2ac76d";
-      const API_BASE = "https://www.crazysolo.com/djprod-api/profileapi/member-profile/facetoken/";
+      const API_BASE = "https://www.crazysolo.com/djprod-api/profileapi/member-profile/phone/";
       const $ = (id) => document.getElementById(id);
 
-      function getFaceToken() {
+      function getPhone() {
         const params = new URLSearchParams(location.search);
-        return params.get("facetoken") || DEFAULT_FACE_TOKEN;
+        return params.get("phone") || DEFAULT_FACE_TOKEN;
       }
 
       function safeText(v, fallback = "") {
@@ -635,8 +635,8 @@
       }
 
       async function loadProfile() {
-        const faceToken = getFaceToken();
-        const url = API_BASE + encodeURIComponent(faceToken);
+        const phone = getPhone();
+        const url = API_BASE + encodeURIComponent(phone);
         try {
           const resp = await fetch(url, { method: "GET", redirect: "follow" });
           const text = await resp.text();
